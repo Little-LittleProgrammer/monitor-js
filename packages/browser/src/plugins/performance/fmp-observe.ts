@@ -19,7 +19,7 @@ const fmpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
 
         const _next = window.requestAnimationFrame ? requestAnimationFrame : setTimeout; // 不影响正常性能
         const _ignoreDomList = ['STYLE', 'SCRIPT', 'LINK', 'META'];
-        _observer = new MutationObserver(records => {
+        _observer = new MutationObserver(records => { // 监听 dom 元素
             check_dom_change(notify);
             const _entry = {
                 startTime: 0,
@@ -43,6 +43,10 @@ const fmpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
             if (_entry.children.length) {
                 _entries.push(_entry);
             }
+        });
+        _observer.observe(document, {
+            childList: true,
+            subtree: true
         });
     },
     transform(reportData:ReportPerformanceData) {
