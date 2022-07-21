@@ -1,0 +1,28 @@
+{
+    "name": "@qmonitor/core",
+    "version": "2.0.0",
+    "description": "核心",
+    "keywords": [
+        "monitormonitor"
+    ],
+    "author": "吴安乐 <wuanle@qimao.com>",
+    "homepage": "README.md",
+    "license": "ISC",
+    "main": "dist/core.js",
+    "module": "dist/core.esm.js",
+    "types": "dist/core.d.ts",
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "registry": "https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/"
+    },
+    "scripts": {
+        "test": "echo \"Error: run tests from root\" && exit 1"
+    },
+    "dependencies": {
+        "@qmonitor/types": "^2.0.0",
+        "@qmonitor/utils": "^2.0.0",
+        "@qmonitor/enums": "^2.0.0"
+    }
+}

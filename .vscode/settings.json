@@ -1,0 +1,10 @@
+{
+    "eslint.validate": [
+        "javascript", //  用eslint的规则检测js文件
+        "html",
+        "javascriptreact"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+}

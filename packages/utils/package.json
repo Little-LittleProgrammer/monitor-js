@@ -1,0 +1,27 @@
+{
+    "name": "@qmonitor/utils",
+    "version": "2.0.0",
+    "description": "工具类",
+    "keywords": [
+        "qm-web-monitor-sdk",
+        "qmMonitorJs",
+        "sdk",
+        "vue",
+        "monitor"
+    ],
+    "author": "吴安乐 <wuanle@qimao.com>",
+    "homepage": "README.md",
+    "license": "ISC",
+    "main": "dist/utils.js",
+    "module": "dist/utils.esm.js",
+    "types": "dist/utils.d.ts",
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "registry": "https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/"
+    },
+    "scripts": {
+        "test": "echo \"Error: run tests from root\" && exit 1"
+    }
+}
