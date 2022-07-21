@@ -4,8 +4,8 @@
 
 ## Usage
 
-```
-const vue = require('vue');
+```bash
+npm install @qmonitor/vue
 
-// TODO: DEMONSTRATE API
+import { vuePlugin } from '@qmonitor/vue';
 ```

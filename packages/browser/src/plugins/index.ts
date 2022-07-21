@@ -1,5 +1,5 @@
 import consoleErrorPlugin from './error/console-error';
-import jsErrorPlugin from './error/js-error';
+import {jsErrorPlugin, resourceErrorPlugin} from './error/js-error';
 import promiseErrorPlugin from './error/promise-error';
 import { xhrPlugin, fetchPlugin } from './performance/api-observe';
 import clsPlugin from './performance/cls-observe';
@@ -12,6 +12,7 @@ import { resourcePlugin, navigationPlugin } from './performance/resource-observe
 export {
     consoleErrorPlugin,
     jsErrorPlugin,
+    resourceErrorPlugin,
     promiseErrorPlugin,
     xhrPlugin,
     fetchPlugin,
