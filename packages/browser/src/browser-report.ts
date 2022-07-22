@@ -5,7 +5,7 @@ import { BrowserOptionsType } from './types';
 import { get_network_info, is_support_send_beacon } from './utils';
 
 export class BrowserReport extends BaseReport<BrowserOptionsType> {
-    configReportXhr: unknown;
+    configReportXhr: unknown = null;
     timer = null;
     constructor(options:BrowserOptionsType) {
         super();
@@ -18,7 +18,7 @@ export class BrowserReport extends BaseReport<BrowserOptionsType> {
         xhr.open('post', url);
         xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
         xhr.withCredentials = true;
-        if (typeof this.configReportXhr === 'function') {
+        if (this.configReportXhr && isFunction(this.configReportXhr)) {
             this.configReportXhr(xhr, data);
         }
         xhr.send(safe_stringify(data));
