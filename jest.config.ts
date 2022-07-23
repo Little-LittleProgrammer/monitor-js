@@ -1,5 +1,6 @@
 import type {Config} from '@jest/types';
 const config: Config.InitialOptions = {
+    collectCoverage: true,
     testEnvironment: 'jsdom',
     preset: 'ts-jest',
     globals: {
@@ -16,9 +17,6 @@ const config: Config.InitialOptions = {
         // 从上到下优先匹配
         '@/test/(.*)': '<rootDir>/test/$1',
         '@qmonitor/(.*)': '<rootDir>/packages/$1/src/index'
-    },
-    collectCoverageFrom: [
-        'packages/*/src/**/*.ts'
-    ]
+    }
 };
 export default config;
