@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "Evan Wu",
   "scripts": {
-    "build": "node script/build.js",
-    "watch": "node script/build.js --watch=true",
-    "version": "node script/version.js",
-    "release": "node script/release.js",
+    "build": "node scripts/build.js",
+    "watch": "node scripts/build.js --watch=true",
+    "version": "node scripts/version.js",
+    "release": "node scripts/release.js",
     "test": "jest",
     "post": "npm run test && npm run build && npm run version && npm run release"
   },
