@@ -1,7 +1,7 @@
-import { EventTypes } from '@qmonitor/enums';
+import { BrowserEventTypes } from '@qmonitor/enums';
 import { BaseClientType } from './base-client-types';
 
-export interface BasePluginType<T extends EventTypes = EventTypes, C extends BaseClientType = BaseClientType> {
+export interface BasePluginType<T extends BrowserEventTypes = BrowserEventTypes, C extends BaseClientType = BaseClientType> {
     // 事件枚举
     name: T,
     // 监控事件, 并在该事件中用notify通知订阅中心

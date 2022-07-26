@@ -1,6 +1,6 @@
 {
     "name": "@qmonitor/types",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "ts类型",
     "keywords": [
         "qm-web-monitor-sdk",
@@ -25,8 +25,8 @@
         "test": "echo \"Error: run tests from root\" && exit 1"
     },
     "dependencies": {
-        "@qmonitor/core": "^2.0.0",
-        "@qmonitor/utils": "^2.0.0",
-        "@qmonitor/enums": "^2.0.0"
+        "@qmonitor/core": "^2.0.1",
+        "@qmonitor/utils": "^2.0.1",
+        "@qmonitor/enums": "^2.0.1"
     }
 }

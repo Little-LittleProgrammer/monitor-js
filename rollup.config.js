@@ -48,12 +48,12 @@ const processEnvBanner = `
 const includeEnvNames = ['react', 'web'];
 const banner = `${mitoAnnotation}${includeEnvNames.includes(name) ? '\n' + processEnvBanner : ''}`;
 
-function getCommon() {
+function get_common() {
     const common = {
         input: `${packageDir}/src/index.ts`,
         output: {
             banner,
-            footer: '/* follow me on Github! @cjinhuo */',
+            footer: '/* join us */',
             globals: {
                 react: 'React',
                 jsxRuntime: 'jsxRuntime'
@@ -105,7 +105,7 @@ const FormatTypes = {
     iife: 'iife'
 };
 
-const common = getCommon();
+const common = get_common();
 
 const esmPackage = {
     ...common,
