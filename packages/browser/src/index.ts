@@ -12,7 +12,8 @@ import { consoleErrorPlugin,
     fpPlugin,
     lcpPlugin,
     resourcePlugin,
-    navigationPlugin} from './plugins';
+    navigationPlugin,
+    resourceErrorPlugin} from './plugins';
 import { on_beforeunload, sampling, _global } from '@qmonitor/utils';
 
 function create_browser_instance(options:BrowserOptionsType = {}, plugins: BasePluginType[] = []) {
@@ -22,6 +23,7 @@ function create_browser_instance(options:BrowserOptionsType = {}, plugins: BaseP
         const _browserPlugin = [
             consoleErrorPlugin,
             jsErrorPlugin,
+            resourceErrorPlugin,
             promiseErrorPlugin,
             xhrPlugin,
             fetchPlugin,

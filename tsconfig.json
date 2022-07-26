@@ -26,7 +26,8 @@
       },
       "types": [
         "node",
-        "wechat-miniprogram"
+        "wechat-miniprogram",
+        "jest",
       ],
       "target": "ES2015", // 编译成什么版本
       "module": "CommonJS", // 当前代码语法
@@ -49,6 +50,7 @@
       "test", 
       "rollup.config.js",  
       "eslintrc.js",  
-      "script",  
+      "scripts",  
+      "jest.config.ts"
     ],
   }

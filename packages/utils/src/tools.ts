@@ -33,7 +33,7 @@ export function deep_copy<T>(target: T):T {
 
 export function get_page_url(): string {
     if (typeof document === 'undefined' || document.location == null) return '';
-    return document.location.href;
+    return document.location.href?.split('?')[0];
 }
 
 export function get_big_version(version: string) {

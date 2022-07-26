@@ -120,9 +120,9 @@ function monitor_xhr(this:BrowserClient, notify: (eventName: BrowserPerformanceT
                 pageURL: get_page_url()
             };
             notify(BrowserPerformanceTypes.XHR, _reportData);
-            off(_global, 'loadend', onLoadend, true);
+            off(this, 'loadend', onLoadend, true);
         };
-        on(_global, 'loadend', onLoadend, true);
+        on(this, 'loadend', onLoadend, true);
         _send.apply(this, args);
     };
 }

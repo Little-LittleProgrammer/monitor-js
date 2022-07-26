@@ -1,5 +1,5 @@
 import { BaseOptionsType, BaseClientType, BasePluginType } from '@qmonitor/types';
-import { EventTypes } from '@qmonitor/enums';
+import { BrowserEventTypes } from '@qmonitor/enums';
 import { BaseReport } from './base-report';
 import { Subscribe } from './subscribe';
 
@@ -16,7 +16,7 @@ import { Subscribe } from './subscribe';
  */
 export abstract class BaseClient<
     Options extends BaseOptionsType = BaseOptionsType,
-    Event extends EventTypes = EventTypes
+    Event extends BrowserEventTypes = BrowserEventTypes
 > implements BaseClientType {
     SDK_NAME?: string;
     SDK_VERSION?: string;
@@ -56,9 +56,9 @@ export abstract class BaseClient<
      * 判断当前插件是否启用，每个端的可选字段不同，需要子类实现
      *
      * @abstract
-     * @param {EventTypes} name
+     * @param {BrowserEventTypes} name
      * @return {*}  {boolean}
      * @memberof BaseClient
     */
-    abstract isPluginEnable(name: EventTypes): boolean
+    abstract isPluginEnable(name: BrowserEventTypes): boolean
 }

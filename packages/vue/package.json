@@ -1,6 +1,6 @@
 {
     "name": "@qmonitor/vue",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "vue插件",
     "keywords": [
         "qm-web-monitor-sdk",
@@ -25,9 +25,9 @@
         "test": "echo \"Error: run tests from root\" && exit 1"
     },
     "dependencies": {
-        "@qmonitor/types": "^2.0.0",
-        "@qmonitor/utils": "^2.0.0",
-        "@qmonitor/enums": "^2.0.0",
-        "@qmonitor/core": "^2.0.0"
+        "@qmonitor/types": "^2.0.1",
+        "@qmonitor/utils": "^2.0.1",
+        "@qmonitor/enums": "^2.0.1",
+        "@qmonitor/core": "^2.0.1"
     }
 }

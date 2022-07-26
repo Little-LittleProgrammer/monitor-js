@@ -12,6 +12,7 @@ dist
 
 # analyzer
 analyzer.html
+coverage
 
 packages/*/dist
 packages/*/node_modules
