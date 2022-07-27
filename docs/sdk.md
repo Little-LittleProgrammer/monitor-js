@@ -57,7 +57,7 @@ const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
             notify(BrowserErrorTypes.CE, args); // 将一阶段处理结果通过notify进行订阅
         };
     },
-    transform(args: any[]) { // use 中 watch 进行消息发布
+    transform(args: any[]) { // 参数格式转化,得到 最终格式的 上传数据
         const _reportData:ReportErrorData = {
             type: 'error',
             subType: BrowserErrorTypes.CE,
@@ -72,7 +72,7 @@ const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
         };
         return _reportData;
     },
-    consumer(reportData: ReportErrorData) { // use 中 watch 进行消息发布
+    consumer(reportData: ReportErrorData) { // use 中 watch 进行消息发布, 观察者模式消费者进行消费
         this.report.send(reportData, true);
     }
 };
