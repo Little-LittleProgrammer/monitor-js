@@ -20,8 +20,8 @@
 web-monitor-sdk: 是一套前端监控sdk, 包括收集
 1. 错误数据
 2. 性能数据
-3. 用户行为数据(未开发)
-4. wx小程序支持(未开发)
+3. 用户行为数据(开发中)
+4. wx小程序支持(开发中)
 
 ## 架构
 > 借鉴了 vue3 和 mitojs 的代码
@@ -35,13 +35,14 @@ monorepo的优势:
 3. 方便之引入需要使用的模块
 4. 核心功能抽离, 封装 抽象类, 具体模块使用时继承(提高开发效率)
 
+**整体结构**
+![结构](./img/mindmap.png)
+
 ### plugin插件
 **优势:**
 1. 可以自定义引入插件,降低项目引入包体积
 2. 黑盒模式, 开发人员无需知道代码实现逻辑, 只需按照已定的插件格式进行开发插件,方便拓展
 
-**整体结构**
-[结构](https://note.youdao.com/s/YCGN2Ohu)
 
 **插件的思路**
 ![插件](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6c9c6b46cb4c447487ac88ca6befc7bb~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
