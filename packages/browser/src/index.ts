@@ -15,16 +15,20 @@ import { consoleErrorPlugin,
     navigationPlugin,
     resourceErrorPlugin} from './plugins';
 import { on_beforeunload, sampling, _global } from '@qmonitor/utils';
+import { BrowserEventTypes } from '@qmonitor/enums';
 
 function create_browser_instance(options:BrowserOptionsType = {}, plugins: BasePluginType[] = []) {
     const _browserClient = new BrowserClient(options);
     const _sample = _browserClient.getOptions().sample;
-    if (sampling(_sample)) {
-        const _browserPlugin = [
-            consoleErrorPlugin,
-            jsErrorPlugin,
-            resourceErrorPlugin,
-            promiseErrorPlugin,
+    let _browserPlugin:BasePluginType<BrowserEventTypes, BrowserClient>[] = [
+        consoleErrorPlugin,
+        jsErrorPlugin,
+        resourceErrorPlugin,
+        promiseErrorPlugin
+    ];
+    if (sampling(_sample)) { // 抽样上报
+        _browserPlugin = [
+            ..._browserPlugin,
             xhrPlugin,
             fetchPlugin,
             clsPlugin,
@@ -35,7 +39,6 @@ function create_browser_instance(options:BrowserOptionsType = {}, plugins: BaseP
             resourcePlugin,
             navigationPlugin
         ];
-        _browserClient.use([..._browserPlugin, ...plugins]);
         const _callback = () => {
             const _data = _browserClient.report.queue.get_cache();
             if (_data.length > 0) {
@@ -46,6 +49,7 @@ function create_browser_instance(options:BrowserOptionsType = {}, plugins: BaseP
         on_beforeunload(_global, _callback); // 当页面关闭前，将剩余所有数据进行上报
         return _browserClient;
     }
+    _browserClient.use([..._browserPlugin, ...plugins]);
     return;
 }
 

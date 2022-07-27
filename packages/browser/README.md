@@ -37,20 +37,20 @@ init({
         Vue?: VueInstance,
         router?: VueRouter
     }
-    disabledConsoleError?: boolean; // 是否禁止监控 控制台错误, 默认是true
-    disabledJsError?: boolean; // 是否禁止监控 JsError, 默认是true
-    disabledPromiseError?: boolean; // 是否禁止监控  PromiseError, 默认是true
-    disabledResourceError?: boolean; // 是否禁止监控  资源加载错误, 默认是true
-    disabledFirstPaint?: boolean; // 是否禁止监控 首次绘制, 默认是true
-    disabledFirstContentfulPaint?: boolean; // 是否禁止监控 首次有效绘制, 默认是true
-    disabledLargestContentfulPaint?: boolean; // 是否禁止监控 最大内容绘制, 默认是true
-    disabledFirstInputDelay?: boolean; // 是否禁止监控  首次输入延迟, 默认是true
-    disabledCumulativeLayoutShift?: boolean; // 是否禁止监控 绘画偏移分数, 默认是true
-    disabledNavigation?: boolean; // 是否禁止监控 页面关键时间点, 默认是true
-    disabledResource?: boolean; // 是否禁止监控 资源文件, 默认是true
-    disabledFetch?: boolean; // 是否禁止监控 api, 默认是true
-    disabledXhr?: boolean; // 是否禁止监控 api, 默认是true
-    disabledFirstMeaningPaint? : boolean; // 是否禁止监控 首次有效绘制, 默认是true
+    disabledConsoleError?: boolean; // 是否禁止监控 控制台错误, 默认是false
+    disabledJsError?: boolean; // 是否禁止监控 JsError, 默认是false
+    disabledPromiseError?: boolean; // 是否禁止监控  PromiseError, 默认是false
+    disabledResourceError?: boolean; // 是否禁止监控  资源加载错误, 默认是false
+    disabledFirstPaint?: boolean; // 是否禁止监控 首次绘制, 默认是false
+    disabledFirstContentfulPaint?: boolean; // 是否禁止监控 首次有效绘制, 默认是false
+    disabledLargestContentfulPaint?: boolean; // 是否禁止监控 最大内容绘制, 默认是false
+    disabledFirstInputDelay?: boolean; // 是否禁止监控  首次输入延迟, 默认是false
+    disabledCumulativeLayoutShift?: boolean; // 是否禁止监控 绘画偏移分数, 默认是false
+    disabledNavigation?: boolean; // 是否禁止监控 页面关键时间点, 默认是false
+    disabledResource?: boolean; // 是否禁止监控 资源文件, 默认是false
+    disabledFetch?: boolean; // 是否禁止监控 api, 默认是false
+    disabledXhr?: boolean; // 是否禁止监控 api, 默认是false
+    disabledFirstMeaningPaint? : boolean; // 是否禁止监控 首次有效绘制, 默认是false
     // 钩子方法
     configReportXhr?(xhr: XMLHttpRequest, reportData: any): void // 钩子函数，配置发送到服务端的xhr, 一般浏览器使用beacon, 所以用不到
     beforeDataReport?(event: ReportBaseInfo):Promise<ReportBaseInfo | CANCEL> | ReportBaseInfo | any | CANCEL // 在每次发送事件前会调用, 可自定义对上传数据进行更改
