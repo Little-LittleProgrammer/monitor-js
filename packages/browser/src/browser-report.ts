@@ -7,6 +7,7 @@ import { get_network_info, is_support_send_beacon } from './utils';
 export class BrowserReport extends BaseReport<BrowserOptionsType> {
     configReportXhr: unknown = null;
     timer = null;
+    useImgUpload = false;
     constructor(options:BrowserOptionsType) {
         super();
         super.bindOptions(options);
@@ -23,12 +24,23 @@ export class BrowserReport extends BaseReport<BrowserOptionsType> {
         }
         xhr.send(safe_stringify(data));
     }
+    imgRequest(data: ReportBaseInfo | ReportBaseInfo[], url: string): void {
+        let _img = new Image();
+        const _spliceStr = url.indexOf('?') === -1 ? '?' : '&';
+        _img.src = `${url}${_spliceStr}data=${encodeURIComponent(safe_stringify(data))}`;
+        _img = null;
+    }
     // beacon上报
     beaconPost(data: ReportBaseInfo | ReportBaseInfo[], url: string): void {
         _global.navigator.sendBeacon.call(window.navigator, url, safe_stringify(data));
     }
     report(data: ReportBaseInfo | ReportBaseInfo[], url: string) {
-        const _fn = is_support_send_beacon() ? this.beaconPost : this.post;
+        let _fn = null;
+        if (this.useImgUpload) {
+            _fn = this.imgRequest;
+        } else {
+            _fn = is_support_send_beacon() ? this.beaconPost : this.post;
+        }
         if (_global.requestIdleCallback) { // 不阻止进程
             _global.requestIdleCallback(async() => {
                 await _fn(data, url);
@@ -62,6 +74,7 @@ export class BrowserReport extends BaseReport<BrowserOptionsType> {
         };
     }
     bindOptions(options: BrowserOptionsType): void {
+        this.useImgUpload = options.useImgUpload || false;
         if (options.configReportXhr && isFunction(options.configReportXhr)) {
             this.configReportXhr = options.configReportXhr;
         }
