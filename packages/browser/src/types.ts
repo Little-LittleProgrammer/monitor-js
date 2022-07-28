@@ -39,6 +39,7 @@ export interface BrowserDisabledOptionsType {
     disabledFetch?: boolean; // 是否禁止监控 api
     disabledXhr?: boolean; // 是否禁止监控 api
     disabledFirstMeaningPaint? : boolean; // 是否禁止监控 首次有效绘制
+    useImgUpload?:boolean // 是否使用图片上报
 }
 
 export type BrowserOptionsType = BaseOptionsType & BrowserOptionsHooksType & BrowserDisabledOptionsType

@@ -26,6 +26,7 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
     disabledXhr: boolean;
     disabledFetch: boolean;
     disabledFirstMeaningPaint: boolean;
+    useImgUpload: boolean;
     configReportXhr: (xhr: XMLHttpRequest, reportData: any)=> void = null;
     constructor(options: BrowserOptionsType) {
         super();
@@ -57,6 +58,7 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
             disabledXhr,
             disabledFetch,
             disabledFirstMeaningPaint,
+            useImgUpload,
             configReportXhr
         } = options;
         this.disabledXhr = disabledXhr || false;
@@ -73,6 +75,7 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
         this.disabledCumulativeLayoutShift = disabledCumulativeLayoutShift || false;
         this.disabledNavigation = disabledNavigation || false;
         this.disabledResource = disabledResource || false;
+        this.useImgUpload = useImgUpload || false;
         if (configReportXhr && isFunction(configReportXhr)) {
             this.configReportXhr = configReportXhr;
         }
