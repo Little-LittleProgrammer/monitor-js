@@ -27,13 +27,19 @@ web-monitor-sdk: 是一套前端监控sdk, 包括收集
 > 借鉴了 vue3 和 mitojs 的代码
 
 ### monorepo
-采用了 monorepo(管理项目代码的一个方式，指在一个项目仓库 (repo) 中管理多个模块/包 (package)，不同于常见的每个模块建一个 repo)
+
+**什么是 monorepo**
+monorepo: (管理项目代码的一个方式，指在一个项目仓库 (repo) 中管理多个模块/包 (package)，不同于常见的每个模块建一个 repo).
+
+目前大型的开源库:
+    vue3、react、sentry、vite、nuxt、element-plus等等 都使用了monorepo的方式开发
 
 monorepo的优势:
 1. 可分模块打包、分模块发布(提高开发体验)
 2. 代码结构清晰(降低耦合性，提高代码可读性)
 3. 方便之引入需要使用的模块
 4. 核心功能抽离, 封装 抽象类, 具体模块使用时继承(提高开发效率)
+5. 方便后续扩展
 
 **整体结构**
 ![结构](./img/mindmap.png)

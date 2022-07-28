@@ -9,7 +9,7 @@
         "vue",
         "monitor"
     ],
-    "author": "吴安乐 <wuanle@qimao.com>",
+    "author": "Evan Wu <wuanle@qimao.com>",
     "homepage": "README.md",
     "license": "ISC",
     "main": "dist/utils.js",

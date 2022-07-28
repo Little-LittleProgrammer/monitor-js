@@ -2,7 +2,7 @@
     "name": "@qmonitor/enums",
     "version": "2.0.1",
     "description": "枚举",
-    "author": "吴安乐 <wuanle@qimao.com>",
+    "author": "Evan Wu <wuanle@qimao.com>",
     "homepage": "README.md",
     "license": "ISC",
     "main": "dist/enums.js",
