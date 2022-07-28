@@ -74,6 +74,7 @@ export class BrowserReport extends BaseReport<BrowserOptionsType> {
         };
     }
     bindOptions(options: BrowserOptionsType): void {
+        this.useImgUpload = options.useImgUpload || false;
         if (options.configReportXhr && isFunction(options.configReportXhr)) {
             this.configReportXhr = options.configReportXhr;
         }

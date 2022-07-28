@@ -47,10 +47,9 @@ function create_browser_instance(options:BrowserOptionsType = {}, plugins: BaseP
             }
         };
         on_beforeunload(_global, _callback); // 当页面关闭前，将剩余所有数据进行上报
-        return _browserClient;
     }
     _browserClient.use([..._browserPlugin, ...plugins]);
-    return;
+    return _browserClient;
 }
 
 const init = create_browser_instance;
