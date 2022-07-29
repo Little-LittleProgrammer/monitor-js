@@ -12,6 +12,7 @@ export abstract class BaseReport<
     beforeDataReport: Promise<ReportBaseInfo | null | undefined | boolean> | ReportBaseInfo | any | null | undefined | boolean = null;
     queue: Queue;
     submitErrorUids: string[];
+    timer = null;
     constructor() {
         this.queue = new Queue(); // 缓存
         this.submitErrorUids = [];
@@ -68,9 +69,27 @@ export abstract class BaseReport<
         };
         return _reportData;
     }
+    // 处理是否立即上传, 或缓存上传
+    sendToServer(data: ReportBaseInfo, url: string, isImmediate: boolean): void {
+        if (isImmediate) {
+            this.report(data, url);
+            return;
+        }
+        this.queue.add_cache(data);
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => {
+            const _data = this.queue.get_cache();
+            if (_data.length >= this.cacheNum) {
+                this.report(_data, url);
+                this.queue.clear_cache();
+            }
+        }, 3000);
+        return;
+    }
 
     /**
      * post方式，子类需要重写
+     * 不同端可能有不同上传方式
      *
      * @abstract
      * @param {(TransportDataType | any)} data
@@ -80,13 +99,16 @@ export abstract class BaseReport<
     abstract post(data: ReportBaseInfo | any, url: string): void
     /**
      * 最终上报到服务器的方法，需要子类重写
+     * 为了, 不同端可能有多重上传方式
+     * 例如浏览器端, 有beacon, xhr, image
+     * 小程序端: 只有 wx.request
      *
      * @abstract
      * @param {(TransportDataType | any)} data
      * @param {string} url
      * @memberof BaseReport
      */
-    abstract sendToServer(data: ReportBaseInfo | any, url: string, isImmediate: boolean): void
+    abstract report(data: ReportBaseInfo | any, url: string): void
     /**
      * 获取上报的格式
      *

@@ -6,7 +6,6 @@ import { get_network_info, is_support_send_beacon } from './utils';
 
 export class BrowserReport extends BaseReport<BrowserOptionsType> {
     configReportXhr: unknown = null;
-    timer = null;
     useImgUpload = false;
     constructor(options:BrowserOptionsType) {
         super();
@@ -50,22 +49,6 @@ export class BrowserReport extends BaseReport<BrowserOptionsType> {
                 await _fn(data, url);
             });
         }
-    }
-    sendToServer(data: ReportBaseInfo, url: string, isImmediate: boolean): void {
-        if (isImmediate) {
-            this.report(data, url);
-            return;
-        }
-        this.queue.add_cache(data);
-        clearTimeout(this.timer);
-        this.timer = setTimeout(() => {
-            const _data = this.queue.get_cache();
-            if (_data.length >= this.cacheNum) {
-                this.report(_data, url);
-                this.queue.clear_cache();
-            }
-        }, 3000);
-        return;
     }
     getReportData(data: ReportBaseInfo): ReportBaseInfo {
         return {
