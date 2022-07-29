@@ -17,8 +17,8 @@ export class BrowserClient extends BaseClient<BrowserOptionsType, EventTypes> {
         const _flag = `disabled${format_string(name)}`;
         return !this.options[_flag];
     }
-    isPluginsEnable(name: EventClassTypes): boolean {
-        const _flag = `disabled${first_str_to_uppercase(name)}`;
+    isPluginsEnable(type: EventClassTypes): boolean {
+        const _flag = `disabled${first_str_to_uppercase(type)}`;
         return !this.options[_flag];
     }
 }
