@@ -1,6 +1,6 @@
 {
     "name": "@qmonitor/core",
-    "version": "2.0.1",
+    "version": "2.2.1",
     "description": "核心",
     "keywords": [
         "monitormonitor"
@@ -21,8 +21,8 @@
         "test": "echo \"Error: run tests from root\" && exit 1"
     },
     "dependencies": {
-        "@qmonitor/types": "^2.0.1",
-        "@qmonitor/utils": "^2.0.1",
-        "@qmonitor/enums": "^2.0.1"
+        "@qmonitor/types": "^2.2.1",
+        "@qmonitor/utils": "^2.2.1",
+        "@qmonitor/enums": "^2.2.1"
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "@qmonitor/browser",
-    "version": "2.2.0",
+    "version": "2.2.2",
     "description": "浏览器",
     "keywords": [
         "qm-web-monitor-sdk",
@@ -12,7 +12,7 @@
     "author": "Evan Wu <wuanle@qimao.com>",
     "homepage": "README.md",
     "license": "ISC",
-    "main": "dist/browser.js",
+    "main": "index.js",
     "module": "dist/browser.esm.js",
     "types": "dist/browser.d.ts",
     "files": [
@@ -25,9 +25,9 @@
         "test": "echo \"Error: run tests from root\" && exit 1"
     },
     "dependencies": {
-        "@qmonitor/core": "^2.0.1",
-        "@qmonitor/utils": "^2.0.1",
-        "@qmonitor/enums": "^2.0.1"
+        "@qmonitor/core": "^2.2.1",
+        "@qmonitor/utils": "^2.2.1",
+        "@qmonitor/enums": "^2.2.1"
     },
     "buildOptions": {
         "formats": [

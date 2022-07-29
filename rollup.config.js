@@ -128,13 +128,27 @@ const cjsPackage = {
     output: {
     // ${packageDirDist}
     // /Users/bytedance/Desktop/github/mitojs/examples/Mini/utils/
-        file: `${packageDirDist}/${name}.js`,
+        file: `${packageDirDist}/${name}.cjs.js`,
         format: FormatTypes.cjs,
         sourcemap: true,
         minifyInternalExports: true,
         ...common.output
     },
     plugins: [...common.plugins]
+};
+const cjsPackageMin = {
+    ...common,
+    external: [],
+    output: {
+    // ${packageDirDist}
+    // /Users/bytedance/Desktop/github/mitojs/examples/Mini/utils/
+        file: `${packageDirDist}/${name}.cjs.min.js`,
+        format: FormatTypes.cjs,
+        sourcemap: true,
+        minifyInternalExports: true,
+        ...common.output
+    },
+    plugins: [...common.plugins, terser()]
 };
 
 const iifePackage = {
@@ -151,7 +165,8 @@ const iifePackage = {
 const total = {
     esmPackage,
     iifePackage,
-    cjsPackage
+    cjsPackage,
+    cjsPackageMin
 };
 const result = total;
 export default [...Object.values(result)];
