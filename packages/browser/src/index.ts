@@ -15,12 +15,12 @@ import { consoleErrorPlugin,
     navigationPlugin,
     resourceErrorPlugin} from './plugins';
 import { on_beforeunload, sampling, _global } from '@qmonitor/utils';
-import { BrowserEventTypes } from '@qmonitor/enums';
+import { EventTypes } from '@qmonitor/enums';
 
 function create_browser_instance(options:BrowserOptionsType = {}, plugins: BasePluginType[] = []) {
     const _browserClient = new BrowserClient(options);
     const _sample = _browserClient.getOptions().sample;
-    let _browserPlugin:BasePluginType<BrowserEventTypes, BrowserClient>[] = [
+    let _browserPlugin:BasePluginType<EventTypes, BrowserClient>[] = [
         consoleErrorPlugin,
         jsErrorPlugin,
         resourceErrorPlugin,

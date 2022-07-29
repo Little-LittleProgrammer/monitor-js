@@ -1,4 +1,4 @@
-import { BrowserErrorTypes } from '@qmonitor/enums';
+import { BrowserErrorTypes, EventClassTypes } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData } from '@qmonitor/types';
 import { get_error_uid, get_page_url, on, parse_stack_frames, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
@@ -13,6 +13,7 @@ export interface ResourceErrorTarget {
 
 const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.JE,
+    type: EventClassTypes.error,
     monitor(notify) {
         on(_global, 'error', (e: ErrorEvent) => {
             const _target = e.target as ResourceErrorTarget;
@@ -32,8 +33,9 @@ const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     }
 };
 
-const resourceErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
+const resourceErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient, EventClassTypes> = {
     name: BrowserErrorTypes.RE,
+    type: EventClassTypes.error,
     monitor(notify) {
         on(_global, 'error', (e: ErrorEvent) => {
             const _target = e.target as ResourceErrorTarget;

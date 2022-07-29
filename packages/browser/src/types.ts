@@ -25,6 +25,13 @@ export interface BrowserOptionsHooksType {
 
 // 禁止类型
 export interface BrowserDisabledOptionsType {
+    // 按类型批量禁止
+    disabledPerformance: boolean; // 禁止所有performance监控
+    disabledBehavior: boolean; // 禁止所有Behavior监控
+    disabledError: boolean; // 禁止所有error监控
+    disabledCustom: boolean; // 禁止所有custom监控
+
+    // 单独禁止
     disabledConsoleError?: boolean; // 是否禁止监控 控制台错误
     disabledJsError?: boolean; // 是否禁止监控 JsError
     disabledPromiseError?: boolean; // 是否禁止监控  PromiseError
