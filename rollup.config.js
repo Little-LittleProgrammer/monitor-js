@@ -19,6 +19,7 @@ if (!process.env.TARGET) {
 const isDeclaration = process.env.TYPES !== 'false';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const masterVersion = require('./package.json').version;
+const author = require('./package.json').author;
 const packagesDir = path.resolve(__dirname, 'packages');
 const packageDir = path.resolve(packagesDir, process.env.TARGET);
 const packageDirDist = process.env.LOCALDIR === 'undefined' ? `${packageDir}/dist` : process.env.LOCALDIR;
@@ -36,7 +37,7 @@ packageDirs.forEach((dir) => {
     paths[`${M}/${dir}`] = [`${packagesDir}/${dir}/src`];
 });
 
-const mitoAnnotation = `/* ${M}/${name} version ' + ${masterVersion} */`;
+const mitoAnnotation = `/* ${M}/${name} version: ${masterVersion} \n author: ${author} */`;
 // for react
 const processEnvBanner = `
   var process = {
