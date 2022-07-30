@@ -1,6 +1,6 @@
 {
     "name": "@qmonitor/browser",
-    "version": "2.2.3",
+    "version": "2.2.4",
     "description": "浏览器",
     "keywords": [
         "qm-web-monitor-sdk",
