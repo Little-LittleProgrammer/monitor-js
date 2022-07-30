@@ -29,8 +29,9 @@
 web-monitor-sdk: 是一套前端监控sdk, 包括收集
 1. 错误数据
 2. 性能数据
-3. 用户行为数据(开发中)
-4. wx小程序支持(开发中)
+3. 自定义埋点上报
+4. 用户行为数据(开发中)
+5. wx小程序支持(开发中)
 
 ### 架构
 > 借鉴了 vue3 和 mitojs 的代码
@@ -171,7 +172,7 @@ methods: {
         - 每分上报数据拥有独立的id, 当id重复时, 不记录上报数据  
 - 上报格式
 ```js
-interface IPostInfo{
+interface ReportData{
     id: stirng; // uuid,
     appID: string; // 项目id
     appName?: string; // 项目名称
@@ -181,7 +182,7 @@ interface IPostInfo{
         type:  'performance' | 'error'; // 信息类型
         subType: string; // 信息副类型
         pageURL: stirng; // 上报页面
-        startTime?: number; 上报时间
+        startTime?: number; // 上报时间
         extraData: Record<string, any>; // 针对 某一项类型中的具体数据
     }
 }
