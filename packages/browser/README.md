@@ -12,7 +12,7 @@ npm install @qmonitor/browser
 
 import { init } from '@qmonitor/browser';
 
-init({
+const _monitor = init({
     url: 'http://localhost:8083/reportData',
     appName: '七猫',
     appID: 'qimao',
@@ -22,6 +22,9 @@ init({
         router
     }
 });
+
+// 自定义上报事件
+_monitor.log(_reportData, false)
 ```
 
 ## api
