@@ -1,7 +1,8 @@
-import { BaseOptionsType, BaseClientType, BasePluginType } from '@qmonitor/types';
+import { BaseOptionsType, BaseClientType, BasePluginType, ReportData } from '@qmonitor/types';
 import { EventClassTypes, EventTypes } from '@qmonitor/enums';
 import { BaseReport } from './base-report';
 import { Subscribe } from './subscribe';
+import { get_page_url } from '@qmonitor/utils';
 
 /**
  * * 抽象客户端，已实现插件和钩子函数的定义
@@ -71,4 +72,16 @@ export abstract class BaseClient<
      * @memberof BaseClient
     */
     abstract isPluginsEnable(name: EventClassTypes): boolean
+    /**
+     * 手动上报方法, 可应用于自定义埋点事件
+     * @param data
+     */
+    log(data: Partial<ReportData>, isImmediate = false): void {
+        const _data = {...data};
+        _data.startTime = Date.now();
+        if (!_data.pageURL) {
+            _data.pageURL = get_page_url();
+        }
+        this.report.send(data as ReportData, isImmediate);
+    }
 }
