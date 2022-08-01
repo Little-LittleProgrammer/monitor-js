@@ -79,7 +79,7 @@ export abstract class BaseReport<
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {
             const _data = this.queue.get_cache();
-            if (_data.length >= this.cacheNum) {
+            if (_data && _data.length >= this.cacheNum) {
                 this.report(_data, url);
                 this.queue.clear_cache();
             }
