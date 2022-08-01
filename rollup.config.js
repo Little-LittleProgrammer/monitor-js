@@ -158,7 +158,7 @@ const iifePackage = {
     output: {
         file: `${packageDirDist}/${name}.min.js`,
         format: FormatTypes.iife,
-        name: 'QMONITOR',
+        name: `QMONITOR${name}`,
         ...common.output
     },
     plugins: [...common.plugins, terser()]
