@@ -113,7 +113,7 @@ const esmPackage = {
     output: {
         file: `${packageDirDist}/${name}.esm.js`,
         format: FormatTypes.esm,
-        sourcemap: true,
+        sourcemap: false,
         ...common.output
     },
     plugins: [
@@ -121,6 +121,22 @@ const esmPackage = {
         clear({
             targets: [packageDirDist]
         })
+    ]
+};
+const esmPackageMin = {
+    ...common,
+    output: {
+        file: `${packageDirDist}/${name}.esm.min.js`,
+        format: FormatTypes.esm,
+        sourcemap: false,
+        ...common.output
+    },
+    plugins: [
+        ...common.plugins,
+        clear({
+            targets: [packageDirDist]
+        }),
+        terser()
     ]
 };
 const cjsPackage = {
@@ -131,7 +147,7 @@ const cjsPackage = {
     // /Users/bytedance/Desktop/github/mitojs/examples/Mini/utils/
         file: `${packageDirDist}/${name}.cjs.js`,
         format: FormatTypes.cjs,
-        sourcemap: true,
+        sourcemap: false,
         minifyInternalExports: true,
         ...common.output
     },
@@ -145,7 +161,7 @@ const cjsPackageMin = {
     // /Users/bytedance/Desktop/github/mitojs/examples/Mini/utils/
         file: `${packageDirDist}/${name}.cjs.min.js`,
         format: FormatTypes.cjs,
-        sourcemap: true,
+        sourcemap: false,
         minifyInternalExports: true,
         ...common.output
     },
@@ -165,6 +181,7 @@ const iifePackage = {
 };
 const total = {
     esmPackage,
+    esmPackageMin,
     iifePackage,
     cjsPackage,
     cjsPackageMin
