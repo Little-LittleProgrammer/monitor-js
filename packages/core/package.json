@@ -8,8 +8,8 @@
     "author": "Evan Wu <wuanle@qimao.com>",
     "homepage": "README.md",
     "license": "ISC",
-    "main": "dist/core.js",
-    "module": "dist/core.esm.js",
+    "main": "index.js",
+    "module": "dist/core.esm.min.js",
     "types": "dist/core.d.ts",
     "files": [
         "dist"

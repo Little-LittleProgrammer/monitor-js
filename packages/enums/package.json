@@ -5,7 +5,7 @@
     "author": "Evan Wu <wuanle@qimao.com>",
     "homepage": "README.md",
     "license": "ISC",
-    "main": "dist/enums.js",
+    "main": "dist/enums.cjs.min.js",
     "module": "dist/enums.esm.js",
     "types": "dist/enums.d.ts",
     "files": [

@@ -12,8 +12,8 @@
     "author": "Evan Wu <wuanle@qimao.com>",
     "homepage": "README.md",
     "license": "ISC",
-    "main": "dist/vue.js",
-    "module": "dist/vue.esm.js",
+    "main": "index.js",
+    "module": "dist/vue.esm.min.js",
     "types": "dist/vue.d.ts",
     "files": [
         "dist"

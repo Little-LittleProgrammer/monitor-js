@@ -13,7 +13,7 @@
     "homepage": "README.md",
     "license": "ISC",
     "main": "index.js",
-    "module": "dist/browser.esm.js",
+    "module": "dist/browser.esm.min.js",
     "types": "dist/browser.d.ts",
     "files": [
         "dist"

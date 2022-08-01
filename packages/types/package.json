@@ -12,7 +12,7 @@
     "author": "Evan Wu <wuanle@qimao.com>",
     "homepage": "README.md",
     "license": "ISC",
-    "main": "dist/types.js",
+    "main": "dist/types.cjs.min.js",
     "module": "dist/types.esm.js",
     "types": "dist/types.d.ts",
     "files": [

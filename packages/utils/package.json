@@ -12,8 +12,8 @@
     "author": "Evan Wu <wuanle@qimao.com>",
     "homepage": "README.md",
     "license": "ISC",
-    "main": "dist/utils.js",
-    "module": "dist/utils.esm.js",
+    "main": "index",
+    "module": "dist/utils.esm.min.js",
     "types": "dist/utils.d.ts",
     "files": [
         "dist"
