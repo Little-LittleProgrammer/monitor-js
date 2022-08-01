@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue3-demo</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Vue3:测试</h1>
+      <div>{{testArr}}</div>
+      <test-button ></test-button>
+    </div>
+    <script src="https://unpkg.com/vue@3" ></script>
+    <script src="../../packages/browser/dist/browser.min.js"></script>
+    <script src="./vue.min.js"></script>
+    <script>
+      const demo = {
+        data() {
+          return {
+          }
+        },
+        methods: {}
+      }
+      const app = Vue.createApp(demo)
+      app.component('test-button', {
+        name: 'test-button',
+        data() {
+          return {}
+        },
+        methods: {
+          click_code_error() {
+            this.a.a = 1
+          },
+          click_log() {
+            monitor.log({
+                type: 'log'
+            }, true)
+          }
+        },
+        template: `
+             <button id="vueCodeError" @click="click_code_error">点击:Vue3错误上报</button>\n
+             <button id="vueCodeError" @click="click_log">点击:自定义上报事件</button>
+        `
+      })
+      const vm = app.mount('#app')
+      window.RootVue = app
+    </script>
+    <script>
+        console.log(QMONITOR)
+        const instance = QMONITOR.init(
+        {
+            url: 'http://localhost:8083/reportData',
+            appName: '七猫广告',
+            appID: 'qimao-ad',
+            cacheNum: 10,
+            useImgUpload: false,
+            vue: {
+                Vue:RootVue
+            },
+        },
+        [QMONITORVUE.vuePlugin]
+        )
+
+        window.monitor = instance
+    </script>
+  </body>
+</html>
