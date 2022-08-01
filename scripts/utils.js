@@ -5,7 +5,7 @@ const execa = require('execa'); // 用运行node命令
 const path = require('path');
 
 const targets = (exports.targets = fs.readdirSync('packages').filter(f => {
-    if (!fs.statSync(`packages/${f}`).isDirectory()) {
+    if (!fs.statSync(`packages/${f}`).isDirectory()) { // 如果不是文件夹
         return false;
     }
     const pkg = require(`../packages/${f}/package.json`);

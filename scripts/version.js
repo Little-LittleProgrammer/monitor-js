@@ -28,11 +28,11 @@ function run() {
 async function modify(targetVersion) {
     step(`start modify packages version: ${targetVersion}`);
     for (const target of beModifiedPackages) {
-        await modifyMitoVersion(target, targetVersion);
+        await modify_version(target, targetVersion);
     }
 }
 
-async function modifyMitoVersion(pkgName, version) {
+async function modify_version(pkgName, version) {
     const pkgRoot = getPkgRoot(pkgName);
     const pkgPath = path.resolve(pkgRoot, 'package.json');
     const pkg = require(pkgPath);
