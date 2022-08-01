@@ -141,3 +141,13 @@ export function first_str_to_uppercase(str: string): string {
 export function sampling(sample: number): boolean {
     return Math.random() * 100 <= sample;
 }
+
+// 简单加密
+export function encode(data: string): string {
+    return encodeURIComponent(data);
+}
+
+// 简单解密
+export function decode(data: string): string {
+    return decodeURIComponent(data);
+}

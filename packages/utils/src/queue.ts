@@ -1,16 +1,28 @@
+import { isWx } from './is';
+import { createLocalStorage, createWxStorage } from './storage';
 import { deep_copy } from './tools';
 export class Queue {
-    private stack: any[];
+    private storage:any;
     constructor() {
-        this.stack = [];
+        if (isWx) {
+            this.storage = createWxStorage({
+                hasEncrypt: true
+            });
+        } else {
+            this.storage = createLocalStorage({
+                hasEncrypt: true
+            });
+        }
     }
     get_cache() {
-        return deep_copy(this.stack);
+        return deep_copy(this.storage.get('qMonitorCache'));
     }
     add_cache(data: any) {
-        this.stack.push(data);
+        const _data = this.storage.get('qMonitorCache') || [];
+        _data.push(data);
+        this.storage.set('qMonitorCache', _data);
     }
     clear_cache() {
-        this.stack = [];
+        this.storage.remove('qMonitorCache');
     }
 }
