@@ -14,12 +14,13 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
         const _reportData: ReportPerformanceData = {
             type: 'performance',
             subType: BrowserPerformanceTypes.CLS,
-            pageURL: get_page_url(),
+            pageURL: '',
             extraData: {
                 value: 0
             }
         };
         function entry_handle(list: PerformanceObserverEntryList) {
+            _reportData.pageURL = get_page_url();
             // cls 不disconnect 是因为页面中的cls会更新
             for (const entry of list.getEntries()) {
                 // 只记录最近用户没有输入行为的ls(layout shifts)
@@ -49,10 +50,10 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                             value: _sessionValue,
                             entries: _sessionEntries
                         };
+                        notify(BrowserPerformanceTypes.CLS, deep_copy(_reportData));
                     }
                 }
             }
-            notify(BrowserPerformanceTypes.CLS, deep_copy(_reportData));
         }
         const _observe = new PerformanceObserver(entry_handle);
         _observe.observe({ type: 'layout-shift', buffered: true });
