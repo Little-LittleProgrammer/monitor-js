@@ -33,7 +33,7 @@ export abstract class BaseReport<
         }
     }
 
-    // send -> sendToServer -> report
+    // send -> sendTime -> report
     async send(data: ReportData, isImmediate = false):Promise<void> {
         // 如果包含uid
         if (data.extraData && data.extraData.errorUid) {
@@ -56,7 +56,7 @@ export abstract class BaseReport<
             console.error('请设置上传 URL 地址');
             return;
         }
-        return this.sendToServer(_reportData, this.url, isImmediate);
+        return this.sendTime(_reportData, this.url, isImmediate);
     }
 
     private formatReportData(data: ReportData): ReportBaseInfo {
@@ -70,7 +70,7 @@ export abstract class BaseReport<
         return _reportData;
     }
     // 处理是否立即上传, 或缓存上传
-    sendToServer(data: ReportBaseInfo, url: string, isImmediate: boolean): void {
+    sendTime(data: ReportBaseInfo, url: string, isImmediate: boolean): void {
         if (isImmediate) {
             this.report(data, url);
             return;
