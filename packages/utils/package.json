@@ -1,6 +1,6 @@
 {
     "name": "@qmonitor/utils",
-    "version": "2.2.2",
+    "version": "2.2.5",
     "description": "工具类",
     "keywords": [
         "qm-web-monitor-sdk",
