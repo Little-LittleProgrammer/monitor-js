@@ -12,7 +12,7 @@ function run() {
     const argv = getArgv()._;
     let targetVersion = null;
     if (argv.length === 0) {
-        return errLog('npm/yarn run version 没有带版本号，请到CONTRIBUTING中查看开发指南');
+        return errLog('npm/yarn run version 没有带版本号，请到docs文件夹中查看开发指南');
     } else {
         targetVersion = argv.shift();
     }
