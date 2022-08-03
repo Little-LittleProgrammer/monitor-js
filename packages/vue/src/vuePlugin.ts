@@ -9,7 +9,6 @@ const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, EventClassTypes> 
     type: EventClassTypes.error,
     monitor(notify): void {
         const vue = this.options.vue;
-        console.log(vue);
         if (vue && vue.Vue && vue.Vue.config) {
             const {Vue} = vue;
             const originErrorHandle = Vue.config.errorHandler;

@@ -8,16 +8,13 @@ import cleanup from 'rollup-plugin-cleanup';
 import size from 'rollup-plugin-sizes';
 import { visualizer } from 'rollup-plugin-visualizer';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs');
 if (!process.env.TARGET) {
     throw new Error('TARGET package must be specified');
 }
 // generate *.d.ts file
 const isDeclaration = process.env.TYPES !== 'false';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const masterVersion = require('./package.json').version;
 const author = require('./package.json').author;
 const packagesDir = path.resolve(__dirname, 'packages');
@@ -37,7 +34,7 @@ packageDirs.forEach((dir) => {
     paths[`${M}/${dir}`] = [`${packagesDir}/${dir}/src`];
 });
 
-const mitoAnnotation = `/* ${M}/${name} version: ${masterVersion} \n author: ${author} */`;
+const _info = `/* ${M}/${name} version: ${masterVersion} \n author: ${author} */`;
 // for react
 const processEnvBanner = `
   var process = {
@@ -47,7 +44,7 @@ const processEnvBanner = `
   }
 `;
 const includeEnvNames = ['react', 'web'];
-const banner = `${mitoAnnotation}${includeEnvNames.includes(name) ? '\n' + processEnvBanner : ''}`;
+const banner = `${_info}${includeEnvNames.includes(name) ? '\n' + processEnvBanner : ''}`;
 
 function get_common() {
     const common = {
