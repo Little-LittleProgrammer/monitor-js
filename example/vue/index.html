@@ -8,7 +8,6 @@
   <body>
     <div id="app">
       <h1>Vue3:测试</h1>
-      <div>{{testArr}}</div>
       <test-button ></test-button>
     </div>
     <script src="https://unpkg.com/vue@3" ></script>
@@ -47,13 +46,13 @@
       window.RootVue = app
     </script>
     <script>
-        console.log(QMONITOR)
-        const instance = QMONITOR.init(
+        console.log(QMONITORbrowser)
+        const instance = QMONITORbrowser.init(
         {
             url: 'http://localhost:8083/reportData',
             appName: '七猫广告',
             appID: 'qimao-ad',
-            cacheNum: 10,
+            cacheNum: 1,
             useImgUpload: false,
             vue: {
                 Vue:RootVue
