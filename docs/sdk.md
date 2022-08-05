@@ -188,7 +188,7 @@ methods: {
 - 上报方法
     - sendBeacon(主要用于将统计数据发送到 Web 服务器)
     - axios
-    — image 方式, 可通过配置开启, 只在(browser中生效)
+    - image 方式, 可通过配置开启, 只在(browser中生效)
 - 上报时机
     - 缓存上报数据，集齐目标个数(个数可在配置项配置)上传, 存入本地缓存并加密, 上报时解密上报
     - 页面隐藏与关闭的前夕上报数据
@@ -236,4 +236,8 @@ interface ReportData{
 `npm run release browser`
 4. 可以统一更改每个模块的版本
 `npm run version 3.0.0`
+
+### 例子
+
+请看`example`文件夹
 
