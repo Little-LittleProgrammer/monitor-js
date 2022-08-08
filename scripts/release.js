@@ -1,6 +1,6 @@
 // 发布
 const chalk = require('chalk');
-const { getArgv, targets: allTargets, binRun, getPkgRoot, step } = require('./utils');
+const { getArgv, targets: allTargets, binRun, getPkgRoot, step, sizeCheck } = require('./utils');
 
 const path = require('path');
 const fs = require('fs');
@@ -19,13 +19,16 @@ async function release() {
     if (beReleasedPackages.length === 0) {
         beReleasedPackages = allTargets;
     }
-    step(`\nbeReleasedPackages:\n ${beReleasedPackages.join('\n')}`);
-    beReleasedPackages.forEach((target) => {
-        publicPackage(target);
-    });
+    const _flag = await sizeCheck(beReleasedPackages);
+    if (_flag) {
+        step(`\nbeReleasedPackages:\n ${beReleasedPackages.join('\n')}`);
+        beReleasedPackages.forEach((target) => {
+            public_package(target);
+        });
+    }
 }
 
-async function publicPackage(pkgName) {
+async function public_package(pkgName) {
     const pkgRoot = getPkgRoot(pkgName);
     const pkgPath = path.resolve(pkgRoot, 'package.json');
     const pkg = require(pkgPath);

@@ -58,3 +58,20 @@ exports.binRun = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', 
 exports.step = (msg) => console.info(chalk.cyan(msg));
 
 exports.errLog = (msg) => console.error(chalk.red(msg));
+
+// size检查
+exports.sizeCheck = async(beReleasedPackages) => {
+    let _flag = true;
+    // size检查
+    try {
+        if (beReleasedPackages.includes('wx-mini') || beReleasedPackages.includes('browser')) {
+            await binRun('yarn', ['size']);
+            console.log(chalk.green(`Size check passed`));
+        }
+        _flag = true;
+    } catch (error) {
+        console.error(chalk.red('please make sure that package size does not exceed the limit'));
+        _flag = false;
+    }
+    return _flag;
+};

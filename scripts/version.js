@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const { getArgv, targets: allTargets, binRun, getPkgRoot, step, errLog } = require('./utils');
+const { getArgv, targets: allTargets, binRun, getPkgRoot, step, errLog, sizeCheck } = require('./utils');
 const SDK_PREFIX = '@qmonitor';
 let beModifiedPackages = [];
 
@@ -22,7 +22,10 @@ function run() {
     // return errLog('')
     }
     beModifiedPackages = argv.length === 0 ? allTargets : argv;
-    modify(targetVersion);
+    const _flag = await sizeCheck(beReleasedPackages);
+    if (_flag) {
+        modify(targetVersion);
+    }
 }
 
 async function modify(targetVersion) {
