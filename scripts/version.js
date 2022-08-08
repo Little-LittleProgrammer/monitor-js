@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const { getArgv, targets: allTargets, binRun, getPkgRoot, step, errLog } = require('./utils');
+const { getArgv, targets: allTargets, binRun, getPkgRoot, step, errLog, sizeCheck } = require('./utils');
 const SDK_PREFIX = '@qmonitor';
 let beModifiedPackages = [];
 
@@ -12,7 +12,7 @@ function run() {
     const argv = getArgv()._;
     let targetVersion = null;
     if (argv.length === 0) {
-        return errLog('npm/yarn run version 没有带版本号，请到CONTRIBUTING中查看开发指南');
+        return errLog('npm/yarn run version 没有带版本号，请到docs文件夹中查看开发指南');
     } else {
         targetVersion = argv.shift();
     }
@@ -22,17 +22,20 @@ function run() {
     // return errLog('')
     }
     beModifiedPackages = argv.length === 0 ? allTargets : argv;
-    modify(targetVersion);
+    const _flag = await sizeCheck(beReleasedPackages);
+    if (_flag) {
+        modify(targetVersion);
+    }
 }
 
 async function modify(targetVersion) {
     step(`start modify packages version: ${targetVersion}`);
     for (const target of beModifiedPackages) {
-        await modifyMitoVersion(target, targetVersion);
+        await modify_version(target, targetVersion);
     }
 }
 
-async function modifyMitoVersion(pkgName, version) {
+async function modify_version(pkgName, version) {
     const pkgRoot = getPkgRoot(pkgName);
     const pkgPath = path.resolve(pkgRoot, 'package.json');
     const pkg = require(pkgPath);

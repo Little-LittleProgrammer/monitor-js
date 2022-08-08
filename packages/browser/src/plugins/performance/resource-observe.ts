@@ -1,6 +1,6 @@
 import { BasePluginType } from '@qmonitor/types';
 import { BrowserClient } from '../../browser-client';
-import { BrowserPerformanceTypes } from '@qmonitor/enums';
+import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
 import { ReportPerformanceData } from '../../types';
 import { get_page_url, on_load, _global, _supportPerformance } from '@qmonitor/utils';
 
@@ -30,6 +30,7 @@ interface SourceEntryType {
 
 const resourcePlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.RF,
+    type: EventClassTypes.performance,
     monitor(notify) {
         if (!_supportPerformance) return;
         on_load(_global, () => observe_event.call(this, BrowserPerformanceTypes.RF, notify));
@@ -69,6 +70,7 @@ const resourcePlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
 
 const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.NT,
+    type: EventClassTypes.performance,
     monitor(notify) {
         if (!_supportPerformance) return;
         on_load(_global, () => observe_event.call(this, BrowserPerformanceTypes.NT, notify));

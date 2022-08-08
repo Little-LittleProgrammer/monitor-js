@@ -1,9 +1,10 @@
-import { BrowserEventTypes } from '@qmonitor/enums';
+import { EventClassTypes, EventTypes } from '@qmonitor/enums';
 import { BaseClientType } from './base-client-types';
 
-export interface BasePluginType<T extends BrowserEventTypes = BrowserEventTypes, C extends BaseClientType = BaseClientType> {
+export interface BasePluginType<T extends EventTypes = EventTypes, C extends BaseClientType = BaseClientType, Class extends EventClassTypes = EventClassTypes> {
     // 事件枚举
     name: T,
+    type: Class,
     // 监控事件, 并在该事件中用notify通知订阅中心
     monitor: (this:C, notify:(eventName: T, data: any) => void) => void
     // 在monitor中触发数据并将数据传入当前函数，拿到数据做数据格式转换(会将tranform放入Subscrib的handers)

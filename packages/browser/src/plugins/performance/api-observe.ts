@@ -1,11 +1,12 @@
 import { BrowserClient } from '../../browser-client';
 import { BasePluginType, HttpMethod, IBeforeAppAjaxSendConfig } from '@qmonitor/types';
-import { BrowserPerformanceTypes } from '@qmonitor/enums';
+import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
 import { get_page_url, off, on, _global } from '@qmonitor/utils';
 import { ReportPerformanceData } from '../../types';
 
 const fetchPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.FETCH,
+    type: EventClassTypes.performance,
     monitor(notify) {
         monitor_fetch.call(this, notify);
     },
@@ -71,6 +72,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserPerformanc
 
 const xhrPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.XHR,
+    type: EventClassTypes.performance,
     monitor(notify) {
         monitor_xhr.call(this, notify);
     },

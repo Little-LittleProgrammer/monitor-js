@@ -1,4 +1,4 @@
-import { BrowserPerformanceTypes } from '@qmonitor/enums';
+import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
 import { BasePluginType } from '@qmonitor/types';
 import { get_page_url, on_load, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
@@ -14,6 +14,7 @@ const _entries = [];
 
 const fmpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.FMP,
+    type: EventClassTypes.performance,
     monitor(notify) {
         if (!MutationObserver) return;
 

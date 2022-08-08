@@ -1,6 +1,6 @@
 import { BasePluginType } from '@qmonitor/types';
 import { BrowserClient } from '../../browser-client';
-import { BrowserPerformanceTypes } from '@qmonitor/enums';
+import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
 import { ReportPerformanceData } from '../../types';
 import { get_page_url, _supportPerformance } from '@qmonitor/utils';
 
@@ -12,6 +12,7 @@ export function is_lcp_done() {
 
 const lcpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.LCP,
+    type: EventClassTypes.performance,
     monitor(notify) {
         if (!_supportPerformance) {
             _lcpFlag = true;

@@ -12,7 +12,7 @@ npm install @qmonitor/browser
 
 import { init } from '@qmonitor/browser';
 
-init({
+const _monitor = init({
     url: 'http://localhost:8083/reportData',
     appName: '七猫',
     appID: 'qimao',
@@ -22,6 +22,9 @@ init({
         router
     }
 });
+
+// 自定义上报事件
+_monitor.log(_reportData, false)
 ```
 
 ## api
@@ -51,9 +54,11 @@ init({
     disabledFetch?: boolean; // 是否禁止监控 api, 默认是false
     disabledXhr?: boolean; // 是否禁止监控 api, 默认是false
     disabledFirstMeaningPaint? : boolean; // 是否禁止监控 首次有效绘制, 默认是false
+    useImgUpload?:boolean;
     // 钩子方法
     configReportXhr?(xhr: XMLHttpRequest, reportData: any): void // 钩子函数，配置发送到服务端的xhr, 一般浏览器使用beacon, 所以用不到
     beforeDataReport?(event: ReportBaseInfo):Promise<ReportBaseInfo | CANCEL> | ReportBaseInfo | any | CANCEL // 在每次发送事件前会调用, 可自定义对上传数据进行更改
     beforeAppAjaxSend?(config: IRequestHeaderConfig, setRequestHeader: IBeforeAppAjaxSendConfig): void // 拦截用户页面的ajax请求，并在ajax请求发送前执行该hook
+    
 }
 ```

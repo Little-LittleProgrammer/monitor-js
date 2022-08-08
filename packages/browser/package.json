@@ -1,6 +1,6 @@
 {
     "name": "@qmonitor/browser",
-    "version": "2.0.2",
+    "version": "2.2.5",
     "description": "浏览器",
     "keywords": [
         "qm-web-monitor-sdk",
@@ -9,11 +9,11 @@
         "vue",
         "monitor"
     ],
-    "author": "吴安乐 <wuanle@qimao.com>",
+    "author": "Evan Wu <wuanle@qimao.com>",
     "homepage": "README.md",
     "license": "ISC",
-    "main": "dist/browser.js",
-    "module": "dist/browser.esm.js",
+    "main": "index.js",
+    "module": "dist/browser.esm.min.js",
     "types": "dist/browser.d.ts",
     "files": [
         "dist"
@@ -25,9 +25,9 @@
         "test": "echo \"Error: run tests from root\" && exit 1"
     },
     "dependencies": {
-        "@qmonitor/core": "^2.0.1",
-        "@qmonitor/utils": "^2.0.1",
-        "@qmonitor/enums": "^2.0.1"
+        "@qmonitor/core": "^2.2.5",
+        "@qmonitor/utils": "^2.2.5",
+        "@qmonitor/enums": "^2.2.5"
     },
     "buildOptions": {
         "formats": [

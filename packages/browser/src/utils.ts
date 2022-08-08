@@ -2,7 +2,7 @@ import { _global } from '@qmonitor/utils';
 
 // 获取浏览器是否支持sendBeacon(同步请求不阻塞浏览器进程)
 export function is_support_send_beacon():boolean {
-    return !!(_global.navigator && window.navigator.sendBeacon);
+    return !!(_global.navigator && _global.navigator.sendBeacon);
 }
 
 export function get_network_info() {
