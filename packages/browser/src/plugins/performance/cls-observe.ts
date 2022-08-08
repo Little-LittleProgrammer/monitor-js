@@ -1,4 +1,4 @@
-import { BrowserPerformanceTypes } from '@qmonitor/enums';
+import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
 import { BasePluginType } from '@qmonitor/types';
 import { deep_copy, get_page_url, is_support_performance_observer, on_hidden, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
@@ -6,6 +6,7 @@ import { ReportPerformanceData } from '../../types';
 
 const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.CLS,
+    type: EventClassTypes.performance,
     monitor(notify) {
         if (!is_support_performance_observer()) return;
         let _sessionValue = 0;
@@ -13,12 +14,13 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
         const _reportData: ReportPerformanceData = {
             type: 'performance',
             subType: BrowserPerformanceTypes.CLS,
-            pageURL: get_page_url(),
+            pageURL: '',
             extraData: {
                 value: 0
             }
         };
         function entry_handle(list: PerformanceObserverEntryList) {
+            _reportData.pageURL = get_page_url();
             // cls 不disconnect 是因为页面中的cls会更新
             for (const entry of list.getEntries()) {
                 // 只记录最近用户没有输入行为的ls(layout shifts)
@@ -48,10 +50,10 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                             value: _sessionValue,
                             entries: _sessionEntries
                         };
+                        notify(BrowserPerformanceTypes.CLS, deep_copy(_reportData));
                     }
                 }
             }
-            notify(BrowserPerformanceTypes.CLS, deep_copy(_reportData));
         }
         const _observe = new PerformanceObserver(entry_handle);
         _observe.observe({ type: 'layout-shift', buffered: true });

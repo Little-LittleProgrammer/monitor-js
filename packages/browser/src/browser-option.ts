@@ -3,28 +3,43 @@ import { isFunction } from '@qmonitor/utils';
 import { BrowserOptionsType } from './types';
 
 export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
+    // 禁止所有performance监控
+    disabledPerformance: boolean;
+    // 禁止所有Behavior监控
+    disabledBehavior: boolean;
+    // 禁止所有error监控
+    disabledError: boolean;
+    // 禁止所有custom监控
+    disabledCustom: boolean;
+
+    // 单独禁止
     // 是否禁止监控 ConsoleError
     disabledConsoleError: boolean;
     // 是否禁止监控 JsError
     disabledJsError: boolean;
     // 是否禁止监控  PromiseError
     disabledPromiseError: boolean;
-    // 是否禁止监控  PromiseError
+    // 是否禁止监控  资源加载错误
     disabledResourceError: boolean;
-    // 是否禁止监控  PromiseError
+    // 是否禁止监控 首次绘制
     disabledFirstPaint: boolean;
-    // 是否禁止监控  PromiseError
+    // 是否禁止监控 首次有效绘制
     disabledFirstContentfulPaint: boolean;
-    // 是否禁止监控  PromiseError
+    // 是否禁止监控 最大内容绘制
     disabledLargestContentfulPaint: boolean;
-    // 是否禁止监控  PromiseError
+    // 是否禁止监控  首次输入延迟
     disabledFirstInputDelay: boolean;
-    // 是否禁止监控  PromiseError
+    // 是否禁止监控 绘画偏移分数
     disabledCumulativeLayoutShift: boolean;
+    // 是否禁止监控 页面关键时间点
     disabledNavigation: boolean;
+    // 是否禁止监控 资源文件
     disabledResource: boolean;
+    // 是否禁止监控 api
     disabledXhr: boolean;
+    // 是否禁止监控 api
     disabledFetch: boolean;
+    // 是否禁止监控 首次有效绘制
     disabledFirstMeaningPaint: boolean;
     useImgUpload: boolean;
     configReportXhr: (xhr: XMLHttpRequest, reportData: any)=> void = null;
@@ -35,23 +50,18 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
     }
     bindOptions(options:BrowserOptionsType) {
         const {
-            // 是否禁止监控 ConsoleError
+            disabledPerformance,
+            disabledBehavior,
+            disabledError,
+            disabledCustom,
             disabledConsoleError,
-            // 是否禁止监控 JsError
             disabledJsError,
-            // 是否禁止监控  PromiseError
             disabledPromiseError,
-            // 是否禁止监控  PromiseError
             disabledResourceError,
-            // 是否禁止监控  PromiseError
             disabledFirstPaint,
-            // 是否禁止监控  PromiseError
             disabledFirstContentfulPaint,
-            // 是否禁止监控  PromiseError
             disabledLargestContentfulPaint,
-            // 是否禁止监控  PromiseError
             disabledFirstInputDelay,
-            // 是否禁止监控  PromiseError
             disabledCumulativeLayoutShift,
             disabledNavigation,
             disabledResource,
@@ -61,6 +71,12 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
             useImgUpload,
             configReportXhr
         } = options;
+
+        this.disabledPerformance = disabledPerformance || false;
+        this.disabledBehavior = disabledBehavior || false;
+        this.disabledError = disabledError || false;
+        this.disabledCustom = disabledCustom || false;
+
         this.disabledXhr = disabledXhr || false;
         this.disabledFetch = disabledFetch || false;
         this.disabledFirstMeaningPaint = disabledFirstMeaningPaint || false;

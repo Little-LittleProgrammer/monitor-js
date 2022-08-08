@@ -1,14 +1,14 @@
-import { BrowserErrorTypes } from '@qmonitor/enums';
+import { BrowserErrorTypes, EventClassTypes } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData, ViewModel } from '@qmonitor/types';
 import { BaseClient } from '@qmonitor/core';
 import { get_big_version, get_error_uid, get_page_url, isString, parse_stack_frames } from '@qmonitor/utils';
 import { vue2_vm_handler, vue3_vm_handler } from './utils';
 
-const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient> = {
+const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, EventClassTypes> = {
     name: BrowserErrorTypes.VE,
+    type: EventClassTypes.error,
     monitor(notify): void {
         const vue = this.options.vue;
-        console.log(vue);
         if (vue && vue.Vue && vue.Vue.config) {
             const {Vue} = vue;
             const originErrorHandle = Vue.config.errorHandler;

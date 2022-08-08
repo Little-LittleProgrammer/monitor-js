@@ -1,11 +1,11 @@
 import { BaseClient } from '@qmonitor/core';
-import { BrowserEventTypes } from '@qmonitor/enums';
-import { format_string } from '@qmonitor/utils';
+import { EventClassTypes, EventTypes } from '@qmonitor/enums';
+import { first_str_to_uppercase, format_string } from '@qmonitor/utils';
 import { BrowserOptions } from './browser-option';
 import { BrowserReport } from './browser-report';
 import { BrowserOptionsType } from './types';
 
-export class BrowserClient extends BaseClient<BrowserOptionsType, BrowserEventTypes> {
+export class BrowserClient extends BaseClient<BrowserOptionsType, EventTypes> {
     report: BrowserReport;
     options: BrowserOptionsType;
     constructor(options: BrowserOptionsType) {
@@ -13,8 +13,12 @@ export class BrowserClient extends BaseClient<BrowserOptionsType, BrowserEventTy
         this.options = new BrowserOptions(options);
         this.report = new BrowserReport(options);
     }
-    isPluginEnable(name: BrowserEventTypes): boolean {
+    isPluginEnable(name: EventTypes): boolean {
         const _flag = `disabled${format_string(name)}`;
+        return !this.options[_flag];
+    }
+    isPluginsEnable(type: EventClassTypes): boolean {
+        const _flag = `disabled${first_str_to_uppercase(type)}`;
         return !this.options[_flag];
     }
 }

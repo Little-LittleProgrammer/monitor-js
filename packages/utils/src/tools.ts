@@ -141,3 +141,45 @@ export function first_str_to_uppercase(str: string): string {
 export function sampling(sample: number): boolean {
     return Math.random() * 100 <= sample;
 }
+
+// 简单加密
+export function encode(data: string): string {
+    return encodeURIComponent(data);
+}
+
+// 简单解密
+export function decode(data: string): string {
+    return decodeURIComponent(data);
+}
+
+/**
+ * 防抖截流
+ * @param {*} fn 方法
+ * @param {*} data 配置
+ * @return promise
+ */
+export function throttle_event(fn: any, data: any) {
+    // 清除定时器
+    clearTimeout(fn.__timebar);
+    // 启动节流
+    if (data !== true) {
+        // 定义默认值
+        data = data || {};
+        const params = {
+            time: data.time || 200,
+            context: data.context || null,
+            args: data.args
+        };
+        // 执行定时器
+        // 函数也属于对象，因此可以添加属性
+        return new Promise((resolve) => {
+            fn.__timebar = setTimeout(function() {
+                // 执行方法
+                const _res = fn.apply(params.context, params.args);
+                resolve(_res);
+            }, params.time);
+        });
+    } else {
+        // 如果是清除防抖
+    }
+}

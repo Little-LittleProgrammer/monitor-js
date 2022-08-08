@@ -25,3 +25,7 @@ export const enum BrowserPerformanceTypes {
     FMP= 'first-meaning-paint'
 }
 
+export const enum BrowserBehaviorTypes {
+    click='click',
+    pv='pv'
+}

@@ -8,17 +8,15 @@ import cleanup from 'rollup-plugin-cleanup';
 import size from 'rollup-plugin-sizes';
 import { visualizer } from 'rollup-plugin-visualizer';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs');
 if (!process.env.TARGET) {
     throw new Error('TARGET package must be specified');
 }
 // generate *.d.ts file
 const isDeclaration = process.env.TYPES !== 'false';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const masterVersion = require('./package.json').version;
+const author = require('./package.json').author;
 const packagesDir = path.resolve(__dirname, 'packages');
 const packageDir = path.resolve(packagesDir, process.env.TARGET);
 const packageDirDist = process.env.LOCALDIR === 'undefined' ? `${packageDir}/dist` : process.env.LOCALDIR;
@@ -36,7 +34,7 @@ packageDirs.forEach((dir) => {
     paths[`${M}/${dir}`] = [`${packagesDir}/${dir}/src`];
 });
 
-const mitoAnnotation = `/* ${M}/${name} version ' + ${masterVersion} */`;
+const _info = `/* ${M}/${name} version: ${masterVersion} \n author: ${author} */`;
 // for react
 const processEnvBanner = `
   var process = {
@@ -46,7 +44,7 @@ const processEnvBanner = `
   }
 `;
 const includeEnvNames = ['react', 'web'];
-const banner = `${mitoAnnotation}${includeEnvNames.includes(name) ? '\n' + processEnvBanner : ''}`;
+const banner = `${_info}${includeEnvNames.includes(name) ? '\n' + processEnvBanner : ''}`;
 
 function get_common() {
     const common = {
@@ -112,7 +110,7 @@ const esmPackage = {
     output: {
         file: `${packageDirDist}/${name}.esm.js`,
         format: FormatTypes.esm,
-        sourcemap: true,
+        sourcemap: false,
         ...common.output
     },
     plugins: [
@@ -122,19 +120,49 @@ const esmPackage = {
         })
     ]
 };
+const esmPackageMin = {
+    ...common,
+    output: {
+        file: `${packageDirDist}/${name}.esm.min.js`,
+        format: FormatTypes.esm,
+        sourcemap: false,
+        ...common.output
+    },
+    plugins: [
+        ...common.plugins,
+        clear({
+            targets: [packageDirDist]
+        }),
+        terser()
+    ]
+};
 const cjsPackage = {
     ...common,
     external: [],
     output: {
     // ${packageDirDist}
     // /Users/bytedance/Desktop/github/mitojs/examples/Mini/utils/
-        file: `${packageDirDist}/${name}.js`,
+        file: `${packageDirDist}/${name}.cjs.js`,
         format: FormatTypes.cjs,
-        sourcemap: true,
+        sourcemap: false,
         minifyInternalExports: true,
         ...common.output
     },
     plugins: [...common.plugins]
+};
+const cjsPackageMin = {
+    ...common,
+    external: [],
+    output: {
+    // ${packageDirDist}
+    // /Users/bytedance/Desktop/github/mitojs/examples/Mini/utils/
+        file: `${packageDirDist}/${name}.cjs.min.js`,
+        format: FormatTypes.cjs,
+        sourcemap: false,
+        minifyInternalExports: true,
+        ...common.output
+    },
+    plugins: [...common.plugins, terser()]
 };
 
 const iifePackage = {
@@ -143,15 +171,17 @@ const iifePackage = {
     output: {
         file: `${packageDirDist}/${name}.min.js`,
         format: FormatTypes.iife,
-        name: 'QMONITOR',
+        name: `QMONITOR${name}`,
         ...common.output
     },
     plugins: [...common.plugins, terser()]
 };
 const total = {
     esmPackage,
+    esmPackageMin,
     iifePackage,
-    cjsPackage
+    cjsPackage,
+    cjsPackageMin
 };
 const result = total;
 export default [...Object.values(result)];

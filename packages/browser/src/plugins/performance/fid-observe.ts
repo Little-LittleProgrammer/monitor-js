@@ -1,11 +1,12 @@
 import { BasePluginType } from '@qmonitor/types';
 import { BrowserClient } from '../../browser-client';
-import { BrowserPerformanceTypes } from '@qmonitor/enums';
+import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
 import { ReportPerformanceData } from '../../types';
 import { get_page_url, _supportPerformance } from '@qmonitor/utils';
 
 const fidPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.FID,
+    type: EventClassTypes.performance,
     monitor(notify) {
         if (!_supportPerformance) return;
         function entry_handler(list: PerformanceObserverEntryList) {
