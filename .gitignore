@@ -8,7 +8,7 @@ coverage
 
 # api-extractor
 temp
-dist
+/dist/
 
 # analyzer
 analyzer.html
