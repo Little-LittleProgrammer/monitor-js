@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@ampproject/filesize": "^4.3.0",
-    "@microsoft/api-extractor": "^7.28.4",
+    "@microsoft/api-extractor": "^7.18.11",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.2.1",
