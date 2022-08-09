@@ -10,7 +10,8 @@
     "version": "node scripts/version.js",
     "release": "node scripts/release.js",
     "test": "jest",
-    "size": "filesize"
+    "size": "filesize",
+    "export": "node scripts/create-export.js"
   },
   "devDependencies": {
     "@ampproject/filesize": "^4.3.0",
