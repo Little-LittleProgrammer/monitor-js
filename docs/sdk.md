@@ -230,7 +230,7 @@ interface ReportData{
 通过 package.json的 配置去配置什么时候该引入哪个文件
 
 1. 借鉴了 vue2 的打包思路, 对于不同环境下(`production, development`)使用不同的打包结果
-2. 接受变量, 以分目录打包, 类似于我们的`backstorage.book.com`那个项目
+2. 接受变量, 以分目录打包
 `npm run build browser`
 3. 接受变量, 也可以分模块发布
 `npm run release browser`

@@ -10,11 +10,13 @@
 ### BREAKING CHANGES
 1. 打包脚本 更新脚本 增加realease前进行包体积监测, 不合格不予通过
 2. 增加快速生成`export * from 'xxx'`的脚本, 减少功能开发时要一遍一遍输入`export * from 'xxx'`
+3. `build`命令会替换`example`下的js文件
 
 ### UPDATE
 1. 更新文档
 2. 更新案例并布置
 3. 数据类型整理
+4. 更换 `packageManager` 为 `pnpm`
 
 ### BUG FIX
 1. 修复 api-extractor 生成的d.ts文件错误问题
