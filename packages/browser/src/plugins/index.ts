@@ -14,6 +14,7 @@ export {
     jsErrorPlugin,
     resourceErrorPlugin,
     promiseErrorPlugin,
+
     xhrPlugin,
     fetchPlugin,
     clsPlugin,

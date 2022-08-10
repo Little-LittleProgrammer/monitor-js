@@ -9,8 +9,6 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
     disabledBehavior: boolean;
     // 禁止所有error监控
     disabledError: boolean;
-    // 禁止所有custom监控
-    disabledCustom: boolean;
 
     // 单独禁止
     // 是否禁止监控 ConsoleError
@@ -53,7 +51,6 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
             disabledPerformance,
             disabledBehavior,
             disabledError,
-            disabledCustom,
             disabledConsoleError,
             disabledJsError,
             disabledPromiseError,
@@ -75,7 +72,6 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
         this.disabledPerformance = disabledPerformance || false;
         this.disabledBehavior = disabledBehavior || false;
         this.disabledError = disabledError || false;
-        this.disabledCustom = disabledCustom || false;
 
         this.disabledXhr = disabledXhr || false;
         this.disabledFetch = disabledFetch || false;

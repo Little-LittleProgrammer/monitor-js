@@ -1,3 +1,4 @@
+import { SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseOptionsType, ReportBaseInfo, ReportData} from '@qmonitor/types';
 import { get_unique_id, get_uuid, isEmpty, isFunction, Queue } from '@qmonitor/utils';
 
@@ -61,6 +62,8 @@ export abstract class BaseReport<
 
     private formatReportData(data: ReportData): ReportBaseInfo {
         const _reportData = {
+            sdkVersion: SDK_VERSION,
+            sdkName: SDK_NAME,
             id: get_unique_id(16),
             appID: this.appID,
             userID: this.userID,

@@ -1,5 +1,5 @@
 import { BaseOptionsType, BaseClientType, BasePluginType, ReportData } from '@qmonitor/types';
-import { EventClassTypes, EventTypes } from '@qmonitor/enums';
+import { EventClassTypes, EventTypes, SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseReport } from './base-report';
 import { Subscribe } from './subscribe';
 import { get_page_url } from '@qmonitor/utils';
@@ -19,8 +19,8 @@ export abstract class BaseClient<
     Options extends BaseOptionsType = BaseOptionsType,
     Event extends EventTypes = EventTypes
 > implements BaseClientType {
-    SDK_NAME?: string;
-    SDK_VERSION?: string;
+    SDK_NAME: string = SDK_NAME;
+    SDK_VERSION: string = SDK_VERSION;
     options: BaseOptionsType;
     abstract report: BaseReport
     constructor(options: Options) {
@@ -36,7 +36,6 @@ export abstract class BaseClient<
         // 新建发布订阅实例
         const subscribe = new Subscribe<Event>();
         plugins.forEach((item) => {
-            if (!this.isPluginsEnable(item.type)) return;
             if (!this.isPluginEnable(item.name)) return;
             // 调用插件中的monitor并将发布函数传入 item.monitor(subscribe.notify)
             item.monitor.call(this, subscribe.notify.bind(subscribe));
@@ -63,15 +62,6 @@ export abstract class BaseClient<
      * @memberof BaseClient
     */
     abstract isPluginEnable(name: EventTypes): boolean
-    /**
-     * 判断此类插件是否启用,例如性能监控类, 错误收集类
-     *
-     * @abstract
-     * @param {EventTypes} name
-     * @return {*}  {boolean}
-     * @memberof BaseClient
-    */
-    abstract isPluginsEnable(name: EventClassTypes): boolean
     /**
      * 手动上报方法, 可应用于自定义埋点事件
      * @param data

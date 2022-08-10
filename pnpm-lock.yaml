@@ -5,7 +5,7 @@ importers:
   .:
     specifiers:
       '@ampproject/filesize': ^4.3.0
-      '@microsoft/api-extractor': ^7.18.11
+      '@microsoft/api-extractor': 7.18.11
       '@rollup/plugin-commonjs': ^14.0.0
       '@rollup/plugin-json': ^4.1.0
       '@rollup/plugin-node-resolve': ^11.2.1
@@ -35,7 +35,7 @@ importers:
       typescript: ^4.7.4
     devDependencies:
       '@ampproject/filesize': registry.npmmirror.com/@ampproject/filesize/4.3.0
-      '@microsoft/api-extractor': registry.npmmirror.com/@microsoft/api-extractor/7.29.0
+      '@microsoft/api-extractor': registry.npmmirror.com/@microsoft/api-extractor/7.18.11
       '@rollup/plugin-commonjs': registry.npmmirror.com/@rollup/plugin-commonjs/14.0.0_rollup@2.38.5
       '@rollup/plugin-json': registry.npmmirror.com/@rollup/plugin-json/4.1.0_rollup@2.38.5
       '@rollup/plugin-node-resolve': registry.npmmirror.com/@rollup/plugin-node-resolve/11.2.1_rollup@2.38.5
@@ -1794,51 +1794,51 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  registry.npmmirror.com/@microsoft/api-extractor-model/7.23.0:
-    resolution: {integrity: sha512-h+2aVyf8IYidPZp+N+yIc/LY/aBwRZ1Vxlsx7rU31807bba5ScJ94bj7OjsPMje0vRYALf+yjZToYT0HdP6omA==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@microsoft/api-extractor-model/-/api-extractor-model-7.23.0.tgz}
+  registry.npmmirror.com/@microsoft/api-extractor-model/7.13.9:
+    resolution: {integrity: sha512-t/XKTr8MlHRWgDr1fkyCzTQRR5XICf/WzIFs8yw1JLU8Olw99M3by4/dtpOZNskfqoW+J8NwOxovduU2csi4Ww==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@microsoft/api-extractor-model/-/api-extractor-model-7.13.9.tgz}
     name: '@microsoft/api-extractor-model'
-    version: 7.23.0
+    version: 7.13.9
     dependencies:
-      '@microsoft/tsdoc': registry.npmmirror.com/@microsoft/tsdoc/0.14.1
-      '@microsoft/tsdoc-config': registry.npmmirror.com/@microsoft/tsdoc-config/0.16.1
-      '@rushstack/node-core-library': registry.npmmirror.com/@rushstack/node-core-library/3.50.1
+      '@microsoft/tsdoc': registry.npmmirror.com/@microsoft/tsdoc/0.13.2
+      '@microsoft/tsdoc-config': registry.npmmirror.com/@microsoft/tsdoc-config/0.15.2
+      '@rushstack/node-core-library': registry.npmmirror.com/@rushstack/node-core-library/3.41.0
     dev: true
 
-  registry.npmmirror.com/@microsoft/api-extractor/7.29.0:
-    resolution: {integrity: sha512-tGU5DiwQ7/gN9Chi7cuAdspTuVY8hNcq5hBtvwAvb1H85tbiIHuqgoneHI60rkqlud7szkHJLiCkv75kQ0JLjw==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@microsoft/api-extractor/-/api-extractor-7.29.0.tgz}
+  registry.npmmirror.com/@microsoft/api-extractor/7.18.11:
+    resolution: {integrity: sha512-WfN5MZry4TrF60OOcGadFDsGECF9JNKNT+8P/8crYAumAYQRitI2cUiQRlCWrgmFgCWNezsNZeI/2BggdnUqcg==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@microsoft/api-extractor/-/api-extractor-7.18.11.tgz}
     name: '@microsoft/api-extractor'
-    version: 7.29.0
+    version: 7.18.11
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor-model': registry.npmmirror.com/@microsoft/api-extractor-model/7.23.0
-      '@microsoft/tsdoc': registry.npmmirror.com/@microsoft/tsdoc/0.14.1
-      '@microsoft/tsdoc-config': registry.npmmirror.com/@microsoft/tsdoc-config/0.16.1
-      '@rushstack/node-core-library': registry.npmmirror.com/@rushstack/node-core-library/3.50.1
-      '@rushstack/rig-package': registry.npmmirror.com/@rushstack/rig-package/0.3.14
-      '@rushstack/ts-command-line': registry.npmmirror.com/@rushstack/ts-command-line/4.12.2
+      '@microsoft/api-extractor-model': registry.npmmirror.com/@microsoft/api-extractor-model/7.13.9
+      '@microsoft/tsdoc': registry.npmmirror.com/@microsoft/tsdoc/0.13.2
+      '@microsoft/tsdoc-config': registry.npmmirror.com/@microsoft/tsdoc-config/0.15.2
+      '@rushstack/node-core-library': registry.npmmirror.com/@rushstack/node-core-library/3.41.0
+      '@rushstack/rig-package': registry.npmmirror.com/@rushstack/rig-package/0.3.1
+      '@rushstack/ts-command-line': registry.npmmirror.com/@rushstack/ts-command-line/4.9.1
       colors: registry.npmmirror.com/colors/1.2.5
       lodash: registry.npmmirror.com/lodash/4.17.21
       resolve: registry.npmmirror.com/resolve/1.17.0
       semver: registry.npmmirror.com/semver/7.3.7
       source-map: 0.6.1
-      typescript: registry.npmmirror.com/typescript/4.7.4
+      typescript: registry.npmmirror.com/typescript/4.4.4
     dev: true
 
-  registry.npmmirror.com/@microsoft/tsdoc-config/0.16.1:
-    resolution: {integrity: sha512-2RqkwiD4uN6MLnHFljqBlZIXlt/SaUT6cuogU1w2ARw4nKuuppSmR0+s+NC+7kXBQykd9zzu0P4HtBpZT5zBpQ==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@microsoft/tsdoc-config/-/tsdoc-config-0.16.1.tgz}
+  registry.npmmirror.com/@microsoft/tsdoc-config/0.15.2:
+    resolution: {integrity: sha512-mK19b2wJHSdNf8znXSMYVShAHktVr/ib0Ck2FA3lsVBSEhSI/TfXT7DJQkAYgcztTuwazGcg58ZjYdk0hTCVrA==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@microsoft/tsdoc-config/-/tsdoc-config-0.15.2.tgz}
     name: '@microsoft/tsdoc-config'
-    version: 0.16.1
+    version: 0.15.2
     dependencies:
-      '@microsoft/tsdoc': registry.npmmirror.com/@microsoft/tsdoc/0.14.1
+      '@microsoft/tsdoc': registry.npmmirror.com/@microsoft/tsdoc/0.13.2
       ajv: registry.npmmirror.com/ajv/6.12.6
       jju: registry.npmmirror.com/jju/1.4.0
       resolve: registry.npmmirror.com/resolve/1.19.0
     dev: true
 
-  registry.npmmirror.com/@microsoft/tsdoc/0.14.1:
-    resolution: {integrity: sha512-6Wci+Tp3CgPt/B9B0a3J4s3yMgLNSku6w5TV6mN+61C71UqsRBv2FUibBf3tPGlNxebgPHMEUzKpb1ggE8KCKw==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@microsoft/tsdoc/-/tsdoc-0.14.1.tgz}
+  registry.npmmirror.com/@microsoft/tsdoc/0.13.2:
+    resolution: {integrity: sha512-WrHvO8PDL8wd8T2+zBGKrMwVL5IyzR3ryWUsl0PXgEV0QHup4mTLi0QcATefGI6Gx9Anu7vthPyyyLpY0EpiQg==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@microsoft/tsdoc/-/tsdoc-0.13.2.tgz}
     name: '@microsoft/tsdoc'
-    version: 0.14.1
+    version: 0.13.2
     dev: true
 
   registry.npmmirror.com/@nodelib/fs.scandir/2.1.5:
@@ -1942,10 +1942,10 @@ packages:
       picomatch: registry.npmmirror.com/picomatch/2.3.1
     dev: true
 
-  registry.npmmirror.com/@rushstack/node-core-library/3.50.1:
-    resolution: {integrity: sha512-9d2xE7E9yQEBS6brTptdP8cslt6iL5+UnkY2lRxQQ4Q/jlXtsrWCCJCxwr56W/eJEe9YT/yHR4mMn5QY64Ps2w==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@rushstack/node-core-library/-/node-core-library-3.50.1.tgz}
+  registry.npmmirror.com/@rushstack/node-core-library/3.41.0:
+    resolution: {integrity: sha512-JxdmqR+SHU04jTDaZhltMZL3/XTz2ZZM47DTN+FSPUGUVp6WmxLlvJnT5FoHrOZWUjL/FoIlZUdUPTSXjTjIcg==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@rushstack/node-core-library/-/node-core-library-3.41.0.tgz}
     name: '@rushstack/node-core-library'
-    version: 3.50.1
+    version: 3.41.0
     dependencies:
       '@types/node': registry.npmmirror.com/@types/node/12.20.24
       colors: registry.npmmirror.com/colors/1.2.5
@@ -1955,22 +1955,22 @@ packages:
       resolve: registry.npmmirror.com/resolve/1.17.0
       semver: registry.npmmirror.com/semver/7.3.7
       timsort: 0.3.0
-      z-schema: registry.npmmirror.com/z-schema/5.0.3
+      z-schema: registry.npmmirror.com/z-schema/3.18.4
     dev: true
 
-  registry.npmmirror.com/@rushstack/rig-package/0.3.14:
-    resolution: {integrity: sha512-Ic9EN3kWJCK6iOxEDtwED9nrM146zCDrQaUxbeGOF+q/VLZ/HNHPw+aLqrqmTl0ZT66Sf75Qk6OG+rySjTorvQ==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@rushstack/rig-package/-/rig-package-0.3.14.tgz}
+  registry.npmmirror.com/@rushstack/rig-package/0.3.1:
+    resolution: {integrity: sha512-DXQmrPWOCNoE2zPzHCShE1y47FlgbAg48wpaY058Qo/yKDzL0GlEGf5Ra2NIt22pMcp0R/HHh+kZGbqTnF4CrA==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@rushstack/rig-package/-/rig-package-0.3.1.tgz}
     name: '@rushstack/rig-package'
-    version: 0.3.14
+    version: 0.3.1
     dependencies:
       resolve: registry.npmmirror.com/resolve/1.17.0
       strip-json-comments: 3.1.1
     dev: true
 
-  registry.npmmirror.com/@rushstack/ts-command-line/4.12.2:
-    resolution: {integrity: sha512-poBtnumLuWmwmhCEkVAgynWgtnF9Kygekxyp4qtQUSbBrkuyPQTL85c8Cva1YfoUpOdOXxezMAkUt0n5SNKGqw==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@rushstack/ts-command-line/-/ts-command-line-4.12.2.tgz}
+  registry.npmmirror.com/@rushstack/ts-command-line/4.9.1:
+    resolution: {integrity: sha512-zzoWB6OqVbMjnxlxbAUqbZqDWITUSHqwFCx7JbH5CVrjR9kcsB4NeWkN1I8GcR92beiOGvO3yPlB2NRo5Ugh+A==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/@rushstack/ts-command-line/-/ts-command-line-4.9.1.tgz}
     name: '@rushstack/ts-command-line'
-    version: 4.12.2
+    version: 4.9.1
     dependencies:
       '@types/argparse': registry.npmmirror.com/@types/argparse/1.0.38
       argparse: 1.0.10
@@ -5042,6 +5042,14 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
+  registry.npmmirror.com/typescript/4.4.4:
+    resolution: {integrity: sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/typescript/-/typescript-4.4.4.tgz}
+    name: typescript
+    version: 4.4.4
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
   registry.npmmirror.com/typescript/4.7.4:
     resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/typescript/-/typescript-4.7.4.tgz}
     name: typescript
@@ -5112,10 +5120,10 @@ packages:
       convert-source-map: 1.8.0
     dev: true
 
-  registry.npmmirror.com/validator/13.7.0:
-    resolution: {integrity: sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/validator/-/validator-13.7.0.tgz}
+  registry.npmmirror.com/validator/8.2.0:
+    resolution: {integrity: sha512-Yw5wW34fSv5spzTXNkokD6S6/Oq92d8q/t14TqsS3fAiA1RYnxSFSIZ+CY3n6PGGRCq5HhJTSepQvFUS2QUDxA==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/validator/-/validator-8.2.0.tgz}
     name: validator
-    version: 13.7.0
+    version: 8.2.0
     engines: {node: '>= 0.10'}
     dev: true
 
@@ -5249,16 +5257,15 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  registry.npmmirror.com/z-schema/5.0.3:
-    resolution: {integrity: sha512-sGvEcBOTNum68x9jCpCVGPFJ6mWnkD0YxOcddDlJHRx3tKdB2q8pCHExMVZo/AV/6geuVJXG7hljDaWG8+5GDw==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/z-schema/-/z-schema-5.0.3.tgz}
+  registry.npmmirror.com/z-schema/3.18.4:
+    resolution: {integrity: sha512-DUOKC/IhbkdLKKiV89gw9DUauTV8U/8yJl1sjf6MtDmzevLKOF2duNJ495S3MFVjqZarr+qNGCPbkg4mu4PpLw==, registry: https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/, tarball: https://registry.npmmirror.com/z-schema/-/z-schema-3.18.4.tgz}
     name: z-schema
-    version: 5.0.3
-    engines: {node: '>=8.0.0'}
+    version: 3.18.4
     hasBin: true
     dependencies:
       lodash.get: registry.npmmirror.com/lodash.get/4.4.2
       lodash.isequal: registry.npmmirror.com/lodash.isequal/4.5.0
-      validator: registry.npmmirror.com/validator/13.7.0
+      validator: registry.npmmirror.com/validator/8.2.0
     optionalDependencies:
       commander: 2.20.3
     dev: true
