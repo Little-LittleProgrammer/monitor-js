@@ -1,6 +1,6 @@
 import { SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseOptionsType, ReportBaseInfo, ReportData} from '@qmonitor/types';
-import { get_unique_id, get_uuid, isEmpty, isFunction, Queue } from '@qmonitor/utils';
+import { get_timestamp, get_unique_id, get_uuid, isEmpty, isFunction, Queue } from '@qmonitor/utils';
 
 export abstract class BaseReport<
     Options extends BaseOptionsType = BaseOptionsType
@@ -68,7 +68,10 @@ export abstract class BaseReport<
             appID: this.appID,
             userID: this.userID,
             appName: this.appName,
-            data
+            data: {
+                time: get_timestamp(),
+                ...data
+            }
         };
         return _reportData;
     }

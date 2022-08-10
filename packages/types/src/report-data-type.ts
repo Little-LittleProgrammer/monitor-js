@@ -2,7 +2,7 @@ export interface ReportData {
     type: string; // 信息类型
     subType: string// 信息副类型
     pageURL: string; // 上报页面
-    startTime?: number; // 上报时间
+    time?: number; // 上报时间
     extraData: Record<string, any>
 }
 export interface ReportBaseInfo {
@@ -19,7 +19,7 @@ export interface ReportErrorData<T extends string = any > extends ReportData {
     type: 'error'; // 信息类型
     subType: T// 信息副类型
     pageURL: string; // 上报页面
-    startTime?: number; // 上报时间
+    time?: number; // 上报时间
     extraData: {
         type: string;
         errorUid: string;

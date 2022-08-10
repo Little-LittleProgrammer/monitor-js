@@ -1,8 +1,8 @@
 import { BaseOptionsType, BaseClientType, BasePluginType, ReportData } from '@qmonitor/types';
-import { EventClassTypes, EventTypes, SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
+import { MonitorClassTypes, MonitorTypes, SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseReport } from './base-report';
 import { Subscribe } from './subscribe';
-import { get_page_url } from '@qmonitor/utils';
+import { get_page_url, get_timestamp } from '@qmonitor/utils';
 
 /**
  * * 抽象客户端，已实现插件和钩子函数的定义
@@ -17,7 +17,7 @@ import { get_page_url } from '@qmonitor/utils';
  */
 export abstract class BaseClient<
     Options extends BaseOptionsType = BaseOptionsType,
-    Event extends EventTypes = EventTypes
+    Event extends MonitorTypes = MonitorTypes
 > implements BaseClientType {
     SDK_NAME: string = SDK_NAME;
     SDK_VERSION: string = SDK_VERSION;
@@ -36,6 +36,7 @@ export abstract class BaseClient<
         // 新建发布订阅实例
         const subscribe = new Subscribe<Event>();
         plugins.forEach((item) => {
+            if (!this.isPluginsEnable(item.type)) return;
             if (!this.isPluginEnable(item.name)) return;
             // 调用插件中的monitor并将发布函数传入 item.monitor(subscribe.notify)
             item.monitor.call(this, subscribe.notify.bind(subscribe));
@@ -57,20 +58,31 @@ export abstract class BaseClient<
      * 判断当前插件是否启用，每个端的可选字段不同，需要子类实现
      *
      * @abstract
-     * @param {EventTypes} name
+     * @param {MonitorTypes} name
      * @return {*}  {boolean}
      * @memberof BaseClient
     */
-    abstract isPluginEnable(name: EventTypes): boolean
+    abstract isPluginEnable(name: MonitorTypes): boolean
+    /**
+     * 判断此类插件是否启用,例如性能监控类, 错误收集类
+     *
+     * @abstract
+     * @param {MonitorTypes} name
+     * @return {*}  {boolean}
+     * @memberof BaseClient
+    */
+    abstract isPluginsEnable(name: MonitorClassTypes): boolean
     /**
      * 手动上报方法, 可应用于自定义埋点事件
      * @param data
      */
     log(data: Partial<ReportData>, isImmediate = false): void {
         const _data = {...data};
-        _data.startTime = Date.now();
         if (!_data.pageURL) {
             _data.pageURL = get_page_url();
+        }
+        if (!_data.type) {
+            _data.type = MonitorClassTypes.custom;
         }
         this.report.send(data as ReportData, isImmediate);
     }
