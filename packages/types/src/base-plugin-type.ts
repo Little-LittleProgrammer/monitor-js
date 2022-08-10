@@ -1,7 +1,7 @@
-import { EventClassTypes, EventTypes } from '@qmonitor/enums';
+import { MonitorClassTypes, MonitorTypes } from '@qmonitor/enums';
 import { BaseClientType } from './base-client-types';
 
-export interface BasePluginType<T extends EventTypes = EventTypes, C extends BaseClientType = BaseClientType, Class extends EventClassTypes = EventClassTypes> {
+export interface BasePluginType<T extends MonitorTypes = MonitorTypes, C extends BaseClientType = BaseClientType, Class extends MonitorClassTypes = MonitorClassTypes> {
     // 事件枚举
     name: T,
     type: Class,

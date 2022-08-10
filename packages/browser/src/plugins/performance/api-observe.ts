@@ -1,12 +1,12 @@
 import { BrowserClient } from '../../browser-client';
 import { BasePluginType, HttpMethod, IBeforeAppAjaxSendConfig } from '@qmonitor/types';
-import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
-import { get_page_url, off, on, _global } from '@qmonitor/utils';
+import { BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
+import { get_page_url, get_timestamp, off, on, _global } from '@qmonitor/utils';
 import { ReportPerformanceData } from '../../types';
 
 const fetchPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.FETCH,
-    type: EventClassTypes.performance,
+    type: MonitorClassTypes.performance,
     monitor(notify) {
         monitor_fetch.call(this, notify);
     },
@@ -23,7 +23,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserPerformanc
     const { options } = this;
     if (!('fetch' in _global)) return;
     _global.fetch = (url: string, config: Partial<Request> = {}):Promise<Response> => {
-        const startTime = Date.now();
+        const startTime = get_timestamp();
         const method = ((config && config.method) || 'GET').toUpperCase();
         const _reportData: ReportPerformanceData = {
             type: 'performance',
@@ -43,7 +43,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserPerformanc
         options.beforeAppAjaxSend && options.beforeAppAjaxSend({ url, method: (method as HttpMethod)}, headers as Headers & IBeforeAppAjaxSendConfig);
         return originalFetch(url, config).then(res => {
             const _data = res.clone();
-            const _endTime = Date.now();
+            const _endTime = get_timestamp();
             _reportData.extraData = {
                 ..._reportData.extraData,
                 endTime: _endTime,
@@ -56,7 +56,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserPerformanc
             });
             return res;
         }).catch((err) => {
-            const _endTime = Date.now();
+            const _endTime = get_timestamp();
             _reportData.extraData = {
                 ..._reportData.extraData,
                 endTime: _endTime,
@@ -72,7 +72,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserPerformanc
 
 const xhrPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.XHR,
-    type: EventClassTypes.performance,
+    type: MonitorClassTypes.performance,
     monitor(notify) {
         monitor_xhr.call(this, notify);
     },
@@ -98,11 +98,11 @@ function monitor_xhr(this:BrowserClient, notify: (eventName: BrowserPerformanceT
         _open.apply(this, args);
     };
     _xhr.send = function new_send(...args: any[]) {
-        this.startTime = Date.now();
+        this.startTime = get_timestamp();
 
         options.beforeAppAjaxSend && options.beforeAppAjaxSend({ method: this.method, url: this.url }, this);
         const onLoadend = () => {
-            this.endTime = Date.now();
+            this.endTime = get_timestamp();
             this.duration = this.endTime - this.startTime;
 
             const { status, duration, startTime, endTime, url, method } = this;

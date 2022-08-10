@@ -210,7 +210,7 @@ interface ReportData{
         type:  'performance' | 'error'; // 信息类型
         subType: string; // 信息副类型
         pageURL: stirng; // 上报页面
-        startTime?: number; // 上报时间
+        time?: number; // 上报时间
         extraData: Record<string, any>; // 针对 某一项类型中的具体数据
     }
 }

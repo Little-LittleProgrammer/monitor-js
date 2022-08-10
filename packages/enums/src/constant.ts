@@ -4,10 +4,11 @@ import {BrowserBehaviorTypes, BrowserErrorTypes, BrowserPerformanceTypes } from 
  * 以后扩展微信什么的
  */
 
-export type EventTypes = BrowserErrorTypes | BrowserPerformanceTypes | BrowserBehaviorTypes
+export type MonitorTypes = BrowserErrorTypes | BrowserPerformanceTypes | BrowserBehaviorTypes
 
-export const enum EventClassTypes {
+export const enum MonitorClassTypes {
     performance= 'performance',
     error='error',
-    behavior='behavior'
+    behavior='behavior',
+    custom='custom'
 }

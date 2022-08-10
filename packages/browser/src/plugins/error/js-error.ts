@@ -1,4 +1,4 @@
-import { BrowserErrorTypes, EventClassTypes } from '@qmonitor/enums';
+import { BrowserErrorTypes, BrowserEventTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData } from '@qmonitor/types';
 import { get_error_uid, get_page_url, on, parse_stack_frames, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
@@ -13,9 +13,9 @@ export interface ResourceErrorTarget {
 
 const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.JE,
-    type: EventClassTypes.error,
+    type: MonitorClassTypes.error,
     monitor(notify) {
-        on(_global, 'error', (e: ErrorEvent) => {
+        on(_global, BrowserEventTypes.ERROR, (e: ErrorEvent) => {
             const _target = e.target as ResourceErrorTarget;
             if (_target.localName) { // 代表是资源错误
                 return;
@@ -33,11 +33,11 @@ const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     }
 };
 
-const resourceErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient, EventClassTypes> = {
+const resourceErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient, MonitorClassTypes> = {
     name: BrowserErrorTypes.RE,
-    type: EventClassTypes.error,
+    type: MonitorClassTypes.error,
     monitor(notify) {
-        on(_global, 'error', (e: ErrorEvent) => {
+        on(_global, BrowserEventTypes.ERROR, (e: ErrorEvent) => {
             const _target = e.target as ResourceErrorTarget;
             if (!_target.localName) { // 如果是js错误返回
                 return;

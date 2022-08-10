@@ -1,12 +1,12 @@
 import { BasePluginType } from '@qmonitor/types';
 import { BrowserClient } from '../../browser-client';
-import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
+import { BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { ReportPerformanceData } from '../../types';
 import { get_page_url, _supportPerformance } from '@qmonitor/utils';
 
 const fpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.FP,
-    type: EventClassTypes.performance,
+    type: MonitorClassTypes.performance,
     monitor(notify) {
         if (!_supportPerformance) return;
         function entry_handler(list: PerformanceObserverEntryList) {
@@ -26,7 +26,7 @@ const fpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
             }
         }
         const _observer = new PerformanceObserver(entry_handler);
-        _observer.observe({ type: 'paint', buffered: true });
+        _observer.observe({ type: BrowserEventTypes.PAINT, buffered: true });
     },
     transform(reportData:ReportPerformanceData) {
         return reportData;
