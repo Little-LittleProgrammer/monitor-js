@@ -19,9 +19,6 @@ init({
     appName: '七猫',
     appID: 'qimao',
     cacheNum: 10,
-    vue: {
-        Vue,
-        router
-    }
+    vue,
 }, [vuePlugin]);
 ```

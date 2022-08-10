@@ -3,13 +3,13 @@ import { isFunction } from '@qmonitor/utils';
 
 export class BaseOptions<Options extends BaseOptionsType = BaseOptionsType> {
     beforeAppAjaxSend = null;
-    vue: {Vue?: VueInstance, router?: VueRouter} = null;
+    vue: VueInstance = null;
     sample = 100;
     constructor() {
     }
     bindOptions(options:Options) {
         if (options.sample) this.sample = options.sample;
-        if (options.vue && Object.keys(options.vue).length > 0) {
+        if (options.vue) {
             this.vue = options.vue;
         }
         if (options.beforeAppAjaxSend && isFunction(options.beforeAppAjaxSend)) {

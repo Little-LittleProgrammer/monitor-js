@@ -1,5 +1,5 @@
 import { ReportBaseInfo } from './report-data-type';
-import { VueInstance, VueRouter } from './vue-types';
+import { VueInstance } from './vue-types';
 
 type CANCEL = null | undefined | boolean
 
@@ -22,10 +22,7 @@ export interface BaseOptionsFieldsType { // 基本属性
     userID?: string; // 用户ID
     cacheNum?:number; // 缓存数据
     sample?: number; // 采样率
-    vue?: {
-        Vue?: VueInstance,
-        router?: VueRouter
-    }
+    vue?: VueInstance
 }
 
 export interface BaseOptionsHooksType { // 自定义钩子

@@ -17,10 +17,7 @@ const _monitor = init({
     appName: '七猫',
     appID: 'qimao',
     cacheNum: 10,
-    vue: {
-        Vue,
-        router
-    }
+    vue
 });
 
 // 自定义上报事件
@@ -36,10 +33,7 @@ _monitor.log(_reportData, false)
     userID?: string; // 用户ID
     cacheNum?:number; // 缓存数据
     sample?: number; // 采样率
-    vue?: { // vue项目需要
-        Vue?: VueInstance,
-        router?: VueRouter
-    }
+    vue?: VueInstance
     disabledConsoleError?: boolean; // 是否禁止监控 控制台错误, 默认是false
     disabledJsError?: boolean; // 是否禁止监控 JsError, 默认是false
     disabledPromiseError?: boolean; // 是否禁止监控  PromiseError, 默认是false
