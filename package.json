@@ -57,7 +57,7 @@
   },
   "filesize": {
     "./packages/browser/dist/browser.min.js": {
-      "none": "20 kB"
+      "none": "24 kB"
     }
   }
 }
