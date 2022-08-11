@@ -13,14 +13,19 @@ import { consoleErrorPlugin,
     lcpPlugin,
     resourcePlugin,
     navigationPlugin,
-    resourceErrorPlugin} from './plugins';
+    resourceErrorPlugin,
+    clickPlugin,
+    hashRoutePlugin,
+    pvPlugin,
+    historyRoutePlugin
+} from './plugins';
 import { on_beforeunload, sampling, _global } from '@qmonitor/utils';
-import { EventTypes } from '@qmonitor/enums';
+import { MonitorTypes } from '@qmonitor/enums';
 
 function create_browser_instance(options:BrowserOptionsType = {}, plugins: BasePluginType[] = []) {
     const _browserClient = new BrowserClient(options);
     const _sample = _browserClient.getOptions().sample;
-    let _browserPlugin:BasePluginType<EventTypes, BrowserClient>[] = [
+    let _browserPlugin:BasePluginType<MonitorTypes, BrowserClient>[] = [
         consoleErrorPlugin,
         jsErrorPlugin,
         resourceErrorPlugin,
@@ -37,12 +42,18 @@ function create_browser_instance(options:BrowserOptionsType = {}, plugins: BaseP
             fpPlugin,
             lcpPlugin,
             resourcePlugin,
-            navigationPlugin
+            navigationPlugin,
+            clickPlugin,
+            hashRoutePlugin,
+            pvPlugin,
+            historyRoutePlugin
         ];
         const _callback = () => {
             const _data = _browserClient.report.queue.get_cache();
             if (_data && _data.length > 0) {
-                _browserClient.report.post(_data, _browserClient.report.url);
+                let _reportData = _browserClient.report.addBaseInfo(_data);
+                _reportData = _browserClient.report.addOtherInfo(_reportData);
+                _browserClient.report.post(_reportData, _browserClient.report.url);
                 _browserClient.report.queue.clear_cache();
             }
         };

@@ -1,24 +1,24 @@
 import { BrowserClient } from '@qmonitor/browser';
-import { BrowserBehaviorTypes, EventClassTypes } from '@qmonitor/enums';
+import { BrowserBehaviorTypes, BrowserEventTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType } from '@qmonitor/types';
 import { get_page_url, html_element_to_string, on, throttle_event, _global } from '@qmonitor/utils';
 import { ReportBehaviorData } from '../../types';
 
 const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
-    name: BrowserBehaviorTypes.click,
-    type: EventClassTypes.behavior,
+    name: BrowserBehaviorTypes.CLICK,
+    type: MonitorClassTypes.behavior,
     monitor(notify) {
         if (!('document' in _global)) return;
         // 电脑端click
-        on(_global.document, 'click', function(e: Event) {
+        on(_global.document, BrowserEventTypes.CLICK, function(e: Event) {
             throttle_event(notify, {
-                args: [BrowserBehaviorTypes.click, e]
+                args: [BrowserBehaviorTypes.CLICK, e]
             });
         }, true);
         // 移动端touch
-        on(_global.document, 'touchstart', function(e: Event) {
+        on(_global.document, BrowserEventTypes.TOUCHSTART, function(e: Event) {
             throttle_event(notify, {
-                args: [BrowserBehaviorTypes.click, e]
+                args: [BrowserBehaviorTypes.CLICK, e]
             });
         }, true);
     },
@@ -26,8 +26,8 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
         const _htmlString = html_element_to_string(e.target as HTMLElement);
         const _area = (e.target as any)?.getBoundingClientRect();
         const _reportData: ReportBehaviorData = {
-            type: 'behavior',
-            subType: BrowserBehaviorTypes.click,
+            type: MonitorClassTypes.behavior,
+            subType: BrowserBehaviorTypes.CLICK,
             pageURL: get_page_url(),
             extraData: {
                 startTime: e.timeStamp,

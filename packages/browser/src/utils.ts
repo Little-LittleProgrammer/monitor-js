@@ -17,3 +17,12 @@ export function get_network_info() {
     }
     return null;
 }
+
+// 是否支持history模式
+export function is_supports_history(): boolean {
+    // borrowed from: https://github.com/angular/angular.js/pull/13945/files
+    const chrome = (_global as any).chrome;
+    const isChromePackagedApp = chrome && chrome.app && chrome.app.runtime;
+    const hasHistoryApi = 'history' in _global && !!_global.history.pushState && !!_global.history.replaceState;
+    return !isChromePackagedApp && hasHistoryApi;
+}
