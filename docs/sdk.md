@@ -201,18 +201,20 @@ methods: {
 - 上报格式
 ```js
 interface ReportData{
-    id: stirng; // uuid,
+    sdkName: string, // sdk名称
+    sdkVersion: string, // sdk版本
+    id: string; // uuid, 本次上报的会话id
     appID: string; // 项目id
     appName?: string; // 项目名称
     userID?: string; // 用户ID
     networkInfo?:Record<string, any>; // 网络信息
     data: {
-        type:  'performance' | 'error'; // 信息类型
+        type:  'performance' | 'error' | 'behavior'; // 信息类型
         subType: string; // 信息副类型
         pageURL: stirng; // 上报页面
         time?: number; // 上报时间
         extraData: Record<string, any>; // 针对 某一项类型中的具体数据
-    }
+    }[]
 }
 ```
 
@@ -240,4 +242,8 @@ interface ReportData{
 ### 例子
 
 请看`example`文件夹
+
+## 总结
+### SDK 大致流程
+订阅事件 =》监听或者重写原生时间 =》触发事件(发布事件) =》 拿到上报信息 =》 判断是否立即上报 =》 缓存或上报服务端
 
