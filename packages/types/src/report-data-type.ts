@@ -6,12 +6,14 @@ export interface ReportData {
     extraData: Record<string, any>
 }
 export interface ReportBaseInfo {
+    sdkVersion?: string,
+    sdkName?:string,
     id: string; // uuid,
     appID: string; // 项目id
     appName?: string; // 项目名称
     userID?: string; // 用户ID
     networkInfo?:Record<string, any> // 网络信息
-    data: ReportData
+    data: ReportData[]
 }
 
 // web 错误数据
