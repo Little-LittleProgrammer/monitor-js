@@ -8,7 +8,7 @@
 
 # 2.2.6(2022-08-09)
 ### BREAKING CHANGES
-1. 打包脚本 更新脚本 增加realease前进行包体积监测, 不合格不予通过
+1. 打包脚本 更新脚本 增加release前进行包体积监测, 不合格不予通过
 2. 增加快速生成`export * from 'xxx'`的脚本, 减少功能开发时要一遍一遍输入`export * from 'xxx'`
 3. `build`命令会替换`example`下的js文件
 

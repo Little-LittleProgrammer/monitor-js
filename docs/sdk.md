@@ -27,11 +27,15 @@
 
 ### 简介
 qm-web-monitor-sdk: 是一套前端监控sdk, 包括收集
-1. 错误数据
-2. 性能数据
-3. 自定义埋点上报
-4. 用户行为数据(开发中)
-5. wx小程序支持(开发中)
+1. api数据: fetch、xhr
+2. 错误数据: JS、resource、console.error、promise、vue、react
+3. 性能数据: FP、FCP、FMP、navigator、resource、FID、LCP、CLS
+4. 自定义埋点上报
+5. 用户行为数据: click、hash-router、history-router、pv
+6. wx小程序支持(开发中)
+
+### 老版本
+`v1`版本请看 [web-monitor-sdk](https://github.com/Little-LittleProgrammer/web-monitor-sdk)
 
 ### 架构
 > 借鉴了 vue3 和 mitojs 的代码
