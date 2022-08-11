@@ -8,11 +8,12 @@ const hashRoutePlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
     name: BrowserBehaviorTypes.HASHROUTE,
     type: MonitorClassTypes.behavior,
     monitor(notify) {
-        if (!isExistProperty(_global, 'onpopstate')) return;
-        on(_global, BrowserEventTypes.HASHCHANGE, function(e: HashChangeEvent) {
-            const { oldURL: from, newURL: to } = e;
-            notify(BrowserBehaviorTypes.HASHROUTE, { from, to });
-        });
+        if (!isExistProperty(_global, 'onpopstate')) {
+            on(_global, BrowserEventTypes.HASHCHANGE, function(e: HashChangeEvent) {
+                const { oldURL: from, newURL: to } = e;
+                notify(BrowserBehaviorTypes.HASHROUTE, { from, to });
+            });
+        }
     },
     transform(collectedData: RouteChangeCollectType) {
         return route_transform(collectedData, BrowserBehaviorTypes.HASHROUTE);
