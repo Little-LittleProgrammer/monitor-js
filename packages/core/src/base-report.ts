@@ -1,5 +1,6 @@
+import { SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseOptionsType, ReportBaseInfo, ReportData} from '@qmonitor/types';
-import { get_unique_id, get_uuid, isEmpty, isFunction, Queue } from '@qmonitor/utils';
+import { get_timestamp, get_unique_id, get_uuid, isArray, isEmpty, isFunction, Queue } from '@qmonitor/utils';
 
 export abstract class BaseReport<
     Options extends BaseOptionsType = BaseOptionsType
@@ -31,6 +32,9 @@ export abstract class BaseReport<
         } else {
             this.userID = get_uuid();
         }
+        if (options.beforeDataReport) {
+            this.beforeDataReport = options.beforeDataReport;
+        }
     }
 
     // send -> sendTime -> report
@@ -45,10 +49,11 @@ export abstract class BaseReport<
         let _reportData = { // 格式化上传数据
             ...this.formatReportData(data)
         };
-        _reportData = { // 自定义上传数据
-            ...this.getReportData(_reportData)
-        };
+        // _reportData = { // 自定义上传数据
+        //     ...this.addOtherInfo(_reportData)
+        // };
         if (isFunction(this.beforeDataReport)) {
+            // 一次处理数据变成二次处理数据
             _reportData = await this.beforeDataReport(_reportData);
             if (!_reportData) return;
         }
@@ -58,21 +63,53 @@ export abstract class BaseReport<
         }
         return this.sendTime(_reportData, this.url, isImmediate);
     }
-
-    private formatReportData(data: ReportData): ReportBaseInfo {
+    /**
+     * 添加基本信息
+     * @param data 未处理数据 ReportData
+     * @returns 一次处理数据 ReportBaseInfo
+     */
+    formatReportData(data: ReportData): ReportData {
         const _reportData = {
+            time: get_timestamp(),
+            ...data
+        };
+        return _reportData;
+    }
+    /**
+     * 添加基本信息
+     * @param data 二次处理数据 ReportData
+     * @returns 三次处理数据 ReportBaseInfo
+     */
+    addBaseInfo(data: ReportData | ReportData[]): ReportBaseInfo {
+        let _data = [];
+        if (isArray(data)) {
+            _data = [...data];
+        } else {
+            _data = [data];
+        }
+        const _reportData = {
+            sdkVersion: SDK_VERSION,
+            sdkName: SDK_NAME,
             id: get_unique_id(16),
             appID: this.appID,
             userID: this.userID,
             appName: this.appName,
-            data
+            data: _data
         };
         return _reportData;
     }
-    // 处理是否立即上传, 或缓存上传
-    sendTime(data: ReportBaseInfo, url: string, isImmediate: boolean): void {
+    /**
+     * 处理是否立即上传, 或缓存上传
+     * @param data 二次处理数据
+     * @param url 上报地址
+     * @param isImmediate 是否立即上传
+     * @returns void
+     */
+    sendTime(data: ReportData, url: string, isImmediate: boolean): void {
         if (isImmediate) {
-            this.report(data, url);
+            let _data = this.addBaseInfo(data);
+            _data = this.addOtherInfo(_data);
+            this.report(_data, url);
             return;
         }
         this.queue.add_cache(data);
@@ -80,10 +117,12 @@ export abstract class BaseReport<
         this.timer = setTimeout(() => {
             const _data = this.queue.get_cache();
             if (_data && _data.length >= this.cacheNum) {
-                this.report(_data, url);
+                let _reportData = this.addBaseInfo(_data);
+                _reportData = this.addOtherInfo(_reportData);
+                this.report(_reportData, url);
                 this.queue.clear_cache();
             }
-        }, 3000);
+        }, 1000);
         return;
     }
 
@@ -110,12 +149,12 @@ export abstract class BaseReport<
      */
     abstract report(data: ReportBaseInfo | any, url: string): void
     /**
-     * 获取上报的格式
+     * 自定义添加
      *
      * @abstract
-     * @param {ReportDataType} data
-     * @return {TransportDataType}  {TransportDataType}
+     * @param {ReportDataType} data 三次处理数据
+     * @return {TransportDataType}  {TransportDataType} 四次处理数据, 即最终上报数据
      * @memberof BaseReport
      */
-    abstract getReportData(data: ReportBaseInfo): ReportBaseInfo
+    abstract addOtherInfo(data: ReportBaseInfo): ReportBaseInfo
 }

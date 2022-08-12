@@ -19,9 +19,6 @@ init({
     appName: '直客',
     appID: 'zhike',
     cacheNum: 10,
-    vue: {
-        Vue,
-        router
-    }
+    vue,
 }, [vuePlugin]);
 ```

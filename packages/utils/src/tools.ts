@@ -183,3 +183,7 @@ export function throttle_event(fn: any, data: any) {
         // 如果是清除防抖
     }
 }
+
+export function get_timestamp():number {
+    return Date.now();
+}

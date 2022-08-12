@@ -75,6 +75,13 @@ async function rollupBuild(target) {
     // 拼成node命令 rollup -c --environment TARGET=core,TYPES = true,LOCALDIR
     const result = await binRun('rollup', args);
 
+    // 复制 打包文件到 examples 文件夹
+    if (['browser', 'vue'].includes(target)) {
+        const _file = path.resolve(`packages/${target}/dist/${target}.min.js`);
+        const _dest = path.resolve(`example/js/${target}.min.js`);
+        fs.copyFileSync(_file, _dest);
+    }
+
     if (buildTypes && pkg.types) {
         console.info(chalk.bold(chalk.yellow(`Rolling up type definitions for ${target}...`)));
 
@@ -103,7 +110,8 @@ async function rollupBuild(target) {
         // }
             console.log(chalk.green(`API Extractor completed successfully.`));
         }
-        console.info('pkgDir', pkgDir);
         await fs.remove(`${pkgDir}/dist/packages`);
+        console.log('**************************');
+        console.log(chalk.bgGreen(`${target} build completed successfully`));
     }
 }

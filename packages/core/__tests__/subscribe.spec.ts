@@ -1,4 +1,4 @@
-import { BrowserErrorTypes, EventTypes } from '@qmonitor/enums';
+import { BrowserErrorTypes, MonitorTypes } from '@qmonitor/enums';
 import { Subscribe } from '../src/subscribe';
 
 describe('core/subscribe.ts', () => {
@@ -12,7 +12,7 @@ describe('core/subscribe.ts', () => {
         const watchCallbackTwo = jest.fn((data) => {
             expect(data).toBe(_mockData);
         });
-        const _subscribe = new Subscribe<EventTypes>();
+        const _subscribe = new Subscribe<MonitorTypes>();
         const _targetEvent = BrowserErrorTypes.CE;
         _subscribe.watch(_targetEvent, watchCallback);
         _subscribe.watch(_targetEvent, watchCallbackTwo);

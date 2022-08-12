@@ -1,6 +1,6 @@
 import { BasePluginType } from '@qmonitor/types';
 import { BrowserClient } from '../../browser-client';
-import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
+import { BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { ReportPerformanceData } from '../../types';
 import { get_page_url, _supportPerformance } from '@qmonitor/utils';
 
@@ -12,7 +12,7 @@ export function is_lcp_done() {
 
 const lcpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.LCP,
-    type: EventClassTypes.performance,
+    type: MonitorClassTypes.performance,
     monitor(notify) {
         if (!_supportPerformance) {
             _lcpFlag = true;
@@ -36,7 +36,7 @@ const lcpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
             }
         }
         const _observer = new PerformanceObserver(entry_handler);
-        _observer.observe({ type: BrowserPerformanceTypes.LCP, buffered: true });
+        _observer.observe({ type: BrowserEventTypes.LCP, buffered: true });
     },
     transform(reportData:ReportPerformanceData) {
         return reportData;

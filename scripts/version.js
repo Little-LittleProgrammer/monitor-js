@@ -8,7 +8,7 @@ let beModifiedPackages = [];
 
 run();
 
-function run() {
+async function run() {
     const argv = getArgv()._;
     let targetVersion = null;
     if (argv.length === 0) {
@@ -22,7 +22,7 @@ function run() {
     // return errLog('')
     }
     beModifiedPackages = argv.length === 0 ? allTargets : argv;
-    const _flag = await sizeCheck(beReleasedPackages);
+    const _flag = await sizeCheck(beModifiedPackages);
     if (_flag) {
         modify(targetVersion);
     }

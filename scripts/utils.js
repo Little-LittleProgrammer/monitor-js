@@ -65,7 +65,7 @@ exports.sizeCheck = async(beReleasedPackages) => {
     // size检查
     try {
         if (beReleasedPackages.includes('wx-mini') || beReleasedPackages.includes('browser')) {
-            await binRun('yarn', ['size']);
+            await execa('yarn', ['size'], { stdio: 'inherit'});
             console.log(chalk.green(`Size check passed`));
         }
         _flag = true;

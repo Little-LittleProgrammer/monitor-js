@@ -146,6 +146,7 @@ module.exports = {
                 extendDefaults: true,
             },
         ],
-        "@typescript-eslint/no-var-requires": 0
+        "@typescript-eslint/no-var-requires": 0,
+        "@typescript-eslint/no-this-alias": 0
     }
 };
