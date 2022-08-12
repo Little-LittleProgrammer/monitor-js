@@ -27,11 +27,15 @@
 
 ### 简介
 qm-web-monitor-sdk: 是一套前端监控sdk, 包括收集
-1. 错误数据
-2. 性能数据
-3. 自定义埋点上报
-4. 用户行为数据(开发中)
-5. wx小程序支持(开发中)
+1. api数据: fetch、xhr
+2. 错误数据: JS、resource、console.error、promise、vue、react
+3. 性能数据: FP、FCP、FMP、navigator、resource、FID、LCP、CLS
+4. 自定义埋点上报
+5. 用户行为数据: click、hash-router、history-router、pv
+6. wx小程序支持(开发中)
+
+### 老版本
+`v1`版本请看 [web-monitor-sdk](https://github.com/Little-LittleProgrammer/web-monitor-sdk)
 
 ### 架构
 > 借鉴了 vue3 和 mitojs 的代码
@@ -201,18 +205,20 @@ methods: {
 - 上报格式
 ```js
 interface ReportData{
-    id: stirng; // uuid,
+    sdkName: string, // sdk名称
+    sdkVersion: string, // sdk版本
+    id: string; // uuid, 本次上报的会话id
     appID: string; // 项目id
     appName?: string; // 项目名称
     userID?: string; // 用户ID
     networkInfo?:Record<string, any>; // 网络信息
     data: {
-        type:  'performance' | 'error'; // 信息类型
+        type:  'performance' | 'error' | 'behavior'; // 信息类型
         subType: string; // 信息副类型
         pageURL: stirng; // 上报页面
-        startTime?: number; // 上报时间
+        time?: number; // 上报时间
         extraData: Record<string, any>; // 针对 某一项类型中的具体数据
-    }
+    }[]
 }
 ```
 
@@ -230,7 +236,7 @@ interface ReportData{
 通过 package.json的 配置去配置什么时候该引入哪个文件
 
 1. 借鉴了 vue2 的打包思路, 对于不同环境下(`production, development`)使用不同的打包结果
-2. 接受变量, 以分目录打包, 类似于我们的`backstorage.book.com`那个项目
+2. 接受变量, 以分目录打包
 `npm run build browser`
 3. 接受变量, 也可以分模块发布
 `npm run release browser`
@@ -240,4 +246,8 @@ interface ReportData{
 ### 例子
 
 请看`example`文件夹
+
+## 总结
+### SDK 大致流程
+订阅事件 =》监听或者重写原生时间 =》触发事件(发布事件) =》 拿到上报信息 =》 判断是否立即上报 =》 缓存或上报服务端
 

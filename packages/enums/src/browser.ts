@@ -1,5 +1,5 @@
 /**
- *浏览器需要监听的事件类型
+ * 浏览器插件名称以及subtype
  *
  * @export
  * @enum {number}
@@ -26,6 +26,26 @@ export const enum BrowserPerformanceTypes {
 }
 
 export const enum BrowserBehaviorTypes {
-    click='click',
-    pv='pv'
+    CLICK='click',
+    PV='pv',
+    HASHROUTE='hash-route',
+    HISTORYROUTE='history-route'// 是否禁止监控 popstate、pushState、replaceState
+}
+
+// 浏览器事件类型
+export const enum BrowserEventTypes {
+    ERROR='error',
+    UNHANDLEDREJECTION='unhandledrejection',
+    CLICK='click',
+    HASHCHANGE = 'hashchange',
+    TOUCHSTART='touchstart',
+    POPSTATE='onpopstate',
+    PUSHSTATE='pushState',
+    REPLACESTATE='replaceState',
+    PAINT='paint',
+    LCP= 'largest-contentful-paint',
+    FI='first-input',
+    LS='layout-shift',
+    NT= 'navigation',
+    RF= 'resource',
 }

@@ -1,4 +1,4 @@
-import { BrowserErrorTypes, EventClassTypes } from '@qmonitor/enums';
+import { BrowserErrorTypes, BrowserEventTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData } from '@qmonitor/types';
 import { get_error_uid, get_page_url, on, parse_stack_frames, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
@@ -13,9 +13,9 @@ export interface ResourceErrorTarget {
 
 const promiseErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.PE,
-    type: EventClassTypes.error,
+    type: MonitorClassTypes.error,
     monitor(notify) {
-        on(_global, 'unhandledrejection', (e: PromiseRejectionEvent) => {
+        on(_global, BrowserEventTypes.UNHANDLEDREJECTION, (e: PromiseRejectionEvent) => {
             notify(BrowserErrorTypes.PE, e);
         });
     },

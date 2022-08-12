@@ -9,8 +9,6 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
     disabledBehavior: boolean;
     // 禁止所有error监控
     disabledError: boolean;
-    // 禁止所有custom监控
-    disabledCustom: boolean;
 
     // 单独禁止
     // 是否禁止监控 ConsoleError
@@ -41,6 +39,10 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
     disabledFetch: boolean;
     // 是否禁止监控 首次有效绘制
     disabledFirstMeaningPaint: boolean;
+    disabledHistoryRoute: boolean;
+    disabledPv: boolean;
+    disabledHashRoute: boolean;
+    disabledClick: boolean;
     useImgUpload: boolean;
     configReportXhr: (xhr: XMLHttpRequest, reportData: any)=> void = null;
     constructor(options: BrowserOptionsType) {
@@ -53,7 +55,6 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
             disabledPerformance,
             disabledBehavior,
             disabledError,
-            disabledCustom,
             disabledConsoleError,
             disabledJsError,
             disabledPromiseError,
@@ -69,13 +70,16 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
             disabledFetch,
             disabledFirstMeaningPaint,
             useImgUpload,
+            disabledHistoryRoute,
+            disabledPv,
+            disabledHashRoute,
+            disabledClick,
             configReportXhr
         } = options;
 
         this.disabledPerformance = disabledPerformance || false;
         this.disabledBehavior = disabledBehavior || false;
         this.disabledError = disabledError || false;
-        this.disabledCustom = disabledCustom || false;
 
         this.disabledXhr = disabledXhr || false;
         this.disabledFetch = disabledFetch || false;
@@ -91,6 +95,12 @@ export class BrowserOptions extends BaseOptions<BrowserOptionsType> {
         this.disabledCumulativeLayoutShift = disabledCumulativeLayoutShift || false;
         this.disabledNavigation = disabledNavigation || false;
         this.disabledResource = disabledResource || false;
+
+        this.disabledHistoryRoute = disabledHistoryRoute || false;
+        this.disabledPv = disabledPv || false;
+        this.disabledHashRoute = disabledHashRoute || false;
+        this.disabledClick = disabledClick || false;
+
         this.useImgUpload = useImgUpload || false;
         if (configReportXhr && isFunction(configReportXhr)) {
             this.configReportXhr = configReportXhr;

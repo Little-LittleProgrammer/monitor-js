@@ -1,4 +1,4 @@
-import { BrowserPerformanceTypes, EventClassTypes } from '@qmonitor/enums';
+import { BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType } from '@qmonitor/types';
 import { deep_copy, get_page_url, is_support_performance_observer, on_hidden, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
@@ -6,7 +6,7 @@ import { ReportPerformanceData } from '../../types';
 
 const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.CLS,
-    type: EventClassTypes.performance,
+    type: MonitorClassTypes.performance,
     monitor(notify) {
         if (!is_support_performance_observer()) return;
         let _sessionValue = 0;
@@ -56,7 +56,7 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
             }
         }
         const _observe = new PerformanceObserver(entry_handle);
-        _observe.observe({ type: 'layout-shift', buffered: true });
+        _observe.observe({ type: BrowserEventTypes.LS, buffered: true });
 
         if (_observe) {
             on_hidden(_global, () => {

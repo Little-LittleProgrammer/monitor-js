@@ -6,11 +6,28 @@
 ### BREAKING CHANGES
 1. 增加 用户行为数据收集 功能插件
 
+# 2.2.6(2022-08-09)
+### BREAKING CHANGES
+1. 打包脚本 更新脚本 增加release前进行包体积监测, 不合格不予通过
+2. 增加快速生成`export * from 'xxx'`的脚本, 减少功能开发时要一遍一遍输入`export * from 'xxx'`
+3. `build`命令会替换`example`下的js文件
+
+### UPDATE
+1. 更新文档
+2. 更新案例并布置
+3. 数据类型整理
+4. 更换 `packageManager` 为 `pnpm`
+
+### BUG FIX
+1. 修复 api-extractor 生成的d.ts文件错误问题
+2. 恢复上报数据缓存重新记录到内存	
+
 # 2.2.5(2022-08-01)
 ### BREAKING CHANGES
 1. 增加 自定义上报 功能
 2. 更改打包脚本
 3. 增加 example 文件
+4. 上报数据缓存记录到localStorage, 并简单加密
 ### BUG FIX
 1. 修复 cls 计算上报错误
 

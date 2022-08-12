@@ -50,7 +50,7 @@ export class BrowserReport extends BaseReport<BrowserOptionsType> {
             });
         }
     }
-    getReportData(data: ReportBaseInfo): ReportBaseInfo {
+    addOtherInfo(data: ReportBaseInfo): ReportBaseInfo {
         return {
             ...data,
             networkInfo: get_network_info()

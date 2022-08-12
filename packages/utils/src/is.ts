@@ -60,7 +60,6 @@ export function isString(val: unknown): val is string {
     return is(val, 'String');
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
 export function isFunction(val: unknown): val is Function {
     return typeof val === 'function';
 }
@@ -88,9 +87,13 @@ export function isMap(val: unknown): val is Map<any, any> {
 export function isWindow(val: any): val is Window {
     return typeof window !== 'undefined' && is(val, 'Window');
 }
+export function isExistProperty(obj: Record<string, any>, key: string | number | symbol): boolean {
+    return Object.prototype.hasOwnProperty.call(obj, key);
+}
 
 export const isServer = typeof process !== 'undefined';
 
 export const isWx = isObject(typeof wx !== 'undefined' ? wx : 0) && isFunction(typeof App !== 'undefined' ? App : 0);
 
 export const isClient = !isServer;
+
