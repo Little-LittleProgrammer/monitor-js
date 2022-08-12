@@ -1,4 +1,4 @@
-import { isWindow, isWx } from './is';
+import { isBase, isFunction, isMap, isRegExp, isSet, isSymbol, isWindow, isWx } from './is';
 
 export const defaultFunctionName = '<anonymous>'; // 匿名
 /**
@@ -13,22 +13,82 @@ export function get_function_name(fn: unknown):string {
     return fn.name || defaultFunctionName;
 }
 
-export function deep_copy<T>(target: T):T {
-    // if (typeof target === 'object') {
-    //     const result = Array.isArray(target) ? [] : {};
-    //     for (const key in target) {
-    //         if (typeof target[key] == 'object') {
-    //             result[key] = deep_copy(target[key]);
-    //         } else {
-    //             result[key] = target[key];
-    //         }
-    //     }
+export function deep_copy<T>(target: T, map = new Map()):T {
+    // 判断引用类型的temp
+    function check_temp(target:any) {
+        const _c = target.constructor;
+        return new _c();
+    }
 
-    //     return result;
-    // }
+    // 不可遍历应用类型深拷贝
+    // 拷贝方法
+    function clone_func(func:Function):Function | null {
+        const _bodyReg = /(?<={)(.|\n)+(?=})/m;
+        const _paramReg = /(?<=\().+(?=\)\s+{)/;
+        const _funcStr = func.toString();
+        if (func.prototype) {
+            const _param = _paramReg.exec(_funcStr);
+            const _body = _bodyReg.exec(_funcStr);
+            if (_body) {
+                if (_param) {
+                    const _paramArr = _param[0].split(',');
+                    return new Function(..._paramArr, _body[0]);
+                } else {
+                    return new Function(_body[0]);
+                }
+            } else {
+                return null;
+            }
+        } else {
+            // eslint-disable-next-line
+            return eval(_funcStr);
+        }
+    }
+    // 拷贝Symbol
+    function clone_symbol(target: T): T {
+        return Object(Symbol.prototype.valueOf.call(target));
+    }
+    // 拷贝RegExp
+    function clone_reg(target: RegExp): RegExp {
+        const _result = new RegExp(target.source);
+        _result.lastIndex = target.lastIndex;
+        return _result;
+    }
 
-    // return target;
-    return JSON.parse(JSON.stringify(target));
+    // 基本数据类型直接返回
+    if (isBase(target)) return target;
+    // 判断 不可遍历类型, 并拷贝
+    if (isFunction(target)) return clone_func(target) as unknown as T;
+    if (isRegExp(target)) return clone_reg(target) as unknown as T;
+    if (isSymbol(target)) return clone_symbol(target);
+
+    // 引用数据类型特殊处理
+    const _temp = check_temp(target);
+    // 防止循环引用
+    if (map.get(target)) {
+        return map.get(target);
+    }
+    map.set(target, _temp);
+    // 处理 Map类型
+    if (isMap(target)) {
+        target.forEach((val, key) => {
+            _temp.set(key, deep_copy(val, map));
+        });
+        return _temp;
+    }
+    // 处理 Set类型
+    if (isSet(target)) {
+        target.forEach((val) => {
+            _temp.add(deep_copy(val, map));
+        });
+        return _temp;
+    }
+    // 处理数据和对象
+    for (const key in target) {
+        // 递归
+        _temp[key] = deep_copy(target[key], map);
+    }
+    return _temp;
 }
 
 export function get_page_url(): string {
