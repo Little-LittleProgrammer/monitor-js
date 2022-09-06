@@ -45,6 +45,8 @@ qm-web-monitor-sdk: 是一套前端监控sdk, 包括收集
 **什么是 monorepo**
 monorepo: (管理项目代码的一个方式，指在一个项目仓库 (repo) 中管理多个模块/包 (package)，不同于常见的每个模块建一个 repo).
 
+优秀的monorepo应该具备: 依赖管理能力(pnpm)、任务编排能力(monorepo)、版本发布能力(自写rollup脚本)
+
 目前大型的开源库:
     vue3、react、sentry、vite、nuxt、element-plus等等 都使用了monorepo的方式开发
 

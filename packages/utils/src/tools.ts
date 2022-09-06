@@ -41,7 +41,7 @@ export function deep_copy<T>(target: T, map = new Map()):T {
             }
         } else {
             // eslint-disable-next-line
-            return eval(_funcStr);
+            // return eval(_funcStr);
         }
     }
     // 拷贝Symbol
