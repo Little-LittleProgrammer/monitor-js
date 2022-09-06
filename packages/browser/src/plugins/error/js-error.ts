@@ -1,6 +1,6 @@
-import { BrowserErrorTypes, BrowserEventTypes, MonitorClassTypes } from '@qmonitor/enums';
+import { BrowserBreadcrumbTypes, BrowserErrorTypes, BrowserEventTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData } from '@qmonitor/types';
-import { get_error_uid, get_page_url, on, parse_stack_frames, _global } from '@qmonitor/utils';
+import { get_error_uid, get_page_url, get_timestamp, on, parse_stack_frames, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
 
 export interface ResourceErrorTarget {
@@ -29,6 +29,12 @@ const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
         return get_js_report_data(errorEvent);
     },
     consumer(reportData: ReportErrorData) {
+        this.report.breadcrumb.push({
+            type: BrowserBreadcrumbTypes.CODE_ERROR,
+            data: reportData.extraData,
+            level: SeverityLevel.Error,
+            time: reportData.time
+        });
         this.report.send(reportData, true);
     }
 };
@@ -52,6 +58,12 @@ const resourceErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient, Moni
         return get_resource_report_data(_target);
     },
     consumer(reportData: ReportErrorData) {
+        this.report.breadcrumb.push({
+            type: BrowserBreadcrumbTypes.RESOURCE,
+            data: reportData.extraData,
+            level: SeverityLevel.Error,
+            time: reportData.time
+        });
         this.report.send(reportData, true);
     }
 };
@@ -62,6 +74,7 @@ function get_resource_report_data(target: ResourceErrorTarget):ReportErrorData {
         type: 'error',
         subType: BrowserErrorTypes.RE,
         pageURL: get_page_url(),
+        time: get_timestamp(),
         extraData: {
             type: BrowserErrorTypes.RE,
             errorUid: get_error_uid(`${BrowserErrorTypes.RE}-${target.src}-${target.tagName}`),
@@ -82,6 +95,7 @@ function get_js_report_data(errorEvent: ErrorEvent):ReportErrorData {
         type: 'error',
         subType: BrowserErrorTypes.JE,
         pageURL: get_page_url(),
+        time: get_timestamp(),
         extraData: {
             type: (errorEvent.error && errorEvent.error.name) || 'UnKnown',
             errorUid: get_error_uid(`${BrowserErrorTypes.JE}-${errorEvent.message}-${errorEvent.filename}`),

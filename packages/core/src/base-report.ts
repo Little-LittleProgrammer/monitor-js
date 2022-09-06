@@ -1,6 +1,7 @@
 import { SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseOptionsType, ReportBaseInfo, ReportData} from '@qmonitor/types';
-import { get_timestamp, get_unique_id, get_uuid, isArray, isEmpty, isFunction, Queue } from '@qmonitor/utils';
+import { get_timestamp, get_unique_id, get_uuid, isEmpty, isFunction, Queue } from '@qmonitor/utils';
+import { Breadcrumb } from './breadcrumb';
 
 export abstract class BaseReport<
     Options extends BaseOptionsType = BaseOptionsType
@@ -12,6 +13,7 @@ export abstract class BaseReport<
     cacheNum = 50;
     beforeDataReport: Promise<ReportBaseInfo | null | undefined | boolean> | ReportBaseInfo | any | null | undefined | boolean = null;
     queue: Queue;
+    breadcrumb: Breadcrumb;
     submitErrorUids: string[];
     timer = null;
     constructor() {
@@ -35,6 +37,7 @@ export abstract class BaseReport<
         if (options.beforeDataReport) {
             this.beforeDataReport = options.beforeDataReport;
         }
+        this.breadcrumb = new Breadcrumb(options);
     }
 
     // send -> sendTime -> report
@@ -73,6 +76,9 @@ export abstract class BaseReport<
             time: get_timestamp(),
             ...data
         };
+        if (data.type === 'error') { // 如果类型是error, 上报用户行为栈, 以更好复现错误出现的操作
+            _reportData.breadcrumbData = this.breadcrumb.getStack();
+        }
         return _reportData;
     }
     /**
@@ -81,12 +87,7 @@ export abstract class BaseReport<
      * @returns 三次处理数据 ReportBaseInfo
      */
     addBaseInfo(data: ReportData | ReportData[]): ReportBaseInfo {
-        let _data = [];
-        if (isArray(data)) {
-            _data = [...data];
-        } else {
-            _data = [data];
-        }
+        const _data = data;
         const _reportData = {
             sdkVersion: SDK_VERSION,
             sdkName: SDK_NAME,

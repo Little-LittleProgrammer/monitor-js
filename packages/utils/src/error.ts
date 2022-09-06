@@ -1,3 +1,5 @@
+import { SeverityLevel } from '@qmonitor/enums';
+
 /**
  * 异常处理
  * @param fn try中执行的函数体
@@ -76,3 +78,32 @@ export function parse_stack_frames(error:Error) {
     }
     return frames.slice(0, STACKTRACE_LIMIT);
 }
+
+/**
+ * Converts a string-based level into a {@link Severity}.
+ *
+ * @param level string representation of Severity
+ * @returns Severity
+ */
+export function SeverityFromString(level: string): SeverityLevel {
+    switch (level) {
+        case 'debug':
+            return SeverityLevel.Debug;
+        case 'info':
+        case 'log':
+        case 'assert':
+            return SeverityLevel.Info;
+        case 'warn':
+        case 'warning':
+            return SeverityLevel.Warning;
+        case SeverityLevel.Low:
+        case SeverityLevel.Normal:
+        case SeverityLevel.High:
+        case SeverityLevel.Critical:
+        case 'error':
+            return SeverityLevel.Error;
+        default:
+            return SeverityLevel.Else;
+    }
+}
+

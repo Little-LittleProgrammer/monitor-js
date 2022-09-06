@@ -1,7 +1,7 @@
 import { BrowserClient } from '@qmonitor/browser';
-import { BrowserBehaviorTypes, BrowserEventTypes, MonitorClassTypes } from '@qmonitor/enums';
+import { BrowserBehaviorTypes, BrowserBreadcrumbTypes, BrowserEventTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType } from '@qmonitor/types';
-import { get_page_url, html_element_to_string, on, throttle_event, _global } from '@qmonitor/utils';
+import { get_page_url, get_timestamp, html_element_to_string, on, throttle_event, _global } from '@qmonitor/utils';
 import { ReportBehaviorData } from '../../types';
 
 export interface DomCollectedType {
@@ -47,6 +47,7 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
                 type: MonitorClassTypes.behavior,
                 subType: BrowserBehaviorTypes.CLICK,
                 pageURL: get_page_url(),
+                time: get_timestamp(),
                 extraData: {
                     startTime: e.timeStamp,
                     district: {
@@ -67,6 +68,12 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
     },
     consumer(reportData: ReportBehaviorData) {
         if (reportData) {
+            this.report.breadcrumb.push({
+                type: BrowserBreadcrumbTypes.CLICK,
+                data: reportData.extraData,
+                level: SeverityLevel.Info,
+                time: reportData.time
+            });
             this.report.send(reportData);
         }
     }

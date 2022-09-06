@@ -9,7 +9,9 @@ export const enum BrowserErrorTypes {
     JE= 'js-error',
     PE= 'promise-error',
     RE= 'resource-error',
-    VE= 'vue-error'
+    VE= 'vue-error',
+    FETCH = 'fetch',
+    XHR = 'xhr'
 }
 
 export const enum BrowserPerformanceTypes {
@@ -20,8 +22,6 @@ export const enum BrowserPerformanceTypes {
     CLS= 'cumulative-layout-shift',
     NT= 'navigation',
     RF= 'resource',
-    FETCH = 'fetch',
-    XHR = 'xhr',
     FMP= 'first-meaning-paint'
 }
 
@@ -49,3 +49,16 @@ export const enum BrowserEventTypes {
     NT= 'navigation',
     RF= 'resource',
 }
+
+// 浏览器 用户行为栈类型
+export const enum BrowserBreadcrumbTypes {
+    ROUTE = 'Route',
+    CLICK = 'UI.Click',
+    CONSOLE = 'Console',
+    XHR = 'Xhr',
+    FETCH = 'Fetch',
+    UNHANDLEDREJECTION = 'Unhandledrejection',
+    RESOURCE = 'Resource',
+    CODE_ERROR = 'Code Error',
+    CUSTOMER = 'Customer'
+  }
