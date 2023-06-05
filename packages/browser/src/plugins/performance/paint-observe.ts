@@ -18,7 +18,7 @@ const fpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                     type: 'performance',
                     subType: entry.name,
                     pageURL: get_page_url(),
-                    extraData: {
+                    mainData: {
                         ...entry.toJSON()
                     }
                 };

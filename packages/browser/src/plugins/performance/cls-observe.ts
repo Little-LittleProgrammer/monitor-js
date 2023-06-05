@@ -15,7 +15,7 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
             type: 'performance',
             subType: BrowserPerformanceTypes.CLS,
             pageURL: '',
-            extraData: {
+            mainData: {
                 value: 0
             }
         };
@@ -44,8 +44,8 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                         _sessionEntries = [format_cls_entry(entry)];
                     }
                     // 如果当前会话值大于当前CLS值，则更新, 找出最大的cls
-                    if (_sessionValue > _reportData.extraData.value) {
-                        _reportData.extraData = {
+                    if (_sessionValue > _reportData.mainData.value) {
+                        _reportData.mainData = {
                             entry: _entry,
                             value: _sessionValue,
                             entries: _sessionEntries

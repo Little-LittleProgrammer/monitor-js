@@ -18,7 +18,7 @@ const fidPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                     type: 'performance',
                     subType: BrowserPerformanceTypes.FID,
                     pageURL: get_page_url(),
-                    extraData: {
+                    mainData: {
                         ...entry.toJSON()
                     }
                 };

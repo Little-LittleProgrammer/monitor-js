@@ -30,7 +30,7 @@ export function route_transform(collectedData: RouteChangeCollectType, type: Bro
         subType: type,
         pageURL: get_page_url(),
         time: get_timestamp(),
-        extraData: {
+        mainData: {
             from,
             to
         }
@@ -39,10 +39,10 @@ export function route_transform(collectedData: RouteChangeCollectType, type: Bro
 }
 
 export function route_transformed_consumer(this: BrowserClient, transformedData: ReportBehaviorData) {
-    if (transformedData.extraData.from === transformedData.extraData.to) return;
+    if (transformedData.mainData.from === transformedData.mainData.to) return;
     this.report.breadcrumb.push({
         type: BrowserBreadcrumbTypes.ROUTE,
-        data: transformedData.extraData,
+        data: transformedData.mainData,
         level: SeverityLevel.Info,
         time: transformedData.time
     });

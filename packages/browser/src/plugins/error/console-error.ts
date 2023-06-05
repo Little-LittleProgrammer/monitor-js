@@ -17,7 +17,7 @@ const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
             subType: BrowserErrorTypes.CE,
             pageURL: get_page_url(),
             time: get_timestamp(),
-            extraData: {
+            mainData: {
                 type: '',
                 errorUid: get_error_uid(`console-error-${args[0]}`),
                 msg: args.join(';'),
@@ -30,7 +30,7 @@ const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     consumer(reportData: ReportErrorData) {
         this.report.breadcrumb.push({
             type: BrowserBreadcrumbTypes.CONSOLE,
-            data: reportData.extraData,
+            data: reportData.mainData,
             level: SeverityLevel.Error,
             time: reportData.time
         });

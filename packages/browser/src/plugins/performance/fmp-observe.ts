@@ -70,7 +70,7 @@ function check_dom_change(notify) {
                 type: 'performance',
                 subType: BrowserPerformanceTypes.FMP,
                 pageURL: get_page_url(),
-                extraData: {
+                mainData: {
                     startTime: get_render_time()
                 }
             };

@@ -1,12 +1,13 @@
 import { HttpTypes } from '@qmonitor/enums';
 import { BreadcrumbData } from './breadcrumb';
+import { HttpMethod } from './base-option-type';
 
 export interface ReportData {
     type: string; // 信息类型
     subType: string// 信息副类型
     pageURL: string; // 上报页面
     time?: number; // 上报时间
-    extraData: Record<string, any>
+    mainData: Record<string, any>
     breadcrumbData?: BreadcrumbData[]
 }
 export interface ReportBaseInfo {
@@ -26,7 +27,7 @@ export interface ReportErrorData<T extends string = any > extends ReportData {
     subType: T// 信息副类型
     pageURL: string; // 上报页面
     time?: number; // 上报时间
-    extraData: {
+    mainData: {
         type: string;
         errorUid: string;
         msg: string;
@@ -40,10 +41,10 @@ export interface ReportApiErrorData extends ReportData {
     subType: HttpTypes;// 信息副类型
     pageURL: string; // 上报页面
     time: number; // 上报时间
-    extraData: {
+    mainData: {
         errorUid: string;
         request: {
-            method?: string
+            method?: HttpMethod
             url?: string
             data?: any
         },
@@ -60,11 +61,11 @@ export interface ReportPerformanceData<T extends string = any > extends ReportDa
     type: 'performance'; // 信息类型
     subType: T// 信息副类型
     pageURL: string; // 上报页面
-    extraData: Record<string, any>
+    mainData: Record<string, any>
 }
 export interface ReportBehaviorData<T extends string = any > extends ReportData {
     type: 'behavior'; // 信息类型
     subType: T// 信息副类型
     pageURL: string; // 上报页面
-    extraData: Record<string, any>
+    mainData: Record<string, any>
 }

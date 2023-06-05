@@ -39,10 +39,10 @@ const resourcePlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
         const _reportData: ReportPerformanceData = {
             type: 'performance',
             subType: BrowserPerformanceTypes.RF,
-            extraData: {},
+            mainData: {},
             pageURL: ''
         };
-        _reportData.extraData = {
+        _reportData.mainData = {
             name: entry.name.split('/')[entry.name.split('/').length - 1], // 资源名称
             sourceType: entry.initiatorType, // 资源类型
             ttfb: entry.responseStart, // 首字节时间
@@ -79,11 +79,11 @@ const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> =
         const _reportData: ReportPerformanceData = {
             type: 'performance',
             subType: BrowserPerformanceTypes.NT,
-            extraData: {},
+            mainData: {},
             pageURL: ''
         };
         _reportData.pageURL = get_page_url();
-        _reportData.extraData = {
+        _reportData.mainData = {
             fp: entry.responseEnd - entry.fetchStart, // 白屏时间
             tti: entry.domInteractive - entry.fetchStart, // 首次可交互时间
             domReady: entry.domContentLoadedEventEnd - entry.fetchStart, // HTML加载完成时间

@@ -26,7 +26,7 @@ describe('js-error', () => {
             type: 'error',
             subType: 'js-error',
             pageURL: 'http://localhost/',
-            extraData: {
+            mainData: {
                 type: 'TypeError',
                 errorUid: get_error_uid(`js-error-${undefined}-${undefined}`),
                 msg: undefined,
@@ -44,7 +44,7 @@ describe('js-error', () => {
             }
         };
         const transformedData = jsErrorPlugin.transform.call(browserInstance, {error});
-        expect(transformedData.extraData.errorUid).toBe(mockCodeErrorData.extraData.errorUid); // 上报数据对比
+        expect(transformedData.mainData.errorUid).toBe(mockCodeErrorData.mainData.errorUid); // 上报数据对比
         done();
         // jsErrorPlugin.consumer.call(browserInstance, transformedData);
     });
@@ -56,7 +56,7 @@ describe('js-error', () => {
             } as unknown as HTMLElement
         };
         const transformedData = resourceErrorPlugin.transform.call(browserInstance, mockResourceErrorData);
-        expect(transformedData.extraData.msg).toBe(`资源地址: ${src}`); // 上报数据对比
+        expect(transformedData.mainData.msg).toBe(`资源地址: ${src}`); // 上报数据对比
         done();
         // resourceErrorPlugin.consumer.call(browserInstance, transformedData);
     });

@@ -43,11 +43,11 @@ export abstract class BaseReport<
     // send -> sendTime -> report
     async send(data: ReportData, isImmediate = false):Promise<void> {
         // 如果包含uid
-        if (data.extraData && data.extraData.errorUid) {
+        if (data.mainData && data.mainData.errorUid) {
             // 如果uid存在, 则不上报
-            const _hasSubmitStatus = this.submitErrorUids.indexOf(data.extraData.errorUid);
+            const _hasSubmitStatus = this.submitErrorUids.indexOf(data.mainData.errorUid);
             if (_hasSubmitStatus > -1) return;
-            this.submitErrorUids.push(data.extraData.errorUid);
+            this.submitErrorUids.push(data.mainData.errorUid);
         }
         let _reportData = { // 格式化上传数据
             ...this.formatReportData(data)

@@ -27,7 +27,7 @@ const promiseErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
             subType: BrowserErrorTypes.PE,
             pageURL: get_page_url(),
             time: get_timestamp(),
-            extraData: {
+            mainData: {
                 type: _type,
                 errorUid: get_error_uid(`${BrowserErrorTypes.PE}-${_msg}`),
                 msg: _msg,
@@ -42,7 +42,7 @@ const promiseErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     consumer(reportData: ReportErrorData) {
         this.report.breadcrumb.push({
             type: BrowserBreadcrumbTypes.UNHANDLEDREJECTION,
-            data: reportData.extraData,
+            data: reportData.mainData,
             level: SeverityLevel.Error,
             time: reportData.time
         });

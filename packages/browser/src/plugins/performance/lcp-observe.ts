@@ -28,7 +28,7 @@ const lcpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                     type: 'performance',
                     subType: BrowserPerformanceTypes.LCP,
                     pageURL: get_page_url(),
-                    extraData: {
+                    mainData: {
                         ...entry.toJSON()
                     }
                 };

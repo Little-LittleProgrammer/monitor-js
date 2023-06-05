@@ -16,7 +16,7 @@ const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, MonitorClassTypes
                     type: 'error',
                     subType: BrowserErrorTypes.VE,
                     pageURL: get_page_url(),
-                    extraData: {
+                    mainData: {
                         type: err.name,
                         errorUid: get_error_uid(`${BrowserErrorTypes.VE}-${err.message}-${info}`),
                         msg: err.stack || err.message,
@@ -39,14 +39,14 @@ const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, MonitorClassTypes
             if (isString(vue?.version)) {
                 switch (get_big_version(vue.version)) {
                     case 2:
-                        collectedData.extraData.meta = {
-                            ...collectedData.extraData.meta,
+                        collectedData.mainData.meta = {
+                            ...collectedData.mainData.meta,
                             ...vue2_vm_handler(vm) // 报错的Vue组件名
                         };
                         return collectedData;
                     case 3:
-                        collectedData.extraData.meta = {
-                            ...collectedData.extraData.meta,
+                        collectedData.mainData.meta = {
+                            ...collectedData.mainData.meta,
                             ...vue3_vm_handler(vm) // 报错的Vue组件名
                         };
                         return collectedData;

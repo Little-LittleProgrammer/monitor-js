@@ -123,7 +123,7 @@ const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
             type: 'error',
             subType: BrowserErrorTypes.CE,
             pageURL: get_page_url(),
-            extraData: {
+            mainData: {
                 type: '',
                 errorUid: get_error_uid(`console-error-${args[0]}`),
                 msg: args.join(';'),
@@ -151,7 +151,7 @@ export interface ReportData {
     subType: string// 信息副类型
     pageURL: string; // 上报页面
     startTime?: number; // 上报时间
-    extraData: Record<string, any>
+    mainData: Record<string, any>
 }
 
 log(data: ReportData, isImmediate)
@@ -179,7 +179,7 @@ methods: {
     log() {
         this.$log({
             type: 'log',
-            extraData: {
+            mainData: {
                 msg: '自定义上报'
             }
         }, true)
@@ -219,7 +219,7 @@ interface ReportData{
         subType: string; // 信息副类型
         pageURL: stirng; // 上报页面
         time?: number; // 上报时间
-        extraData: Record<string, any>; // 针对 某一项类型中的具体数据
+        mainData: Record<string, any>; // 针对 某一项类型中的具体数据
     }[]
 }
 ```

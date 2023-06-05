@@ -66,6 +66,7 @@ export function parse_stack_line(line: string) {
 
 // 解析错误堆栈
 export function parse_stack_frames(error:Error) {
+    if (!error) return [];
     const { stack } = error;
     // 无 stack 时直接返回
     if (!stack) return [];

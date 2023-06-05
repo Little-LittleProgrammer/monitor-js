@@ -23,13 +23,13 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes
     if (!('fetch' in _global)) return;
     _global.fetch = (url: string, config: Partial<Request> = {}):Promise<Response> => {
         const startTime = get_timestamp();
-        const method = ((config && config.method) || 'GET').toUpperCase();
+        const method = ((config && config.method) || 'GET').toUpperCase() as HttpMethod;
         const _reportData: ReportApiErrorData = {
             type: 'error',
             subType: BrowserErrorTypes.FETCH as unknown as HttpTypes.FETCH,
             pageURL: get_page_url(),
             time: startTime,
-            extraData: {
+            mainData: {
                 errorUid: get_error_uid(`${BrowserErrorTypes.FETCH}-${url.split('?')[0]}`),
                 request: {
                     method,
@@ -47,22 +47,22 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes
         return originalFetch(url, config).then(res => {
             const _data = res.clone();
             const _endTime = get_timestamp();
-            _reportData.extraData = {
-                ..._reportData.extraData,
+            _reportData.mainData = {
+                ..._reportData.mainData,
                 duration: _endTime - startTime,
                 response: {
                     status: _data.status
                 }
             };
             _data.text().then((data) => {
-                _reportData.extraData.response.data = data;
+                _reportData.mainData.response.data = data;
                 notify(BrowserErrorTypes.FETCH, _reportData);
             });
             return res;
         }).catch((err) => {
             const _endTime = get_timestamp();
-            _reportData.extraData = {
-                ..._reportData.extraData,
+            _reportData.mainData = {
+                ..._reportData.mainData,
                 duration: _endTime - startTime,
                 response: {
                     status: 0
@@ -105,7 +105,7 @@ function monitor_xhr(this:BrowserClient, notify: (eventName: BrowserErrorTypes, 
             subType: BrowserErrorTypes.XHR as unknown as HttpTypes.XHR,
             pageURL: get_page_url(),
             time: this.startTime,
-            extraData: {
+            mainData: {
                 request: {
                     method: isString(args[0]) ? args[0].toUpperCase() : args[0],
                     url: args[1]
@@ -122,11 +122,11 @@ function monitor_xhr(this:BrowserClient, notify: (eventName: BrowserErrorTypes, 
             this.duration = this.endTime - this.startTime;
 
             const { status, duration, response } = this;
-            this.httpCollect.extraData.response = {
+            this.httpCollect.mainData.response = {
                 status,
                 data: isObject(response) ? JSON.stringify(response) : response
             };
-            this.httpCollect.extraData.duration = duration;
+            this.httpCollect.mainData.duration = duration;
             notify(BrowserErrorTypes.XHR, this.httpCollect);
             off(this, 'loadend', onLoadend, true);
         };
@@ -141,39 +141,39 @@ function http_transformed_data(httpCollectedData: ReportApiErrorData): ReportApi
         request: { url },
         response: { status },
         duration
-    } = httpCollectedData.extraData;
+    } = httpCollectedData.mainData;
     if (status === 0) {
         message = duration <= globalVar.crossOriginThreshold ? 'http请求失败，失败原因：跨域限制或域名不存在' : 'http请求失败，失败原因：超时';
     } else {
         message = from_http_status(status);
     }
     message = message === SpanStatus.Ok ? message : `${message}: ${url}`;
-    httpCollectedData.extraData.msg = message;
+    httpCollectedData.mainData.msg = message;
     return httpCollectedData;
 }
 
 function http_consumer_data(this:BrowserClient, httpCollectedData: ReportApiErrorData) {
     const type = httpCollectedData.subType === HttpTypes.FETCH ? BrowserBreadcrumbTypes.FETCH : BrowserBreadcrumbTypes.XHR;
     const {
-        extraData: {response: { status }},
+        mainData: {response: { status }},
         time
     } = httpCollectedData;
     const isError = status === 0 || status === HttpCode.BAD_REQUEST || status > HttpCode.UNAUTHORIZED;
     this.report.breadcrumb.push({
         type,
-        data: httpCollectedData.extraData,
+        data: httpCollectedData.mainData,
         level: SeverityLevel.Info,
         time
     });
     if (isError) {
         this.report.breadcrumb.push({
             type,
-            data: httpCollectedData.extraData,
+            data: httpCollectedData.mainData,
             level: SeverityLevel.Error,
             time
         });
-        const {extraData: {request: {url}}} = httpCollectedData;
-        httpCollectedData.extraData.errorUid = get_error_uid(`${BrowserErrorTypes.XHR}-${url.split('?')[0]}`);
+        const {mainData: {request: {url}}} = httpCollectedData;
+        httpCollectedData.mainData.errorUid = get_error_uid(`${BrowserErrorTypes.XHR}-${url.split('?')[0]}`);
         this.report.send(httpCollectedData, true);
     }
 }

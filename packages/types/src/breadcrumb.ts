@@ -7,7 +7,7 @@ export interface BreadcrumbData {
      */
     type: BreadcrumbTypes,
     // string for click dom
-    data: ReportErrorData['extraData'] | ReportApiErrorData['extraData'] | string | number | object,
+    data: ReportErrorData['mainData'] | ReportApiErrorData['mainData'] | string | number | object,
     time?: number
     level: SeverityLevel
   }

@@ -31,7 +31,7 @@ const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     consumer(reportData: ReportErrorData) {
         this.report.breadcrumb.push({
             type: BrowserBreadcrumbTypes.CODE_ERROR,
-            data: reportData.extraData,
+            data: reportData.mainData,
             level: SeverityLevel.Error,
             time: reportData.time
         });
@@ -60,7 +60,7 @@ const resourceErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient, Moni
     consumer(reportData: ReportErrorData) {
         this.report.breadcrumb.push({
             type: BrowserBreadcrumbTypes.RESOURCE,
-            data: reportData.extraData,
+            data: reportData.mainData,
             level: SeverityLevel.Error,
             time: reportData.time
         });
@@ -75,7 +75,7 @@ function get_resource_report_data(target: ResourceErrorTarget):ReportErrorData {
         subType: BrowserErrorTypes.RE,
         pageURL: get_page_url(),
         time: get_timestamp(),
-        extraData: {
+        mainData: {
             type: BrowserErrorTypes.RE,
             errorUid: get_error_uid(`${BrowserErrorTypes.RE}-${target.src}-${target.tagName}`),
             msg: `资源地址: ` + _url,
@@ -96,7 +96,7 @@ function get_js_report_data(errorEvent: ErrorEvent):ReportErrorData {
         subType: BrowserErrorTypes.JE,
         pageURL: get_page_url(),
         time: get_timestamp(),
-        extraData: {
+        mainData: {
             type: (errorEvent.error && errorEvent.error.name) || 'UnKnown',
             errorUid: get_error_uid(`${BrowserErrorTypes.JE}-${errorEvent.message}-${errorEvent.filename}`),
             msg: (errorEvent as any).stack || errorEvent.message,

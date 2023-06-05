@@ -21,7 +21,7 @@ describe('hashRoutePlugin', () => {
             expect((hashRoutePlugin.consumer as jest.Mock).mock.calls.length).toBe(1);
             const queue = browserInstance.report.queue.get_cache();
             expect(queue[0].type).toBe('behavior');
-            expect(queue[0].extraData.to).toContain(to);
+            expect(queue[0].mainData.to).toContain(to);
             done();
         });
     });

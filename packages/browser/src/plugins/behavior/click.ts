@@ -48,7 +48,7 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
                 subType: BrowserBehaviorTypes.CLICK,
                 pageURL: get_page_url(),
                 time: get_timestamp(),
-                extraData: {
+                mainData: {
                     startTime: e.timeStamp,
                     district: {
                     },
@@ -57,7 +57,7 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
             };
             const _area = (e.target as any).getBoundingClientRect();
             if (_area) {
-                _reportData.extraData.district = {
+                _reportData.mainData.district = {
                     top: _area.top,
                     left: _area.left
                 };
@@ -70,7 +70,7 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
         if (reportData) {
             this.report.breadcrumb.push({
                 type: BrowserBreadcrumbTypes.CLICK,
-                data: reportData.extraData,
+                data: reportData.mainData,
                 level: SeverityLevel.Info,
                 time: reportData.time
             });
