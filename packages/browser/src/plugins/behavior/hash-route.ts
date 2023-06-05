@@ -46,7 +46,7 @@ export function route_transformed_consumer(this: BrowserClient, transformedData:
         level: SeverityLevel.Info,
         time: transformedData.time
     });
-    this.report.send(transformedData);
+    // this.report.send(transformedData);
 }
 
 export default hashRoutePlugin;

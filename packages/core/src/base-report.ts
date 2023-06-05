@@ -1,4 +1,4 @@
-import { SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
+import { BrowserEventTypes, SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseOptionsType, ReportBaseInfo, ReportData} from '@qmonitor/types';
 import { get_timestamp, get_unique_id, get_uuid, isEmpty, isFunction, Queue } from '@qmonitor/utils';
 import { Breadcrumb } from './breadcrumb';
@@ -76,7 +76,7 @@ export abstract class BaseReport<
             time: get_timestamp(),
             ...data
         };
-        if (data.type === 'error') { // 如果类型是error, 上报用户行为栈, 以更好复现错误出现的操作
+        if (data.type === BrowserEventTypes.ERROR) { // 如果类型是error, 上报用户行为栈, 以更好复现错误出现的操作
             _reportData.breadcrumbData = this.breadcrumb.getStack();
         }
         return _reportData;

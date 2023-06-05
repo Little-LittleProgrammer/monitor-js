@@ -74,7 +74,7 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
                 level: SeverityLevel.Info,
                 time: reportData.time
             });
-            this.report.send(reportData);
+            // this.report.send(reportData); // 行为数据只需加到行为栈即可
         }
     }
 };
