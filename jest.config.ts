@@ -1,5 +1,5 @@
-import type {Config} from '@jest/types';
-const config: Config.InitialOptions = {
+import type {Config} from 'jest';
+const config: Config = {
     collectCoverage: true,
     testEnvironment: 'jsdom',
     preset: 'ts-jest',

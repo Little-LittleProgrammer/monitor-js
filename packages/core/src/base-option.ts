@@ -1,4 +1,4 @@
-import { BaseOptionsType, VueInstance, VueRouter } from '@qmonitor/types';
+import { BaseOptionsType, VueInstance } from '@qmonitor/types';
 import { isFunction } from '@qmonitor/utils';
 
 export class BaseOptions<Options extends BaseOptionsType = BaseOptionsType> {

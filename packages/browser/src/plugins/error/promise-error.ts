@@ -1,6 +1,6 @@
-import { BrowserErrorTypes, BrowserEventTypes, MonitorClassTypes } from '@qmonitor/enums';
+import { BrowserBreadcrumbTypes, BrowserErrorTypes, BrowserEventTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData } from '@qmonitor/types';
-import { get_error_uid, get_page_url, on, parse_stack_frames, _global } from '@qmonitor/utils';
+import { get_error_uid, get_page_url, get_timestamp, on, parse_stack_frames, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
 
 export interface ResourceErrorTarget {
@@ -23,10 +23,11 @@ const promiseErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
         const _msg = errorEvent.reason.stack || errorEvent.reason.message || errorEvent.reason;
         const _type = errorEvent.reason.name || 'UnKnown';
         const _reportData: ReportErrorData = {
-            type: 'error',
+            type: MonitorClassTypes.error,
             subType: BrowserErrorTypes.PE,
             pageURL: get_page_url(),
-            extraData: {
+            time: get_timestamp(),
+            mainData: {
                 type: _type,
                 errorUid: get_error_uid(`${BrowserErrorTypes.PE}-${_msg}`),
                 msg: _msg,
@@ -39,6 +40,12 @@ const promiseErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
         return _reportData;
     },
     consumer(reportData: ReportErrorData) {
+        this.report.breadcrumb.push({
+            type: BrowserBreadcrumbTypes.UNHANDLEDREJECTION,
+            data: reportData.mainData,
+            level: SeverityLevel.Error,
+            time: reportData.time
+        });
         this.report.send(reportData, true);
     }
 };

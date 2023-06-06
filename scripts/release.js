@@ -19,6 +19,7 @@ async function release() {
     if (beReleasedPackages.length === 0) {
         beReleasedPackages = allTargets;
     }
+    console.log(beReleasedPackages)
     const _flag = await sizeCheck(beReleasedPackages);
     if (_flag) {
         step(`\nbeReleasedPackages:\n ${beReleasedPackages.join('\n')}`);

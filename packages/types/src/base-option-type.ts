@@ -1,3 +1,4 @@
+import { BreadcrumbData } from './breadcrumb';
 import { ReportBaseInfo } from './report-data-type';
 import { VueInstance } from './vue-types';
 
@@ -22,7 +23,10 @@ export interface BaseOptionsFieldsType { // 基本属性
     userID?: string; // 用户ID
     cacheNum?:number; // 缓存数据
     sample?: number; // 采样率
-    vue?: VueInstance
+    vue?: VueInstance; // vue
+    maxBreadcrumbs?: number; // 最大用户行为栈缓存数
+    ignoreErrors?: string[]; // 忽略的错误
+    resourceLimitSize?: number; // 控制资源上传大小
 }
 
 export interface BaseOptionsHooksType { // 自定义钩子
@@ -36,6 +40,15 @@ export interface BaseOptionsHooksType { // 自定义钩子
      * @memberof BaseOptionsHooksType
     */
     beforeDataReport?(event: ReportBaseInfo):Promise<ReportBaseInfo | CANCEL> | ReportBaseInfo | any | CANCEL
+    /**
+     * 钩子函数:在每次添加用户行为事件前都会调用
+     *
+     * @param {Breadcrumb} breadcrumb Breadcrumb的实例
+     * @param {BreadcrumbPushData} hint 单次推入用户行为栈的数据
+     * @return {*}  {(BreadcrumbPushData | CANCEL)} 如果返回 null | undefined | boolean 时，将忽略本次的push
+     * @memberof BaseOptionsHooksType
+     */
+    beforePushBreadcrumb?(hint: BreadcrumbData): BreadcrumbData | CANCEL
     /**
      * 钩子函数:拦截用户页面的ajax请求，并在ajax请求发送前执行该hook，可以对用户发送的ajax请求做xhr.setRequestHeader
      *

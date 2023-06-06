@@ -1,0 +1,33 @@
+{
+    "name": "@qmonitor/wx-mini",
+    "version": "2.3.1",
+    "description": "浏览器",
+    "private": true,
+    "keywords": [
+        "qm-web-monitor-sdk",
+        "qmMonitorJs",
+        "sdk",
+        "vue",
+        "monitor"
+    ],
+    "author": "Evan Wu <wuanle@qimao.com>",
+    "homepage": "README.md",
+    "license": "ISC",
+    "main": "index.js",
+    "module": "dist/wx-mini.esm.min.js",
+    "types": "dist/wx-mini.d.ts",
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "registry": "https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/"
+    },
+    "scripts": {
+        "test": "echo \"Error: run tests from root\" && exit 1"
+    },
+    "dependencies": {
+        "@qmonitor/core": "^2.3.1",
+        "@qmonitor/utils": "^2.3.1",
+        "@qmonitor/enums": "^2.3.1"
+    }
+}

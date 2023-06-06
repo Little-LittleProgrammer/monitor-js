@@ -1,6 +1,6 @@
 {
   "name": "qm-web-monitor-sdk",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "private": true,
   "license": "ISC",
   "author": "Evan Wu",
@@ -11,10 +11,12 @@
     "release": "node scripts/release.js",
     "test": "jest",
     "size": "filesize",
-    "export": "node scripts/create-export.js"
+    "export": "node scripts/create-export.js",
+    "change": "changeset"
   },
   "devDependencies": {
     "@ampproject/filesize": "^4.3.0",
+    "@changesets/cli": "^2.24.3",
     "@microsoft/api-extractor": "7.18.11",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-json": "^4.1.0",
@@ -51,7 +53,6 @@
     "browser",
     "miniProgram"
   ],
-  "dependencies": {},
   "publishConfig": {
     "registry": "https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/"
   },

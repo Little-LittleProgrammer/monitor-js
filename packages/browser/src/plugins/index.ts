@@ -2,7 +2,7 @@ import consoleErrorPlugin from './error/console-error';
 import {jsErrorPlugin, resourceErrorPlugin} from './error/js-error';
 import promiseErrorPlugin from './error/promise-error';
 
-import { xhrPlugin, fetchPlugin } from './performance/api-observe';
+import { xhrPlugin, fetchPlugin } from './error/api-error';
 import clsPlugin from './performance/cls-observe';
 import fidPlugin from './performance/fid-observe';
 import fmpPlugin from './performance/fmp-observe';

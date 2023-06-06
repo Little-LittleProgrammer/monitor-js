@@ -84,6 +84,24 @@ export function isMap(val: unknown): val is Map<any, any> {
     return is(val, 'Map');
 }
 
+export function isSet(val: unknown): val is Set<any> {
+    return is(val, 'Set');
+}
+
+export function isSymbol(val: unknown): val is symbol {
+    return is(val, 'Symbol');
+}
+
+// 是否是基本数据类型
+export function isBase(val: unknown): boolean {
+    // 可遍历的引用类型
+    let _flag = !(isMap(val) || isSet(val) || isArray(val) || isObject(val));
+    // 不可遍历的引用类型
+    _flag = _flag && !(isSymbol(val) || isRegExp(val) || isFunction(val));
+
+    return _flag;
+}
+
 export function isWindow(val: any): val is Window {
     return typeof window !== 'undefined' && is(val, 'Window');
 }

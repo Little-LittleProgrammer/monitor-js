@@ -15,10 +15,10 @@ const fidPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
             }
             for (const entry of list.getEntries()) {
                 const _reportData:ReportPerformanceData = {
-                    type: 'performance',
+                    type: MonitorClassTypes.performance,
                     subType: BrowserPerformanceTypes.FID,
                     pageURL: get_page_url(),
-                    extraData: {
+                    mainData: {
                         ...entry.toJSON()
                     }
                 };

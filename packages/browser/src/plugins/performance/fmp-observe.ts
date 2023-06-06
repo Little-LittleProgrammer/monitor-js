@@ -67,10 +67,10 @@ function check_dom_change(notify) {
         if (is_lcp_done() && _isOnLoaded) {
             _observer && _observer.disconnect();
             const _reportData = {
-                type: 'performance',
+                type:MonitorClassTypes.performance,
                 subType: BrowserPerformanceTypes.FMP,
                 pageURL: get_page_url(),
-                extraData: {
+                mainData: {
                     startTime: get_render_time()
                 }
             };

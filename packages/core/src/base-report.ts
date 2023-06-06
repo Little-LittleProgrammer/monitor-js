@@ -1,6 +1,7 @@
-import { SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
+import { BrowserEventTypes, SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseOptionsType, ReportBaseInfo, ReportData} from '@qmonitor/types';
-import { get_timestamp, get_unique_id, get_uuid, isArray, isEmpty, isFunction, Queue } from '@qmonitor/utils';
+import { get_timestamp, get_unique_id, get_uuid, isArray, isEmpty, isFunction, isNumber, Queue } from '@qmonitor/utils';
+import { Breadcrumb } from './breadcrumb';
 
 export abstract class BaseReport<
     Options extends BaseOptionsType = BaseOptionsType
@@ -12,6 +13,9 @@ export abstract class BaseReport<
     cacheNum = 50;
     beforeDataReport: Promise<ReportBaseInfo | null | undefined | boolean> | ReportBaseInfo | any | null | undefined | boolean = null;
     queue: Queue;
+    breadcrumb: Breadcrumb;
+    ignoreErrors: string[];
+    resourceLimitSize: number
     submitErrorUids: string[];
     timer = null;
     constructor() {
@@ -35,16 +39,35 @@ export abstract class BaseReport<
         if (options.beforeDataReport) {
             this.beforeDataReport = options.beforeDataReport;
         }
+        this.breadcrumb = new Breadcrumb(options);
+        this.ignoreErrors = options.ignoreErrors;
+        this.resourceLimitSize = options.resourceLimitSize || 0
     }
 
     // send -> sendTime -> report
     async send(data: ReportData, isImmediate = false):Promise<void> {
-        // 如果包含uid
-        if (data.extraData && data.extraData.errorUid) {
+        // 如果包含uid, 代表是错误
+        if (data.mainData && data.mainData.errorUid) {
             // 如果uid存在, 则不上报
-            const _hasSubmitStatus = this.submitErrorUids.indexOf(data.extraData.errorUid);
+            const _hasSubmitStatus = this.submitErrorUids.indexOf(data.mainData.errorUid);
             if (_hasSubmitStatus > -1) return;
-            this.submitErrorUids.push(data.extraData.errorUid);
+
+            // 需要忽略的错误
+            if (isArray(this.ignoreErrors) && this.ignoreErrors.length > 0) {
+                for (let ingore of this.ignoreErrors) {
+                    if (data.mainData.msg?.includes(ingore)) {
+                        return
+                    }
+                }
+            }
+            this.submitErrorUids.push(data.mainData.errorUid);
+        }
+        // 如果是资源类型
+        if(data.type === 'performance' && data.subType === 'resource') {
+            // 资源类型不到上报警戒大小, 则不上报
+            if (isNumber(data.mainData.transferSize) && data.mainData.transferSize < this.resourceLimitSize) {
+                return;
+            }
         }
         let _reportData = { // 格式化上传数据
             ...this.formatReportData(data)
@@ -73,6 +96,9 @@ export abstract class BaseReport<
             time: get_timestamp(),
             ...data
         };
+        if (data.type === BrowserEventTypes.ERROR) { // 如果类型是error, 上报用户行为栈, 以更好复现错误出现的操作
+            _reportData.breadcrumbData = this.breadcrumb.getStack();
+        }
         return _reportData;
     }
     /**
@@ -81,12 +107,7 @@ export abstract class BaseReport<
      * @returns 三次处理数据 ReportBaseInfo
      */
     addBaseInfo(data: ReportData | ReportData[]): ReportBaseInfo {
-        let _data = [];
-        if (isArray(data)) {
-            _data = [...data];
-        } else {
-            _data = [data];
-        }
+        const _data = data;
         const _reportData = {
             sdkVersion: SDK_VERSION,
             sdkName: SDK_NAME,
