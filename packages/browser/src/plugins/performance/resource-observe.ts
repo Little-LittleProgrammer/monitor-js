@@ -37,7 +37,7 @@ const resourcePlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     },
     transform(entry: SourceEntryType) {
         const _reportData: ReportPerformanceData = {
-            type: 'performance',
+            type: MonitorClassTypes.performance,
             subType: BrowserPerformanceTypes.RF,
             mainData: {},
             pageURL: ''
@@ -77,7 +77,7 @@ const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> =
     },
     transform(entry: SourceEntryType) {
         const _reportData: ReportPerformanceData = {
-            type: 'performance',
+            type: MonitorClassTypes.performance,
             subType: BrowserPerformanceTypes.NT,
             mainData: {},
             pageURL: ''

@@ -1,6 +1,6 @@
 import { BrowserBreadcrumbTypes, BrowserErrorTypes, BrowserEventTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData } from '@qmonitor/types';
-import { get_error_uid, get_page_url, get_timestamp, on, parse_stack_frames, _global } from '@qmonitor/utils';
+import { get_error_uid, get_page_url, get_timestamp, on, parse_stack_frames, _global, deep_copy } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
 
 export interface ResourceErrorTarget {
@@ -31,7 +31,7 @@ const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     consumer(reportData: ReportErrorData) {
         this.report.breadcrumb.push({
             type: BrowserBreadcrumbTypes.CODE_ERROR,
-            data: reportData.mainData,
+            data: deep_copy(reportData.mainData),
             level: SeverityLevel.Error,
             time: reportData.time
         });
@@ -71,7 +71,7 @@ const resourceErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient, Moni
 function get_resource_report_data(target: ResourceErrorTarget):ReportErrorData {
     const _url = target.src || target.href;
     const _reportData: ReportErrorData = {
-        type: 'error',
+        type: MonitorClassTypes.error,
         subType: BrowserErrorTypes.RE,
         pageURL: get_page_url(),
         time: get_timestamp(),
@@ -92,7 +92,7 @@ function get_resource_report_data(target: ResourceErrorTarget):ReportErrorData {
 
 function get_js_report_data(errorEvent: ErrorEvent):ReportErrorData {
     const _reportData: ReportErrorData = {
-        type: 'error',
+        type: MonitorClassTypes.error,
         subType: BrowserErrorTypes.JE,
         pageURL: get_page_url(),
         time: get_timestamp(),

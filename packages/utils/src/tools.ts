@@ -103,17 +103,17 @@ export function get_big_version(version: string) {
 export function get_uuid() { // 用户id
     let _uuid = '';
     if (isWindow) {
-        _uuid = localStorage.getItem('uuid');
+        _uuid = localStorage.getItem('qmonitor_uuid');
         if (_uuid) return _uuid;
         _uuid = get_unique_id(16);
-        localStorage.setItem('uuid', _uuid);
+        localStorage.setItem('qmonitor_uuid', _uuid);
         return _uuid;
     }
     if (isWx) {
-        _uuid = wx.getStorageSync('uuid');
+        _uuid = wx.getStorageSync('qmonitor_uuid');
         if (_uuid) return _uuid;
         _uuid = get_unique_id(16);
-        wx.setStorageSync('uuid', _uuid);
+        wx.setStorageSync('qmonitor_uuid', _uuid);
         return _uuid;
     }
 }

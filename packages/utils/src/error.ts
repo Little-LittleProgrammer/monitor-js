@@ -86,7 +86,7 @@ export function parse_stack_frames(error:Error) {
  * @param level string representation of Severity
  * @returns Severity
  */
-export function SeverityFromString(level: string): SeverityLevel {
+export function severity_from_string(level: string): SeverityLevel {
     switch (level) {
         case 'debug':
             return SeverityLevel.Debug;

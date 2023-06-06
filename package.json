@@ -59,9 +59,6 @@
   "filesize": {
     "./packages/browser/dist/browser.min.js": {
       "none": "24 kB"
-    },
-    "./packages/browser/dist/wx-mini.min.js": {
-      "none": "24 kB"
     }
   }
 }

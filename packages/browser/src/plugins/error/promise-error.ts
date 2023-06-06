@@ -23,7 +23,7 @@ const promiseErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
         const _msg = errorEvent.reason.stack || errorEvent.reason.message || errorEvent.reason;
         const _type = errorEvent.reason.name || 'UnKnown';
         const _reportData: ReportErrorData = {
-            type: 'error',
+            type: MonitorClassTypes.error,
             subType: BrowserErrorTypes.PE,
             pageURL: get_page_url(),
             time: get_timestamp(),

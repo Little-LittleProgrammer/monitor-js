@@ -25,6 +25,8 @@ export interface BaseOptionsFieldsType { // 基本属性
     sample?: number; // 采样率
     vue?: VueInstance; // vue
     maxBreadcrumbs?: number; // 最大用户行为栈缓存数
+    ignoreErrors?: string[]; // 忽略的错误
+    resourceLimitSize?: number; // 控制资源上传大小
 }
 
 export interface BaseOptionsHooksType { // 自定义钩子

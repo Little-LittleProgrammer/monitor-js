@@ -1,9 +1,9 @@
-import { HttpTypes } from '@qmonitor/enums';
+import { HttpTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BreadcrumbData } from './breadcrumb';
 import { HttpMethod } from './base-option-type';
 
 export interface ReportData {
-    type: string; // 信息类型
+    type: keyof typeof MonitorClassTypes; // 信息类型
     subType: string// 信息副类型
     pageURL: string; // 上报页面
     time?: number; // 上报时间
@@ -23,7 +23,7 @@ export interface ReportBaseInfo {
 
 // web 错误数据
 export interface ReportErrorData<T extends string = any > extends ReportData {
-    type: 'error'; // 信息类型
+    type: MonitorClassTypes.error; // 信息类型
     subType: T// 信息副类型
     pageURL: string; // 上报页面
     time?: number; // 上报时间
@@ -37,7 +37,7 @@ export interface ReportErrorData<T extends string = any > extends ReportData {
 }
 
 export interface ReportApiErrorData extends ReportData {
-    type: 'error'; // 信息类型
+    type: MonitorClassTypes.error; // 信息类型
     subType: HttpTypes;// 信息副类型
     pageURL: string; // 上报页面
     time: number; // 上报时间
@@ -58,13 +58,13 @@ export interface ReportApiErrorData extends ReportData {
 }
 
 export interface ReportPerformanceData<T extends string = any > extends ReportData {
-    type: 'performance'; // 信息类型
+    type: MonitorClassTypes.performance; // 信息类型
     subType: T// 信息副类型
     pageURL: string; // 上报页面
     mainData: Record<string, any>
 }
 export interface ReportBehaviorData<T extends string = any > extends ReportData {
-    type: 'behavior'; // 信息类型
+    type: MonitorClassTypes.behavior; // 信息类型
     subType: T// 信息副类型
     pageURL: string; // 上报页面
     mainData: Record<string, any>

@@ -13,7 +13,7 @@ const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     },
     transform(args: any[]) {
         const _reportData:ReportErrorData = {
-            type: 'error',
+            type: MonitorClassTypes.error,
             subType: BrowserErrorTypes.CE,
             pageURL: get_page_url(),
             time: get_timestamp(),

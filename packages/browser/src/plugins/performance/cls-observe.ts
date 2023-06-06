@@ -12,7 +12,7 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
         let _sessionValue = 0;
         let _sessionEntries = [];
         const _reportData: ReportPerformanceData = {
-            type: 'performance',
+            type: MonitorClassTypes.performance,
             subType: BrowserPerformanceTypes.CLS,
             pageURL: '',
             mainData: {

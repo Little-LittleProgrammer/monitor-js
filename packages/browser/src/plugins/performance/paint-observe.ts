@@ -15,7 +15,7 @@ const fpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                     _observer.disconnect();
                 }
                 const _reportData = {
-                    type: 'performance',
+                    type: MonitorClassTypes.performance,
                     subType: entry.name,
                     pageURL: get_page_url(),
                     mainData: {

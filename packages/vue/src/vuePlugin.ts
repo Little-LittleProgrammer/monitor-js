@@ -13,7 +13,7 @@ const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, MonitorClassTypes
             const originErrorHandle = vue.config.errorHandler;
             vue.config.errorHandler = (err: Error, vm: ViewModel, info: string):void => {
                 const _report: ReportErrorData = {
-                    type: 'error',
+                    type: MonitorClassTypes.error,
                     subType: BrowserErrorTypes.VE,
                     pageURL: get_page_url(),
                     mainData: {

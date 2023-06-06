@@ -25,7 +25,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes
         const startTime = get_timestamp();
         const method = ((config && config.method) || 'GET').toUpperCase() as HttpMethod;
         const _reportData: ReportApiErrorData = {
-            type: 'error',
+            type: MonitorClassTypes.error,
             subType: BrowserErrorTypes.FETCH as unknown as HttpTypes.FETCH,
             pageURL: get_page_url(),
             time: startTime,
@@ -101,7 +101,7 @@ function monitor_xhr(this:BrowserClient, notify: (eventName: BrowserErrorTypes, 
         this.method = args[0];
         this.startTime = get_timestamp();
         this.httpCollect = {
-            type: 'error',
+            type: MonitorClassTypes.error,
             subType: BrowserErrorTypes.XHR as unknown as HttpTypes.XHR,
             pageURL: get_page_url(),
             time: this.startTime,
