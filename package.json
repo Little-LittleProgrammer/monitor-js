@@ -1,6 +1,6 @@
 {
   "name": "qm-web-monitor-sdk",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "private": true,
   "license": "ISC",
   "author": "Evan Wu",
@@ -58,7 +58,7 @@
   },
   "filesize": {
     "./packages/browser/dist/browser.min.js": {
-      "none": "24 kB"
+      "none": "25 kB"
     }
   }
 }
