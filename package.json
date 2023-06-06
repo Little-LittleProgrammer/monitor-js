@@ -1,13 +1,13 @@
 {
   "name": "qm-web-monitor-sdk",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "private": true,
   "license": "ISC",
   "author": "Evan Wu",
   "scripts": {
     "build": "pnpm test && node scripts/build.js",
     "watch": "node scripts/build.js --watch=true",
-    "version": "node scripts/version.js",
+    "changeversion": "node scripts/version.js",
     "release": "node scripts/release.js",
     "test": "jest",
     "size": "filesize",
