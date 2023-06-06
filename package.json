@@ -7,7 +7,7 @@
   "scripts": {
     "build": "pnpm test && node scripts/build.js",
     "watch": "node scripts/build.js --watch=true",
-    "version": "node scripts/version.js",
+    "changeversion": "node scripts/version.js",
     "release": "node scripts/release.js",
     "test": "jest",
     "size": "filesize",

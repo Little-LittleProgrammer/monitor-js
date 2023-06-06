@@ -68,9 +68,9 @@ importers:
 
   packages/browser:
     specifiers:
-      '@qmonitor/core': ^2.3.1
-      '@qmonitor/enums': ^2.3.1
-      '@qmonitor/utils': ^2.3.1
+      '@qmonitor/core': ^2.3.2
+      '@qmonitor/enums': ^2.3.2
+      '@qmonitor/utils': ^2.3.2
     dependencies:
       '@qmonitor/core': link:../core
       '@qmonitor/enums': link:../enums
@@ -78,9 +78,9 @@ importers:
 
   packages/core:
     specifiers:
-      '@qmonitor/enums': ^2.3.1
-      '@qmonitor/types': ^2.3.1
-      '@qmonitor/utils': ^2.3.1
+      '@qmonitor/enums': ^2.3.2
+      '@qmonitor/types': ^2.3.2
+      '@qmonitor/utils': ^2.3.2
     dependencies:
       '@qmonitor/enums': link:../enums
       '@qmonitor/types': link:../types
@@ -91,9 +91,9 @@ importers:
 
   packages/types:
     specifiers:
-      '@qmonitor/core': ^2.3.1
-      '@qmonitor/enums': ^2.3.1
-      '@qmonitor/utils': ^2.3.1
+      '@qmonitor/core': ^2.3.2
+      '@qmonitor/enums': ^2.3.2
+      '@qmonitor/utils': ^2.3.2
     dependencies:
       '@qmonitor/core': link:../core
       '@qmonitor/enums': link:../enums
@@ -104,10 +104,10 @@ importers:
 
   packages/vue:
     specifiers:
-      '@qmonitor/core': ^2.3.1
-      '@qmonitor/enums': ^2.3.1
-      '@qmonitor/types': ^2.3.1
-      '@qmonitor/utils': ^2.3.1
+      '@qmonitor/core': ^2.3.2
+      '@qmonitor/enums': ^2.3.2
+      '@qmonitor/types': ^2.3.2
+      '@qmonitor/utils': ^2.3.2
     dependencies:
       '@qmonitor/core': link:../core
       '@qmonitor/enums': link:../enums
