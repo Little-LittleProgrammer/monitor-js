@@ -1,7 +1,7 @@
 import { BrowserClient } from '@qmonitor/browser';
-import { BrowserBehaviorTypes, BrowserEventTypes, MonitorClassTypes } from '@qmonitor/enums';
+import { BrowserBehaviorTypes, BrowserBreadcrumbTypes, BrowserEventTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType, RouteChangeCollectType } from '@qmonitor/types';
-import { get_page_url, isExistProperty, on, _global } from '@qmonitor/utils';
+import { get_page_url, get_timestamp, isExistProperty, on, _global } from '@qmonitor/utils';
 import { ReportBehaviorData } from '../../types';
 
 const hashRoutePlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
@@ -29,7 +29,8 @@ export function route_transform(collectedData: RouteChangeCollectType, type: Bro
         type: MonitorClassTypes.behavior,
         subType: type,
         pageURL: get_page_url(),
-        extraData: {
+        time: get_timestamp(),
+        mainData: {
             from,
             to
         }
@@ -38,8 +39,14 @@ export function route_transform(collectedData: RouteChangeCollectType, type: Bro
 }
 
 export function route_transformed_consumer(this: BrowserClient, transformedData: ReportBehaviorData) {
-    if (transformedData.extraData.from === transformedData.extraData.to) return;
-    this.report.send(transformedData);
+    if (transformedData.mainData.from === transformedData.mainData.to) return;
+    this.report.breadcrumb.push({
+        type: BrowserBreadcrumbTypes.ROUTE,
+        data: transformedData.mainData,
+        level: SeverityLevel.Info,
+        time: transformedData.time
+    });
+    // this.report.send(transformedData);
 }
 
 export default hashRoutePlugin;

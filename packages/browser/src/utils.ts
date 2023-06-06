@@ -1,4 +1,6 @@
+import { BreadcrumbData } from '@qmonitor/types';
 import { _global } from '@qmonitor/utils';
+import { BrowserClient } from './browser-client';
 
 // 获取浏览器是否支持sendBeacon(同步请求不阻塞浏览器进程)
 export function is_support_send_beacon():boolean {

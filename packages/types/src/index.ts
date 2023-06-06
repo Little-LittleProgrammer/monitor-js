@@ -3,3 +3,4 @@ export * from './base-option-type';
 export * from './base-plugin-type';
 export * from './report-data-type';
 export * from './vue-types';
+export * from './breadcrumb';

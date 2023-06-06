@@ -14,11 +14,11 @@ const pvPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
             type: MonitorClassTypes.behavior,
             subType: BrowserBehaviorTypes.PV,
             pageURL: get_page_url(),
-            extraData: {
+            mainData: {
             }
         };
         if ('document' in _global) {
-            _reportData.extraData.referrer = document.referrer;
+            _reportData.mainData.referrer = document.referrer;
         }
         return _reportData;
     },
