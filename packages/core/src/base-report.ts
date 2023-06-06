@@ -15,8 +15,9 @@ export abstract class BaseReport<
     queue: Queue;
     breadcrumb: Breadcrumb;
     ignoreErrors: string[];
-    resourceLimitSize: number
+    resourceLimitSize: number;
     submitErrorUids: string[];
+    environment: string;
     timer = null;
     constructor() {
         this.queue = new Queue(); // 缓存
@@ -42,6 +43,7 @@ export abstract class BaseReport<
         this.breadcrumb = new Breadcrumb(options);
         this.ignoreErrors = options.ignoreErrors;
         this.resourceLimitSize = options.resourceLimitSize || 0
+        this.environment = options.environment
     }
 
     // send -> sendTime -> report
@@ -56,7 +58,7 @@ export abstract class BaseReport<
             if (isArray(this.ignoreErrors) && this.ignoreErrors.length > 0) {
                 for (let ingore of this.ignoreErrors) {
                     if (data.mainData.msg?.includes(ingore)) {
-                        return
+                        return;
                     }
                 }
             }
@@ -115,6 +117,7 @@ export abstract class BaseReport<
             appID: this.appID,
             userID: this.userID,
             appName: this.appName,
+            environment: this.environment,
             data: _data
         };
         return _reportData;
