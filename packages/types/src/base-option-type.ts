@@ -27,6 +27,7 @@ export interface BaseOptionsFieldsType { // 基本属性
     maxBreadcrumbs?: number; // 最大用户行为栈缓存数
     ignoreErrors?: string[]; // 忽略的错误
     resourceLimitSize?: number; // 控制资源上传大小
+    environment?: string; // 环境
 }
 
 export interface BaseOptionsHooksType { // 自定义钩子

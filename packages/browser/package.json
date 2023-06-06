@@ -1,6 +1,6 @@
 {
     "name": "@qmonitor/browser",
-    "version": "2.3.3",
+    "version": "2.3.4",
     "description": "浏览器",
     "keywords": [
         "qm-web-monitor-sdk",
@@ -25,9 +25,9 @@
         "test": "echo \"Error: run tests from root\" && exit 1"
     },
     "dependencies": {
-        "@qmonitor/core": "^2.3.3",
-        "@qmonitor/utils": "^2.3.3",
-        "@qmonitor/enums": "^2.3.3"
+        "@qmonitor/core": "^2.3.4",
+        "@qmonitor/utils": "^2.3.4",
+        "@qmonitor/enums": "^2.3.4"
     },
     "buildOptions": {
         "formats": [
