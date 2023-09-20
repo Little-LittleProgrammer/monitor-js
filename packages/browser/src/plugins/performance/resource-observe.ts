@@ -120,7 +120,7 @@ function observe_event(this:BrowserClient, entryType:BrowserPerformanceTypes, no
             // nextHopProtocol 属性为空，说明资源解析错误或者跨域
             // beacon 用于上报数据，所以不统计。xhr fetch 单独统计
             if ((!_entry.nextHopProtocol && entryType !== 'navigation') || filter(_entry.initiatorType)) {
-                return;
+                continue;
             }
             notify(entryType, _entry);
         }
