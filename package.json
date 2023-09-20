@@ -57,7 +57,7 @@
     "registry": "https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/"
   },
   "filesize": {
-    "./packages/browser/dist/browser.min.js": {
+    "./packages/browser/dist/*.js": {
       "none": "25 kB"
     }
   }
