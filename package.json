@@ -1,6 +1,6 @@
 {
   "name": "qm-web-monitor-sdk",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "private": true,
   "license": "ISC",
   "author": "Evan Wu",
@@ -57,7 +57,7 @@
     "registry": "https://packages.aliyun.com/5f6426fcdb0493ecef9118ab/npm/npm-registry/"
   },
   "filesize": {
-    "./packages/browser/dist/*.js": {
+    "./packages/browser/dist/browser.min.js": {
       "none": "25 kB"
     }
   }
