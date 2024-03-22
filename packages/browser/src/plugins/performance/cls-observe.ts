@@ -11,6 +11,7 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
         if (!is_support_performance_observer()) return;
         let _sessionValue = 0;
         let _sessionEntries = [];
+        let timeout = null
         const _reportData: ReportPerformanceData = {
             type: MonitorClassTypes.performance,
             subType: BrowserPerformanceTypes.CLS,
@@ -19,6 +20,15 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                 value: 0
             }
         };
+
+        function notify_handle() {
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(() => {
+                notify(BrowserPerformanceTypes.CLS, deep_copy(_reportData));
+            }, 500)
+        }
         function entry_handle(list: PerformanceObserverEntryList) {
             _reportData.pageURL = get_page_url();
             // cls 不disconnect 是因为页面中的cls会更新
@@ -50,7 +60,7 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                             value: _sessionValue,
                             entries: _sessionEntries
                         };
-                        notify(BrowserPerformanceTypes.CLS, deep_copy(_reportData));
+                        notify_handle()
                     }
                 }
             }
