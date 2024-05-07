@@ -107,8 +107,7 @@ const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> =
             ttfb: entry.responseStart - entry.requestStart, // 请求响应耗时
             trans: entry.responseEnd - entry.responseStart, // 内容传输耗时
             domParse: entry.domInteractive - entry.responseEnd, // DOM解析耗时
-            res: entry.loadEventStart - entry.domContentLoadedEventEnd, // 资源加载耗时
-            entry
+            res: entry.loadEventStart - entry.domContentLoadedEventEnd // 资源加载耗时
         };
         return _reportData;
     },
