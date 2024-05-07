@@ -1,4 +1,4 @@
-import { BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
+import { BaseScroll, BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType } from '@qmonitor/types';
 import { deep_copy, get_page_url, is_support_performance_observer, on_hidden, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
@@ -11,7 +11,6 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
         if (!is_support_performance_observer()) return;
         let _sessionValue = 0;
         let _sessionEntries = [];
-        let timeout = null
         const _reportData: ReportPerformanceData = {
             type: MonitorClassTypes.performance,
             subType: BrowserPerformanceTypes.CLS,
@@ -22,12 +21,7 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
         };
 
         function notify_handle() {
-            if (timeout) {
-                clearTimeout(timeout);
-            }
-            timeout = setTimeout(() => {
-                notify(BrowserPerformanceTypes.CLS, deep_copy(_reportData));
-            }, 500)
+            notify(BrowserPerformanceTypes.CLS, deep_copy(_reportData));
         }
         function entry_handle(list: PerformanceObserverEntryList) {
             _reportData.pageURL = get_page_url();
@@ -60,7 +54,10 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                             value: _sessionValue,
                             entries: _sessionEntries
                         };
-                        notify_handle()
+                        if (_sessionValue > 0.1) {
+                            _reportData.mainData.scroll = _sessionValue > 0.25 ? BaseScroll.POOR : BaseScroll.NEED;
+                            notify_handle();
+                        }
                     }
                 }
             }
