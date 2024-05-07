@@ -10,6 +10,7 @@ interface SourceEntryType {
     domInteractive: number
     domContentLoadedEventEnd: number
     loadEventStart: number
+    loadEventEnd: number
     responseStart: number
     domainLookupEnd: number
     domainLookupStart: number
@@ -26,6 +27,7 @@ interface SourceEntryType {
     redirectEnd: number
     redirectStart: number
     duration: number
+    domComplete: number
 }
 
 const resourcePlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
@@ -83,11 +85,20 @@ const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> =
             pageURL: ''
         };
         _reportData.pageURL = get_page_url();
+        /**
+         *  DNS查询耗时 ： domainLookupEnd - domainLookupStart
+            TCP链接耗时 ： connectEnd - connectStart
+            SSL安全连接耗时:  connectEnd - secureConnectionStart
+            request请求耗时 ： responseEnd - responseStart
+            解析dom树耗时 ：  domComplete - domInteractive
+            首次渲染时间/白屏时间 ：responseStart - startTime
+            domready时间 ：domContentLoadedEventEnd - startTime
+            onload时间(总下载时间) ：duration
+         */
         _reportData.mainData = {
-            fp: entry.responseEnd - entry.fetchStart, // 白屏时间
-            tti: entry.domInteractive - entry.fetchStart, // 首次可交互时间
+            tti: entry.domComplete - entry.fetchStart, // 首次可交互时间
             domReady: entry.domContentLoadedEventEnd - entry.fetchStart, // HTML加载完成时间
-            load: entry.loadEventStart - entry.fetchStart, // 页面完全加载时间
+            load: entry.loadEventEnd - entry.fetchStart, // 页面完全加载时间
             firstByte: entry.responseStart - entry.domainLookupStart, // 首包时间
             // 关键时间段
             dns: entry.domainLookupEnd - entry.domainLookupStart, // DNS查询耗时
@@ -96,7 +107,8 @@ const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> =
             ttfb: entry.responseStart - entry.requestStart, // 请求响应耗时
             trans: entry.responseEnd - entry.responseStart, // 内容传输耗时
             domParse: entry.domInteractive - entry.responseEnd, // DOM解析耗时
-            res: entry.loadEventStart - entry.domContentLoadedEventEnd // 资源加载耗时
+            res: entry.loadEventStart - entry.domContentLoadedEventEnd, // 资源加载耗时
+            entry
         };
         return _reportData;
     },
