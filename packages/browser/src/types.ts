@@ -27,25 +27,6 @@ export interface BrowserDisabledOptionsType {
     disabledBehavior?: boolean; // 禁止所有Behavior监控
     disabledError?: boolean; // 禁止所有error监控
 
-    // 单独禁止
-    disabledConsoleError?: boolean; // 是否禁止监控 控制台错误
-    disabledJsError?: boolean; // 是否禁止监控 JsError
-    disabledPromiseError?: boolean; // 是否禁止监控  PromiseError
-    disabledResourceError?: boolean; // 是否禁止监控  资源加载错误
-    disabledFirstPaint?: boolean; // 是否禁止监控 首次绘制
-    disabledFirstContentfulPaint?: boolean; // 是否禁止监控 首次内容绘制
-    disabledLargestContentfulPaint?: boolean; // 是否禁止监控 最大内容绘制
-    disabledFirstInputDelay?: boolean; // 是否禁止监控  首次输入延迟
-    disabledCumulativeLayoutShift?: boolean; // 是否禁止监控 绘画偏移分数
-    disabledNavigation?: boolean; // 是否禁止监控 页面关键时间点
-    disabledResource?: boolean; // 是否禁止监控 资源文件
-    disabledFetch?: boolean; // 是否禁止监控 api
-    disabledXhr?: boolean; // 是否禁止监控 api
-    disabledFirstMeaningPaint? : boolean; // 是否禁止监控 首次有效绘制
-    disabledClick?:boolean; // 是否禁止监控 用户点击事件
-    disabledHashRoute?:boolean; // 是否禁止监控 hashchange
-    disabledHistoryRoute?:boolean; // 是否禁止监控 popstate、pushState、replaceState
-    disabledPv?:boolean; // 是否禁止监控 pv
     useImgUpload?:boolean // 是否使用图片上报
 }
 
