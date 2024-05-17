@@ -1,6 +1,6 @@
 import { BrowserEventTypes, SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseOptionsType, ReportBaseInfo, ReportData} from '@qmonitor/types';
-import { get_timestamp, get_unique_id, get_uuid, isArray, isEmpty, isFunction, isNumber, Queue } from '@qmonitor/utils';
+import { getTimestamp, getUniqueId, getUuid, isArray, isEmpty, isFunction, isNumber, Queue } from '@qmonitor/utils';
 import { Breadcrumb } from './breadcrumb';
 
 export abstract class BaseReport<
@@ -35,15 +35,15 @@ export abstract class BaseReport<
         if (options.userID) {
             this.userID = options.userID;
         } else {
-            this.userID = get_uuid();
+            this.userID = getUuid();
         }
         if (options.beforeDataReport) {
             this.beforeDataReport = options.beforeDataReport;
         }
         this.breadcrumb = new Breadcrumb(options);
         this.ignoreErrors = options.ignoreErrors;
-        this.resourceLimitSize = options.resourceLimitSize || 0
-        this.environment = options.environment
+        this.resourceLimitSize = options.resourceLimitSize || 0;
+        this.environment = options.environment;
     }
 
     // send -> sendTime -> report
@@ -56,7 +56,7 @@ export abstract class BaseReport<
 
             // 需要忽略的错误
             if (isArray(this.ignoreErrors) && this.ignoreErrors.length > 0) {
-                for (let ingore of this.ignoreErrors) {
+                for (const ingore of this.ignoreErrors) {
                     if (data.mainData.msg?.includes(ingore)) {
                         return;
                     }
@@ -65,7 +65,7 @@ export abstract class BaseReport<
             this.submitErrorUids.push(data.mainData.errorUid);
         }
         // 如果是资源类型
-        if(data.type === 'performance' && data.subType === 'resource') {
+        if (data.type === 'performance' && data.subType === 'resource') {
             // 资源类型不到上报警戒大小, 则不上报
             if (isNumber(data.mainData.transferSize) && data.mainData.transferSize < this.resourceLimitSize) {
                 return;
@@ -95,7 +95,7 @@ export abstract class BaseReport<
      */
     formatReportData(data: ReportData): ReportData {
         const _reportData = {
-            time: get_timestamp(),
+            time: getTimestamp(),
             ...data
         };
         if (data.type === BrowserEventTypes.ERROR) { // 如果类型是error, 上报用户行为栈, 以更好复现错误出现的操作
@@ -113,7 +113,7 @@ export abstract class BaseReport<
         const _reportData = {
             sdkVersion: SDK_VERSION,
             sdkName: SDK_NAME,
-            id: get_unique_id(16),
+            id: getUniqueId(16),
             appID: this.appID,
             userID: this.userID,
             appName: this.appName,
@@ -136,15 +136,15 @@ export abstract class BaseReport<
             this.report(_data, url);
             return;
         }
-        this.queue.add_cache(data);
+        this.queue.addCache(data);
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {
-            const _data = this.queue.get_cache();
+            const _data = this.queue.getCache();
             if (_data && _data.length >= this.cacheNum) {
                 let _reportData = this.addBaseInfo(_data);
                 _reportData = this.addOtherInfo(_reportData);
                 this.report(_reportData, url);
-                this.queue.clear_cache();
+                this.queue.clearCache();
             }
         }, 1000);
         return;

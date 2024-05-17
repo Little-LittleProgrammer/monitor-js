@@ -1,6 +1,6 @@
 import { BrowserBreadcrumbTypes, BrowserErrorTypes, BrowserEventTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData } from '@qmonitor/types';
-import { get_error_uid, get_page_url, get_timestamp, on, parse_stack_frames, _global } from '@qmonitor/utils';
+import { getErrorUid, getPageUrl, getTimestamp, on, parseStackFrames, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
 
 export interface ResourceErrorTarget {
@@ -25,15 +25,15 @@ const promiseErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
         const _reportData: ReportErrorData = {
             type: MonitorClassTypes.error,
             subType: BrowserErrorTypes.PE,
-            pageURL: get_page_url(),
-            time: get_timestamp(),
+            pageURL: getPageUrl(),
+            time: getTimestamp(),
             mainData: {
                 type: _type,
-                errorUid: get_error_uid(`${BrowserErrorTypes.PE}-${_msg}`),
+                errorUid: getErrorUid(`${BrowserErrorTypes.PE}-${_msg}`),
                 msg: _msg,
                 meta: undefined,
                 stackTrace: {
-                    frames: parse_stack_frames(errorEvent.reason)
+                    frames: parseStackFrames(errorEvent.reason)
                 }
             }
         };

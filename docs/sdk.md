@@ -1,4 +1,4 @@
-# web-monitor-sdk
+# quantum-monitor
 
 ## 背景
 
@@ -26,7 +26,7 @@
 ## SDK
 
 ### 简介
-qm-web-monitor-sdk: 是一套前端监控sdk, 包括收集
+quantum-monitor: 是一套前端监控sdk, 包括收集
 1. api数据: fetch、xhr
 2. 错误数据: JS、resource、console.error、promise、vue、react
 3. 性能数据: FP、FCP、FMP、navigator、resource、FID、LCP、CLS
@@ -122,10 +122,10 @@ const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
         const _reportData:ReportErrorData = {
             type: 'error',
             subType: BrowserErrorTypes.CE,
-            pageURL: get_page_url(),
+            pageURL: getPageUrl(),
             mainData: {
                 type: '',
-                errorUid: get_error_uid(`console-error-${args[0]}`),
+                errorUid: getErrorUid(`console-error-${args[0]}`),
                 msg: args.join(';'),
                 meta: undefined,
                 stackTrace: undefined

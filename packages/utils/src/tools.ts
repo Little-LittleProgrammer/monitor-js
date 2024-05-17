@@ -6,14 +6,14 @@ export const defaultFunctionName = '<anonymous>'; // 匿名
  * @param fn 方法名
  * @returns 函数名, 匿名函数则返回<anonymous>
  */
-export function get_function_name(fn: unknown):string {
+export function getFunctionName(fn: unknown):string {
     if (!fn || typeof fn !== 'function') {
         return defaultFunctionName;
     }
     return fn.name || defaultFunctionName;
 }
 
-export function deep_copy<T>(target: T, map = new Map()):T {
+export function deepCopy<T>(target: T, map = new Map()):T {
     // 判断引用类型的temp
     function check_temp(target:any) {
         const _c = target.constructor;
@@ -72,53 +72,53 @@ export function deep_copy<T>(target: T, map = new Map()):T {
     // 处理 Map类型
     if (isMap(target)) {
         target.forEach((val, key) => {
-            _temp.set(key, deep_copy(val, map));
+            _temp.set(key, deepCopy(val, map));
         });
         return _temp;
     }
     // 处理 Set类型
     if (isSet(target)) {
         target.forEach((val) => {
-            _temp.add(deep_copy(val, map));
+            _temp.add(deepCopy(val, map));
         });
         return _temp;
     }
     // 处理数据和对象
     for (const key in target) {
         // 递归
-        _temp[key] = deep_copy(target[key], map);
+        _temp[key] = deepCopy(target[key], map);
     }
     return _temp;
 }
 
-export function get_page_url(): string {
+export function getPageUrl(): string {
     if (typeof document === 'undefined' || document.location == null) return '';
     return document.location.href?.split('?')[0];
 }
 
-export function get_big_version(version: string) {
+export function getBigVersion(version: string) {
     return Number(version.split('.')[0]);
 }
 
-export function get_uuid() { // 用户id
+export function getUuid() { // 用户id
     let _uuid = '';
     if (isWindow) {
         _uuid = localStorage.getItem('qmonitor_uuid');
         if (_uuid) return _uuid;
-        _uuid = get_unique_id(16);
+        _uuid = getUniqueId(16);
         localStorage.setItem('qmonitor_uuid', _uuid);
         return _uuid;
     }
     if (isWx) {
         _uuid = wx.getStorageSync('qmonitor_uuid');
         if (_uuid) return _uuid;
-        _uuid = get_unique_id(16);
+        _uuid = getUniqueId(16);
         wx.setStorageSync('qmonitor_uuid', _uuid);
         return _uuid;
     }
 }
 
-export function get_unique_id(len:number, radix?:number) { //  指定长度和基数
+export function getUniqueId(len:number, radix?:number) { //  指定长度和基数
     const _chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
     const _uuid = [];
     let i;
@@ -157,7 +157,7 @@ export function get_unique_id(len:number, radix?:number) { //  指定长度和�
  * @param {object} obj 需要转换的对象
  * @return {*}  {string}
  */
-export function safe_stringify(obj: object): string {
+export function safeStringify(obj: object): string {
     const set = new Set();
     const str = JSON.stringify(obj, function(_key, value) {
         if (set.has(value)) {
@@ -174,11 +174,11 @@ export function safe_stringify(obj: object): string {
  * 格式化字符串, 连接符变驼峰
  * @param str 需要格式化的字符串
  */
-export function format_string(str: string): string {
+export function formatString(str: string): string {
     const _strList = str.split('-');
     let _resStr = '';
     _strList.forEach(item => {
-        _resStr += (first_str_to_uppercase(item));
+        _resStr += (firstStrToUppercase(item));
     });
     return _resStr;
 }
@@ -191,7 +191,7 @@ export function format_string(str: string): string {
  * @return {*}  {string}
  * @example xhr => Xhr
  */
-export function first_str_to_uppercase(str: string): string {
+export function firstStrToUppercase(str: string): string {
     return str.replace(/\b(\w)(\w*)/g, function($0: string, $1: string, $2: string) {
         return `${$1.toUpperCase()}${$2}`;
     });
@@ -218,7 +218,7 @@ export function decode(data: string): string {
  * @param {*} data 配置
  * @return promise
  */
-export function throttle_event(fn: any, data: any) {
+export function throttleEvent(fn: any, data: any) {
     // 清除定时器
     clearTimeout(fn.__timebar);
     // 启动节流
@@ -244,6 +244,6 @@ export function throttle_event(fn: any, data: any) {
     }
 }
 
-export function get_timestamp():number {
-    return Date.now();
+export function getTimestamp():number {
+    return Math.floor(Date.now() / 1000);
 }

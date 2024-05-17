@@ -1,9 +1,9 @@
 import { BrowserClient } from '@qmonitor/browser';
 import { BrowserBehaviorTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType, RouteChangeCollectType } from '@qmonitor/types';
-import { get_page_url, _global } from '@qmonitor/utils';
+import { getPageUrl, _global } from '@qmonitor/utils';
 import { ReportBehaviorData } from '../../types';
-import { is_supports_history } from '../../utils';
+import { isSupportHistoryRoute } from '../../utils';
 import { route_transform, route_transformed_consumer } from './hash-route';
 
 const historyRoutePlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
@@ -11,10 +11,10 @@ const historyRoutePlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = 
     type: MonitorClassTypes.behavior,
     monitor(notify) {
         let lastHref: string;
-        if (!is_supports_history()) return;
+        if (!isSupportHistoryRoute()) return;
         const _oldOnpopstate = _global.onpopstate;
         _global.onpopstate = function(this: WindowEventHandlers, ...args: any[]) {
-            const to = get_page_url();
+            const to = getPageUrl();
             const from = lastHref;
             lastHref = to;
             notify(BrowserBehaviorTypes.HISTORYROUTE, {

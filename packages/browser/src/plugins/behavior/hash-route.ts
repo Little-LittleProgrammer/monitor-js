@@ -1,7 +1,7 @@
 import { BrowserClient } from '@qmonitor/browser';
 import { BrowserBehaviorTypes, BrowserBreadcrumbTypes, BrowserEventTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType, RouteChangeCollectType } from '@qmonitor/types';
-import { get_page_url, get_timestamp, isExistProperty, on, _global } from '@qmonitor/utils';
+import { getPageUrl, getTimestamp, isExistProperty, on, _global } from '@qmonitor/utils';
 import { ReportBehaviorData } from '../../types';
 
 const hashRoutePlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
@@ -28,8 +28,8 @@ export function route_transform(collectedData: RouteChangeCollectType, type: Bro
     const _reportData:ReportBehaviorData = {
         type: MonitorClassTypes.behavior,
         subType: type,
-        pageURL: get_page_url(),
-        time: get_timestamp(),
+        pageURL: getPageUrl(),
+        time: getTimestamp(),
         mainData: {
             from,
             to

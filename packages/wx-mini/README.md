@@ -14,8 +14,8 @@ import { init } from '@qmonitor/browser';
 
 const _monitor = init({
     url: 'http://localhost:8083/reportData',
-    appName: '七猫',
-    appID: 'qimao',
+    appName: '量子低代码',
+    appID: 'quantum',
     cacheNum: 10,
     vue
 });

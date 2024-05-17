@@ -3,13 +3,13 @@
     "version": "2.3.4",
     "description": "工具类",
     "keywords": [
-        "qm-web-monitor-sdk",
+        "quantum-monitor",
         "qmMonitorJs",
         "sdk",
         "vue",
         "monitor"
     ],
-    "author": "Evan Wu <wuanle@qimao.com>",
+    "author": "Evan Wu <wuanle@quantum.com>",
     "homepage": "README.md",
     "license": "ISC",
     "main": "index",

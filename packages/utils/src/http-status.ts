@@ -35,7 +35,7 @@ export const enum SpanStatus {
   DataLoss = 'data_loss'
 }
 
-export function from_http_status(httpStatus: number) {
+export function fromHttpStatus(httpStatus: number) {
     if (httpStatus < 400) {
         return SpanStatus.Ok;
     }

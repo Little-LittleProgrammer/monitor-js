@@ -1,4 +1,4 @@
-# web-monitor-sdk
+# quantum-monitor
 
 ## 介绍
 一款 web 监控与统计sdk
@@ -31,8 +31,8 @@ import { vuePlugin } from '@qmonitor/vue';
 
 init({
     url: 'http://localhost:8083/reportData',
-    appName: '七猫',
-    appID: 'qimao',
+    appName: '量子低代码',
+    appID: 'quantum',
     cacheNum: 10,
     vue,
 }, [vuePlugin]);

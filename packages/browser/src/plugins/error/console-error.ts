@@ -1,6 +1,6 @@
 import { BrowserBreadcrumbTypes, BrowserErrorTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData } from '@qmonitor/types';
-import { get_error_uid, get_page_url, get_timestamp, _global } from '@qmonitor/utils';
+import { getErrorUid, getPageUrl, getTimestamp, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
 
 const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
@@ -15,11 +15,11 @@ const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
         const _reportData:ReportErrorData = {
             type: MonitorClassTypes.error,
             subType: BrowserErrorTypes.CE,
-            pageURL: get_page_url(),
-            time: get_timestamp(),
+            pageURL: getPageUrl(),
+            time: getTimestamp(),
             mainData: {
                 type: '',
-                errorUid: get_error_uid(`console-error-${args[0]}`),
+                errorUid: getErrorUid(`console-error-${args[0]}`),
                 msg: args.join(';'),
                 meta: undefined,
                 stackTrace: undefined
