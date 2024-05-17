@@ -2,7 +2,7 @@ import { BaseOptionsType, BaseClientType, BasePluginType, ReportData } from '@qm
 import { MonitorClassTypes, MonitorTypes, SDK_NAME, SDK_VERSION } from '@qmonitor/enums';
 import { BaseReport } from './base-report';
 import { Subscribe } from './subscribe';
-import { get_page_url, get_timestamp } from '@qmonitor/utils';
+import { getPageUrl } from '@qmonitor/utils';
 
 /**
  * * 抽象客户端，已实现插件和钩子函数的定义
@@ -79,7 +79,7 @@ export abstract class BaseClient<
     log(data: Partial<ReportData>, isImmediate = false): void {
         const _data = {...data};
         if (!_data.pageURL) {
-            _data.pageURL = get_page_url();
+            _data.pageURL = getPageUrl();
         }
         if (!_data.type) {
             _data.type = MonitorClassTypes.custom;

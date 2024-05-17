@@ -122,10 +122,10 @@ const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
         const _reportData:ReportErrorData = {
             type: 'error',
             subType: BrowserErrorTypes.CE,
-            pageURL: get_page_url(),
+            pageURL: getPageUrl(),
             mainData: {
                 type: '',
-                errorUid: get_error_uid(`console-error-${args[0]}`),
+                errorUid: getErrorUid(`console-error-${args[0]}`),
                 msg: args.join(';'),
                 meta: undefined,
                 stackTrace: undefined

@@ -1,7 +1,7 @@
 import { BrowserClient } from '../../src/browser-client';
 import { urlConfig } from '../config';
 import {jsErrorPlugin, resourceErrorPlugin} from '../../src/plugins/error/js-error';
-import { get_error_uid, parse_stack_frames } from '@qmonitor/utils';
+import { getErrorUid, parseStackFrames } from '@qmonitor/utils';
 
 describe('js-error', () => {
     const browserInstance = new BrowserClient({
@@ -28,7 +28,7 @@ describe('js-error', () => {
             pageURL: 'http://localhost/',
             mainData: {
                 type: 'TypeError',
-                errorUid: get_error_uid(`js-error-${undefined}-${undefined}`),
+                errorUid: getErrorUid(`js-error-${undefined}-${undefined}`),
                 msg: undefined,
                 meta: {
                     // file 错误所处的文件地址
@@ -39,7 +39,7 @@ describe('js-error', () => {
                     row: undefined
                 },
                 stackTrace: {
-                    frames: parse_stack_frames(error)
+                    frames: parseStackFrames(error)
                 }
             }
         };

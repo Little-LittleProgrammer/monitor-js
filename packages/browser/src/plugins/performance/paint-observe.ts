@@ -2,7 +2,7 @@ import { BasePluginType } from '@qmonitor/types';
 import { BrowserClient } from '../../browser-client';
 import { BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { ReportPerformanceData } from '../../types';
-import { get_page_url, _supportPerformance } from '@qmonitor/utils';
+import { getPageUrl, _supportPerformance } from '@qmonitor/utils';
 
 const fpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.FP,
@@ -17,7 +17,7 @@ const fpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                 const _reportData = {
                     type: MonitorClassTypes.performance,
                     subType: entry.name,
-                    pageURL: get_page_url(),
+                    pageURL: getPageUrl(),
                     mainData: {
                         ...entry.toJSON()
                     }

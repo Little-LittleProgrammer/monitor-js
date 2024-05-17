@@ -1,4 +1,4 @@
-import { get_function_name, native_try_catch } from '@qmonitor/utils';
+import { getFunctionName, nativeTryCatch } from '@qmonitor/utils';
 
 type MonitorCallback = (data: any) => void
 /**
@@ -27,13 +27,13 @@ export class Subscribe<T> {
         const _fns = this.cache.get(eventName);
         if (!eventName || !_fns) return;
         _fns.forEach((fn) => {
-            native_try_catch(
+            nativeTryCatch(
                 () => { fn(data); },
                 (e: Error) => {
                     console.error(
                         `Subscribe.notify: 监听事件的回调函数发生错误\n
                         eventName:${eventName}\n
-                        Name: ${get_function_name(fn)}\n
+                        Name: ${getFunctionName(fn)}\n
                         Error: ${e}`
                     );
                 });

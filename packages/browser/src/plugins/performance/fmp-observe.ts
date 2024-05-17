@@ -1,12 +1,12 @@
 import { BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType } from '@qmonitor/types';
-import { get_page_url, on_load, _global } from '@qmonitor/utils';
+import { getPageUrl, onLoad, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
 import { ReportPerformanceData } from '../../types';
 import { is_lcp_done } from './lcp-observe';
 
 let _isOnLoaded = false;
-on_load(_global, () => {
+onLoad(_global, () => {
     _isOnLoaded = true;
 });
 let _observer;
@@ -67,9 +67,9 @@ function check_dom_change(notify) {
         if (is_lcp_done() && _isOnLoaded) {
             _observer && _observer.disconnect();
             const _reportData = {
-                type:MonitorClassTypes.performance,
+                type: MonitorClassTypes.performance,
                 subType: BrowserPerformanceTypes.FMP,
-                pageURL: get_page_url(),
+                pageURL: getPageUrl(),
                 mainData: {
                     startTime: get_render_time()
                 }

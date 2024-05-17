@@ -2,7 +2,7 @@ import { BasePluginType } from '@qmonitor/types';
 import { BrowserClient } from '../../browser-client';
 import { BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { ReportPerformanceData } from '../../types';
-import { get_page_url, on_load, _global, _supportPerformance } from '@qmonitor/utils';
+import { getPageUrl, onLoad, _global, _supportPerformance } from '@qmonitor/utils';
 
 interface SourceEntryType {
     responseEnd: number
@@ -35,7 +35,7 @@ const resourcePlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     type: MonitorClassTypes.performance,
     monitor(notify) {
         if (!_supportPerformance) return;
-        on_load(_global, () => observe_event.call(this, BrowserEventTypes.RF, notify));
+        onLoad(_global, () => observe_event.call(this, BrowserEventTypes.RF, notify));
     },
     transform(entry: SourceEntryType) {
         const _reportData: ReportPerformanceData = {
@@ -75,7 +75,7 @@ const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> =
     type: MonitorClassTypes.performance,
     monitor(notify) {
         if (!_supportPerformance) return;
-        on_load(_global, () => observe_event.call(this, BrowserEventTypes.NT, notify));
+        onLoad(_global, () => observe_event.call(this, BrowserEventTypes.NT, notify));
     },
     transform(entry: SourceEntryType) {
         const _reportData: ReportPerformanceData = {
@@ -84,7 +84,7 @@ const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> =
             mainData: {},
             pageURL: ''
         };
-        _reportData.pageURL = get_page_url();
+        _reportData.pageURL = getPageUrl();
         /**
          *  DNS查询耗时 ： domainLookupEnd - domainLookupStart
             TCP链接耗时 ： connectEnd - connectStart

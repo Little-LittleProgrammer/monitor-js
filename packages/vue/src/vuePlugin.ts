@@ -1,7 +1,7 @@
 import { BrowserErrorTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData, ViewModel } from '@qmonitor/types';
 import { BaseClient } from '@qmonitor/core';
-import { get_big_version, get_error_uid, get_page_url, isString, parse_stack_frames } from '@qmonitor/utils';
+import { getBigVersion, getErrorUid, getPageUrl, isString, parseStackFrames } from '@qmonitor/utils';
 import { vue2_vm_handler, vue3_vm_handler } from './utils';
 
 const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, MonitorClassTypes> = {
@@ -15,13 +15,13 @@ const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, MonitorClassTypes
                 const _report: ReportErrorData = {
                     type: MonitorClassTypes.error,
                     subType: BrowserErrorTypes.VE,
-                    pageURL: get_page_url(),
+                    pageURL: getPageUrl(),
                     mainData: {
                         type: err.name,
-                        errorUid: get_error_uid(`${BrowserErrorTypes.VE}-${err.message}-${info}`),
+                        errorUid: getErrorUid(`${BrowserErrorTypes.VE}-${err.message}-${info}`),
                         msg: err.stack || err.message,
                         stackTrace: {
-                            frames: parse_stack_frames(err)
+                            frames: parseStackFrames(err)
                         },
                         meta: {
                             info
@@ -37,7 +37,7 @@ const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, MonitorClassTypes
         const vue = this.options.vue;
         if (vue && vue.config) {
             if (isString(vue?.version)) {
-                switch (get_big_version(vue.version)) {
+                switch (getBigVersion(vue.version)) {
                     case 2:
                         collectedData.mainData.meta = {
                             ...collectedData.mainData.meta,

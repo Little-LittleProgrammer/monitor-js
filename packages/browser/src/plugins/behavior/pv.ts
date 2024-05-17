@@ -1,7 +1,7 @@
 import { BrowserClient } from '@qmonitor/browser';
 import { BrowserBehaviorTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType, ReportBehaviorData } from '@qmonitor/types';
-import { get_page_url, _global } from '@qmonitor/utils';
+import { getPageUrl, _global } from '@qmonitor/utils';
 
 const pvPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
     name: BrowserBehaviorTypes.PV,
@@ -13,7 +13,7 @@ const pvPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
         const _reportData:ReportBehaviorData = {
             type: MonitorClassTypes.behavior,
             subType: BrowserBehaviorTypes.PV,
-            pageURL: get_page_url(),
+            pageURL: getPageUrl(),
             mainData: {
             }
         };

@@ -19,10 +19,10 @@ import { consoleErrorPlugin,
     pvPlugin,
     historyRoutePlugin
 } from './plugins';
-import { on_beforeunload, sampling, _global } from '@qmonitor/utils';
+import { onBeforeunload, sampling, _global } from '@qmonitor/utils';
 import { MonitorTypes } from '@qmonitor/enums';
 
-function create_browser_instance(options:BrowserOptionsType = {}, plugins: BasePluginType[] = []) {
+function createBrowserInstance(options:BrowserOptionsType = {}, plugins: BasePluginType[] = []) {
     const _browserClient = new BrowserClient(options);
     const _sample = _browserClient.getOptions().sample;
     let _browserPlugin:BasePluginType<MonitorTypes, BrowserClient>[] = [
@@ -49,21 +49,21 @@ function create_browser_instance(options:BrowserOptionsType = {}, plugins: BaseP
             navigationPlugin
         ];
         const _callback = () => {
-            const _data = _browserClient.report.queue.get_cache();
+            const _data = _browserClient.report.queue.getCache();
             if (_data && _data.length > 0) {
                 let _reportData = _browserClient.report.addBaseInfo(_data);
                 _reportData = _browserClient.report.addOtherInfo(_reportData);
                 _browserClient.report.post(_reportData, _browserClient.report.url);
-                _browserClient.report.queue.clear_cache();
+                _browserClient.report.queue.clearCache();
             }
         };
-        on_beforeunload(_global, _callback); // 当页面关闭前，将剩余所有数据进行上报
+        onBeforeunload(_global, _callback); // 当页面关闭前，将剩余所有数据进行上报
     }
     _browserClient.use([..._browserPlugin, ...plugins]);
     return _browserClient;
 }
 
-function create_browser_raw_instance(options:BrowserOptionsType = {}, plugins: Partial< Record<'imme' | 'sample', BasePluginType[]>>) {
+function createBrowserRawInstance(options:BrowserOptionsType = {}, plugins: Partial< Record<'imme' | 'sample', BasePluginType[]>>) {
     const _browserClient = new BrowserClient(options);
     const _sample = _browserClient.getOptions().sample;
     const immePlugin:BasePluginType<MonitorTypes, BrowserClient>[] = plugins.imme || [];
@@ -71,22 +71,22 @@ function create_browser_raw_instance(options:BrowserOptionsType = {}, plugins: P
     if (sampling(_sample) && plugins.sample?.length) { // 抽样上报
         samplePlugin = plugins.sample || [];
         const _callback = () => {
-            const _data = _browserClient.report.queue.get_cache();
+            const _data = _browserClient.report.queue.getCache();
             if (_data && _data.length > 0) {
                 let _reportData = _browserClient.report.addBaseInfo(_data);
                 _reportData = _browserClient.report.addOtherInfo(_reportData);
                 _browserClient.report.post(_reportData, _browserClient.report.url);
-                _browserClient.report.queue.clear_cache();
+                _browserClient.report.queue.clearCache();
             }
         };
-        on_beforeunload(_global, _callback); // 当页面关闭前，将剩余所有数据进行上报
+        onBeforeunload(_global, _callback); // 当页面关闭前，将剩余所有数据进行上报
     }
     _browserClient.use([...immePlugin, ...samplePlugin]);
     return _browserClient;
 }
 
-const init = create_browser_instance;
-const rawInit = create_browser_raw_instance;
+const init = createBrowserInstance;
+const rawInit = createBrowserRawInstance;
 export {init, BrowserClient, rawInit};
 const errorPlugins = [
     consoleErrorPlugin,
