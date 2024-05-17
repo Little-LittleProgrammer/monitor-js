@@ -5,7 +5,7 @@
     "keywords": [
         "monitormonitor"
     ],
-    "author": "Evan Wu <wuanle@qimao.com>",
+    "author": "Evan Wu <wuanle@quantum.com>",
     "homepage": "README.md",
     "license": "ISC",
     "main": "index.js",
