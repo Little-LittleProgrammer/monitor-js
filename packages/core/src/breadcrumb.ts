@@ -1,5 +1,5 @@
 import { BaseOptionsType, BreadcrumbData } from '@qmonitor/types';
-import { get_timestamp, isFunction, isNumber } from '@qmonitor/utils';
+import { getTimestamp, isFunction, isNumber } from '@qmonitor/utils';
 
 // 用户行为栈数据, 用于定位错误发生的操作
 export class Breadcrumb< Options extends BaseOptionsType = BaseOptionsType> {
@@ -26,7 +26,7 @@ export class Breadcrumb< Options extends BaseOptionsType = BaseOptionsType> {
         return this.immediatePush(data);
     }
     private immediatePush(data: BreadcrumbData): BreadcrumbData[] {
-        data.time || (data.time = get_timestamp());
+        data.time || (data.time = getTimestamp());
         if (this.stack.length >= this.maxBreadcrumbs) {
             this.shift();
         }

@@ -1,7 +1,7 @@
 import { BrowserClient } from '../../browser-client';
 import { BasePluginType, HttpMethod, IBeforeAppAjaxSendConfig, ReportApiErrorData } from '@qmonitor/types';
 import { BrowserBreadcrumbTypes, BrowserErrorTypes, globalVar, HttpCode, HttpTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
-import { from_http_status, get_error_uid, get_page_url, get_timestamp, isObject, isString, off, on, SpanStatus, _global } from '@qmonitor/utils';
+import { fromHttpStatus, getErrorUid, getPageUrl, getTimestamp, isObject, isString, off, on, SpanStatus, _global } from '@qmonitor/utils';
 
 const fetchPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.FETCH,
@@ -22,15 +22,15 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes
     const { options } = this;
     if (!('fetch' in _global)) return;
     _global.fetch = (url: string, config: Partial<Request> = {}):Promise<Response> => {
-        const startTime = get_timestamp();
+        const startTime = getTimestamp();
         const method = ((config && config.method) || 'GET').toUpperCase() as HttpMethod;
         const _reportData: ReportApiErrorData = {
             type: MonitorClassTypes.error,
             subType: BrowserErrorTypes.FETCH as unknown as HttpTypes.FETCH,
-            pageURL: get_page_url(),
+            pageURL: getPageUrl(),
             time: startTime,
             mainData: {
-                errorUid: get_error_uid(`${BrowserErrorTypes.FETCH}-${url.split('?')[0]}`),
+                errorUid: getErrorUid(`${BrowserErrorTypes.FETCH}-${url.split('?')[0]}`),
                 request: {
                     method,
                     url,
@@ -46,7 +46,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes
         options.beforeAppAjaxSend && options.beforeAppAjaxSend({ url, method: (method as HttpMethod)}, headers as Headers & IBeforeAppAjaxSendConfig);
         return originalFetch(url, config).then(res => {
             const _data = res.clone();
-            const _endTime = get_timestamp();
+            const _endTime = getTimestamp();
             _reportData.mainData = {
                 ..._reportData.mainData,
                 duration: _endTime - startTime,
@@ -60,7 +60,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes
             });
             return res;
         }).catch((err) => {
-            const _endTime = get_timestamp();
+            const _endTime = getTimestamp();
             _reportData.mainData = {
                 ..._reportData.mainData,
                 duration: _endTime - startTime,
@@ -99,11 +99,11 @@ function monitor_xhr(this:BrowserClient, notify: (eventName: BrowserErrorTypes, 
     _xhr.open = function new_open(...args: any[]) {
         this.url = args[1]?.split('?')?.[0];
         this.method = args[0];
-        this.startTime = get_timestamp();
+        this.startTime = getTimestamp();
         this.httpCollect = {
             type: MonitorClassTypes.error,
             subType: BrowserErrorTypes.XHR as unknown as HttpTypes.XHR,
-            pageURL: get_page_url(),
+            pageURL: getPageUrl(),
             time: this.startTime,
             mainData: {
                 request: {
@@ -118,7 +118,7 @@ function monitor_xhr(this:BrowserClient, notify: (eventName: BrowserErrorTypes, 
     _xhr.send = function new_send(...args: any[]) {
         options.beforeAppAjaxSend && options.beforeAppAjaxSend({ method: this.method, url: this.url }, this);
         const onLoadend = () => {
-            this.endTime = get_timestamp();
+            this.endTime = getTimestamp();
             this.duration = this.endTime - this.startTime;
 
             const { status, duration, response } = this;
@@ -145,7 +145,7 @@ function http_transformed_data(httpCollectedData: ReportApiErrorData): ReportApi
     if (status === 0) {
         message = duration <= globalVar.crossOriginThreshold ? 'http请求失败，失败原因：跨域限制或域名不存在' : 'http请求失败，失败原因：超时';
     } else {
-        message = from_http_status(status);
+        message = fromHttpStatus(status);
     }
     message = message === SpanStatus.Ok ? message : `${message}: ${url}`;
     httpCollectedData.mainData.msg = message;
@@ -173,7 +173,7 @@ function http_consumer_data(this:BrowserClient, httpCollectedData: ReportApiErro
             time
         });
         const {mainData: {request: {url}}} = httpCollectedData;
-        httpCollectedData.mainData.errorUid = get_error_uid(`${BrowserErrorTypes.XHR}-${url.split('?')[0]}`);
+        httpCollectedData.mainData.errorUid = getErrorUid(`${BrowserErrorTypes.XHR}-${url.split('?')[0]}`);
         this.report.send(httpCollectedData, true);
     }
 }

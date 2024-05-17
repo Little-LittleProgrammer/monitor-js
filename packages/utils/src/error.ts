@@ -5,7 +5,7 @@ import { SeverityLevel } from '@qmonitor/enums';
  * @param fn try中执行的函数体
  * @param errorFn 报错时执行的函数体，将err传入
  */
-export function native_try_catch(fn: () => void, errorFn?: (err: any) => void): void {
+export function nativeTryCatch(fn: () => void, errorFn?: (err: any) => void): void {
     try {
         fn();
     } catch (err) {
@@ -17,8 +17,8 @@ export function native_try_catch(fn: () => void, errorFn?: (err: any) => void): 
     }
 }
 
-export function get_error_uid(input: string): string{
-    const _id = hash_code(input) + '';
+export function getErrorUid(input: string): string{
+    const _id = hashCode(input) + '';
     return _id;
 }
 
@@ -29,7 +29,7 @@ export function get_error_uid(input: string): string{
  * @param {string} str
  * @return {*}  {number} 可为正数和负数
  */
-export function hash_code(str: string): number {
+export function hashCode(str: string): number {
     let _hash = 0;
     if (str.length == 0) return _hash;
     for (let i = 0; i < str.length; i++) {
@@ -49,7 +49,7 @@ const FULL_MATCH =
 const STACKTRACE_LIMIT = 10;
 
 // 解析每一行
-export function parse_stack_line(line: string) {
+export function parseStackLine(line: string) {
     const lineMatch = line.match(FULL_MATCH);
     if (!lineMatch) return {};
     const filename = lineMatch[2];
@@ -65,14 +65,14 @@ export function parse_stack_line(line: string) {
 }
 
 // 解析错误堆栈
-export function parse_stack_frames(error:Error) {
+export function parseStackFrames(error:Error) {
     if (!error) return [];
     const { stack } = error;
     // 无 stack 时直接返回
     if (!stack) return [];
     const frames = [];
     for (const line of stack.split('\n').slice(1)) {
-        const frame = parse_stack_line(line);
+        const frame = parseStackLine(line);
         if (frame) {
             frames.push(frame);
         }
@@ -86,7 +86,7 @@ export function parse_stack_frames(error:Error) {
  * @param level string representation of Severity
  * @returns Severity
  */
-export function severity_from_string(level: string): SeverityLevel {
+export function severityFromString(level: string): SeverityLevel {
     switch (level) {
         case 'debug':
             return SeverityLevel.Debug;

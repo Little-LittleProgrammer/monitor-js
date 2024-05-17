@@ -1,7 +1,7 @@
 import { BrowserClient } from '@qmonitor/browser';
 import { BrowserBehaviorTypes, BrowserBreadcrumbTypes, BrowserEventTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType } from '@qmonitor/types';
-import { get_page_url, get_timestamp, html_element_to_string, on, throttle_event, _global } from '@qmonitor/utils';
+import { getPageUrl, getTimestamp, htmlElementToString, on, throttleEvent, _global } from '@qmonitor/utils';
 import { ReportBehaviorData } from '../../types';
 
 export interface DomCollectedType {
@@ -19,7 +19,7 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
         // 电脑端click
         on(_global.document, BrowserEventTypes.CLICK, function(e: Event) {
             const _this = this;
-            throttle_event(notify, {
+            throttleEvent(notify, {
                 args: [BrowserBehaviorTypes.CLICK, {
                     category: 'click',
                     data: _this,
@@ -30,7 +30,7 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
         // 移动端touch
         on(_global.document, BrowserEventTypes.TOUCHSTART, function(e: Event) {
             const _this = this;
-            throttle_event(notify, {
+            throttleEvent(notify, {
                 args: [BrowserBehaviorTypes.CLICK, {
                     category: 'click',
                     data: _this,
@@ -41,13 +41,13 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
     },
     transform(collectedData: DomCollectedType) {
         const { data, e } = collectedData;
-        const _htmlString = html_element_to_string(data.activeElement as HTMLElement);
+        const _htmlString = htmlElementToString(data.activeElement as HTMLElement);
         if (_htmlString) { // 如果是body 则不上报
             const _reportData: ReportBehaviorData = {
                 type: MonitorClassTypes.behavior,
                 subType: BrowserBehaviorTypes.CLICK,
-                pageURL: get_page_url(),
-                time: get_timestamp(),
+                pageURL: getPageUrl(),
+                time: getTimestamp(),
                 mainData: {
                     startTime: e.timeStamp,
                     district: {

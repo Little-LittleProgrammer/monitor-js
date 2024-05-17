@@ -2,7 +2,7 @@ import { BasePluginType } from '@qmonitor/types';
 import { BrowserClient } from '../../browser-client';
 import { BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { ReportPerformanceData } from '../../types';
-import { get_page_url, _supportPerformance } from '@qmonitor/utils';
+import { getPageUrl, _supportPerformance } from '@qmonitor/utils';
 
 let _lcpFlag = false; // lcp性能监测是否完成, 用于 首屏渲染时间
 
@@ -27,7 +27,7 @@ const lcpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                 const _reportData:ReportPerformanceData = {
                     type: MonitorClassTypes.performance,
                     subType: BrowserPerformanceTypes.LCP,
-                    pageURL: get_page_url(),
+                    pageURL: getPageUrl(),
                     mainData: {
                         ...entry.toJSON()
                     }

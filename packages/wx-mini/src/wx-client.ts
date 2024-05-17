@@ -1,7 +1,7 @@
 import { BaseClient, BaseReport } from '@qmonitor/core';
 import { MonitorClassTypes, MonitorTypes } from '@qmonitor/enums';
 import { BaseOptionsType } from '@qmonitor/types';
-import { first_str_to_uppercase, format_string } from '@qmonitor/utils';
+import { firstStrToUppercase, formatString } from '@qmonitor/utils';
 import { wxOptionsTypes } from './types';
 
 export class wxClient extends BaseClient<wxOptionsTypes, MonitorTypes> {
@@ -10,11 +10,11 @@ export class wxClient extends BaseClient<wxOptionsTypes, MonitorTypes> {
         super(options);
     }
     isPluginEnable(name: MonitorTypes): boolean {
-        const _flag = `disabled${format_string(name)}`;
+        const _flag = `disabled${formatString(name)}`;
         return !this.options[_flag];
     }
     isPluginsEnable(type: MonitorClassTypes): boolean {
-        const _flag = `disabled${first_str_to_uppercase(type)}`;
+        const _flag = `disabled${firstStrToUppercase(type)}`;
         return !this.options[_flag];
     }
 }

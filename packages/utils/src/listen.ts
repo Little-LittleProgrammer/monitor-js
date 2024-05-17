@@ -38,7 +38,7 @@ export function off(
  * @param {*} callback 回调方法
  * @param {*} once 是否只执行1次
  */
-export function on_hidden(target: {addEventListener: Function, removeEventListener: Function}, callback:Function, once = false):void {
+export function onHidden(target: {addEventListener: Function, removeEventListener: Function}, callback:Function, once = false):void {
     const hidden = (e: Event) => {
         if (e.type === 'pagehide' || document.visibilityState === 'hidden') {
             callback(e);
@@ -56,7 +56,7 @@ export function on_hidden(target: {addEventListener: Function, removeEventListen
  * 监听页面加载
  * @param {*} callback 执行的方法
  */
-export function on_load(target: {addEventListener: Function, removeEventListener: Function}, callback:Function) {
+export function onLoad(target: {addEventListener: Function, removeEventListener: Function}, callback:Function) {
     if ((target as unknown as typeof Window) == Window && document.readyState === 'complete') {
         callback();
     } else {
@@ -69,6 +69,6 @@ export function on_load(target: {addEventListener: Function, removeEventListener
 }
 
 // 页面关闭前
-export function on_beforeunload(target: {addEventListener: Function, removeEventListener: Function}, callback: Function) {
+export function onBeforeunload(target: {addEventListener: Function, removeEventListener: Function}, callback: Function) {
     target.addEventListener('beforeunload', callback, true);
 }

@@ -1,6 +1,6 @@
-import { BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
+import { BaseScroll, BrowserEventTypes, BrowserPerformanceTypes, MonitorClassTypes } from '@qmonitor/enums';
 import { BasePluginType } from '@qmonitor/types';
-import { deep_copy, get_page_url, is_support_performance_observer, on_hidden, _global } from '@qmonitor/utils';
+import { deepCopy, getPageUrl, isSupportPerformanceObserver, onHidden, _global } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
 import { ReportPerformanceData } from '../../types';
 
@@ -8,7 +8,7 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.CLS,
     type: MonitorClassTypes.performance,
     monitor(notify) {
-        if (!is_support_performance_observer()) return;
+        if (!isSupportPerformanceObserver()) return;
         let _sessionValue = 0;
         let _sessionEntries = [];
         const _reportData: ReportPerformanceData = {
@@ -19,8 +19,12 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                 value: 0
             }
         };
+
+        function notify_handle() {
+            notify(BrowserPerformanceTypes.CLS, deepCopy(_reportData));
+        }
         function entry_handle(list: PerformanceObserverEntryList) {
-            _reportData.pageURL = get_page_url();
+            _reportData.pageURL = getPageUrl();
             // cls 不disconnect 是因为页面中的cls会更新
             for (const entry of list.getEntries()) {
                 // 只记录最近用户没有输入行为的ls(layout shifts)
@@ -50,7 +54,10 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                             value: _sessionValue,
                             entries: _sessionEntries
                         };
-                        notify(BrowserPerformanceTypes.CLS, deep_copy(_reportData));
+                        if (_sessionValue > 0.1) {
+                            _reportData.mainData.scroll = _sessionValue > 0.25 ? BaseScroll.POOR : BaseScroll.NEED;
+                            notify_handle();
+                        }
                     }
                 }
             }
@@ -59,7 +66,7 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
         _observe.observe({ type: BrowserEventTypes.LS, buffered: true });
 
         if (_observe) {
-            on_hidden(_global, () => {
+            onHidden(_global, () => {
                 _observe.takeRecords().map(entry_handle as any);
             });
         }

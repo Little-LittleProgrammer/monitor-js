@@ -1,6 +1,6 @@
 import { BrowserBreadcrumbTypes, BrowserErrorTypes, BrowserEventTypes, MonitorClassTypes, SeverityLevel } from '@qmonitor/enums';
 import { BasePluginType, ReportErrorData } from '@qmonitor/types';
-import { get_error_uid, get_page_url, get_timestamp, on, parse_stack_frames, _global, deep_copy } from '@qmonitor/utils';
+import { getErrorUid, getPageUrl, getTimestamp, on, parseStackFrames, _global, deepCopy } from '@qmonitor/utils';
 import { BrowserClient } from '../../browser-client';
 
 export interface ResourceErrorTarget {
@@ -31,7 +31,7 @@ const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     consumer(reportData: ReportErrorData) {
         this.report.breadcrumb.push({
             type: BrowserBreadcrumbTypes.CODE_ERROR,
-            data: deep_copy(reportData.mainData),
+            data: deepCopy(reportData.mainData),
             level: SeverityLevel.Error,
             time: reportData.time
         });
@@ -73,11 +73,11 @@ function get_resource_report_data(target: ResourceErrorTarget):ReportErrorData {
     const _reportData: ReportErrorData = {
         type: MonitorClassTypes.error,
         subType: BrowserErrorTypes.RE,
-        pageURL: get_page_url(),
-        time: get_timestamp(),
+        pageURL: getPageUrl(),
+        time: getTimestamp(),
         mainData: {
             type: BrowserErrorTypes.RE,
-            errorUid: get_error_uid(`${BrowserErrorTypes.RE}-${target.src}-${target.tagName}`),
+            errorUid: getErrorUid(`${BrowserErrorTypes.RE}-${target.src}-${target.tagName}`),
             msg: `资源地址: ` + _url,
             meta: {
                 url: _url,
@@ -94,11 +94,11 @@ function get_js_report_data(errorEvent: ErrorEvent):ReportErrorData {
     const _reportData: ReportErrorData = {
         type: MonitorClassTypes.error,
         subType: BrowserErrorTypes.JE,
-        pageURL: get_page_url(),
-        time: get_timestamp(),
+        pageURL: getPageUrl(),
+        time: getTimestamp(),
         mainData: {
             type: (errorEvent.error && errorEvent.error.name) || 'UnKnown',
-            errorUid: get_error_uid(`${BrowserErrorTypes.JE}-${errorEvent.message}-${errorEvent.filename}`),
+            errorUid: getErrorUid(`${BrowserErrorTypes.JE}-${errorEvent.message}-${errorEvent.filename}`),
             msg: (errorEvent as any).stack || errorEvent.message,
             meta: {
                 // file 错误所处的文件地址
@@ -109,7 +109,7 @@ function get_js_report_data(errorEvent: ErrorEvent):ReportErrorData {
                 row: errorEvent.lineno
             },
             stackTrace: {
-                frames: parse_stack_frames(errorEvent.error)
+                frames: parseStackFrames(errorEvent.error)
             }
         }
     };

@@ -1,6 +1,6 @@
 import { BaseClient } from '@qmonitor/core';
 import { MonitorClassTypes, MonitorTypes } from '@qmonitor/enums';
-import { first_str_to_uppercase, format_string } from '@qmonitor/utils';
+import { firstStrToUppercase, formatString } from '@qmonitor/utils';
 import { BrowserOptions } from './browser-option';
 import { BrowserReport } from './browser-report';
 import { BrowserOptionsType } from './types';
@@ -14,11 +14,11 @@ export class BrowserClient extends BaseClient<BrowserOptionsType, MonitorTypes> 
         this.report = new BrowserReport(options);
     }
     isPluginEnable(name: MonitorTypes): boolean {
-        const _flag = `disabled${format_string(name)}`;
+        const _flag = `disabled${formatString(name)}`;
         return !this.options[_flag];
     }
     isPluginsEnable(type: MonitorClassTypes): boolean {
-        const _flag = `disabled${first_str_to_uppercase(type)}`;
+        const _flag = `disabled${firstStrToUppercase(type)}`;
         return !this.options[_flag];
     }
 }

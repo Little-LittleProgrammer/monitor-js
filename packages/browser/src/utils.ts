@@ -1,13 +1,11 @@
-import { BreadcrumbData } from '@qmonitor/types';
 import { _global } from '@qmonitor/utils';
-import { BrowserClient } from './browser-client';
 
 // 获取浏览器是否支持sendBeacon(同步请求不阻塞浏览器进程)
-export function is_support_send_beacon():boolean {
+export function isSupportSendBeacon():boolean {
     return !!(_global.navigator && _global.navigator.sendBeacon);
 }
 
-export function get_network_info() {
+export function getNetworkInfo() {
     if (window.navigator.connection) {
         const _info = window.navigator.connection as any;
         return {
@@ -21,7 +19,7 @@ export function get_network_info() {
 }
 
 // 是否支持history模式
-export function is_supports_history(): boolean {
+export function isSupportHistoryRoute(): boolean {
     // borrowed from: https://github.com/angular/angular.js/pull/13945/files
     const chrome = (_global as any).chrome;
     const isChromePackagedApp = chrome && chrome.app && chrome.app.runtime;

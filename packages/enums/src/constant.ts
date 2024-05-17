@@ -49,6 +49,13 @@ export const enum BaseBreadcrumbTypes {
     REACT = 'React'
   }
 
+// 分数
+export const enum BaseScroll{
+    GOOD='good',
+    NEED='need improvement',
+    POOR='poor',
+}
+
 /**
  * 用户行为栈事件类型
  */
