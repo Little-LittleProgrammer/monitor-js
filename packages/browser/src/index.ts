@@ -88,7 +88,7 @@ function create_browser_raw_instance(options:BrowserOptionsType = {}, plugins: P
 const init = create_browser_instance;
 const rawInit = create_browser_raw_instance;
 export {init, BrowserClient, rawInit};
-const errorPlugin = [
+const errorPlugins = [
     consoleErrorPlugin,
     jsErrorPlugin,
     promiseErrorPlugin,
@@ -96,14 +96,14 @@ const errorPlugin = [
     fetchPlugin,
     resourceErrorPlugin
 ];
-const perfrormancePlugin = [ clsPlugin,
+const perfrormancePlugins = [ clsPlugin,
     fidPlugin,
     fmpPlugin,
     fpPlugin,
     lcpPlugin,
     resourcePlugin,
     navigationPlugin ];
-const behaviorPlugin = [
+const behaviorPlugins = [
     clickPlugin,
     hashRoutePlugin,
     pvPlugin,
@@ -127,7 +127,7 @@ export {
     hashRoutePlugin,
     pvPlugin,
     historyRoutePlugin,
-    errorPlugin,
-    perfrormancePlugin,
-    behaviorPlugin
+    errorPlugins,
+    perfrormancePlugins,
+    behaviorPlugins
 };
