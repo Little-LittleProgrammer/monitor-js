@@ -102,16 +102,21 @@ export function isBase(val: unknown): boolean {
     return _flag;
 }
 
-export function isWindow(val: any): val is Window {
-    return typeof window !== 'undefined' && is(val, 'Window');
+export function isWindow(){
+    return typeof window !== 'undefined';
 }
 export function isExistProperty(obj: Record<string, any>, key: string | number | symbol): boolean {
     return Object.prototype.hasOwnProperty.call(obj, key);
 }
 
-export const isServer = typeof process !== 'undefined';
+export function isServer() {
+    return typeof process !== 'undefined';
+}
 
-export const isWx = isObject(typeof wx !== 'undefined' ? wx : 0) && isFunction(typeof App !== 'undefined' ? App : 0);
-
-export const isClient = !isServer;
+export function isWx() {
+    return isObject(typeof wx !== 'undefined' ? wx : 0) && isFunction(typeof App !== 'undefined' ? App : 0);
+}
+export function isClient() {
+    return !isServer();
+}
 
