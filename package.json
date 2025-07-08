@@ -59,5 +59,9 @@
     "./packages/browser/dist/browser.min.js": {
       "none": "25 kB"
     }
-  }
+    },
+    "volta": {
+      "node": "18.18.2",
+      "pnpm": "9.15.7"
+    }
 }
