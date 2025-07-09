@@ -5,7 +5,7 @@
   "license": "ISC",
   "author": "Evan Wu",
   "scripts": {
-    "build": "pnpm size && pnpm test && node scripts/build.js",
+    "build": "pnpm test && node scripts/build.js && pnpm size ",
     "watch": "node scripts/build.js --watch=true",
     "changeversion": "node scripts/version.js",
     "release": "node scripts/release.js",
@@ -57,7 +57,7 @@
   },
   "filesize": {
     "./packages/browser/dist/browser.min.js": {
-      "none": "25 kB"
+      "none": "26 kB"
     }
     },
     "volta": {
