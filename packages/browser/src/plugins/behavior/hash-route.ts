@@ -7,11 +7,11 @@ import { ReportBehaviorData } from '../../types';
 const hashRoutePlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
     name: BrowserBehaviorTypes.HASHROUTE,
     type: MonitorClassTypes.behavior,
-    monitor(notify) {
+    monitor(emit) {
         if (!isExistProperty(_global, 'onpopstate')) {
             on(_global, BrowserEventTypes.HASHCHANGE, function(e: HashChangeEvent) {
                 const { oldURL: from, newURL: to } = e;
-                notify(BrowserBehaviorTypes.HASHROUTE, { from, to });
+                emit(BrowserBehaviorTypes.HASHROUTE, { from, to });
             });
         }
     },

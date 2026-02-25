@@ -92,8 +92,8 @@ monorepo的优势:
 例如 vue 的 vuex, vurRouter, 或者是UI框架, 都相当于插件形式接入vue的
 
 ```js
- watch 订阅消息
- notify 发布消息, 消息一发布, watch就能接收到并上报
+ on 订阅消息
+ emit 发布消息, 消息一发布, watch就能接收到并上报
 ```
 
 **优势:**
@@ -113,9 +113,9 @@ console-error监听
 
 const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.CE,
-    monitor(notify) { // 观察者模式, 
+    monitor(emit) { // 观察者模式, 
         (_global as unknown as Window & typeof globalThis).console.error = (...args: any[]) => {
-            notify(BrowserErrorTypes.CE, args); // 将一阶段处理结果通过notify进行订阅
+            emit(BrowserErrorTypes.CE, args); // 将一阶段处理结果通过notify进行订阅
         };
     },
     transform(args: any[]) { // 参数格式转化,得到 最终格式的 上传数据

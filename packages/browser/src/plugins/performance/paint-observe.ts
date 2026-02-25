@@ -7,7 +7,7 @@ import { getPageUrl, _supportPerformance } from '@qmonitor/utils';
 const fpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.FP,
     type: MonitorClassTypes.performance,
-    monitor(notify) {
+    monitor(emit) {
         if (!_supportPerformance) return;
         function entry_handler(list: PerformanceObserverEntryList) {
             for (const entry of list.getEntries()) {
@@ -22,7 +22,7 @@ const fpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                         ...entry.toJSON()
                     }
                 };
-                notify(BrowserPerformanceTypes.FP, _reportData);
+                emit(BrowserPerformanceTypes.FP, _reportData);
             }
         }
         const _observer = new PerformanceObserver(entry_handler);

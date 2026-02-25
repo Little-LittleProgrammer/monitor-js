@@ -14,12 +14,12 @@ export interface DomCollectedType {
 const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
     name: BrowserBehaviorTypes.CLICK,
     type: MonitorClassTypes.behavior,
-    monitor(notify) {
+    monitor(emit) {
         if (!('document' in _global)) return;
         // 电脑端click
         on(_global.document, BrowserEventTypes.CLICK, function(e: Event) {
             const _this = this;
-            throttleEvent(notify, {
+            throttleEvent(emit, {
                 args: [BrowserBehaviorTypes.CLICK, {
                     category: 'click',
                     data: _this,
@@ -30,7 +30,7 @@ const clickPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
         // 移动端touch
         on(_global.document, BrowserEventTypes.TOUCHSTART, function(e: Event) {
             const _this = this;
-            throttleEvent(notify, {
+            throttleEvent(emit, {
                 args: [BrowserBehaviorTypes.CLICK, {
                     category: 'click',
                     data: _this,

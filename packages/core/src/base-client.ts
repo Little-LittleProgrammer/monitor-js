@@ -38,8 +38,8 @@ export abstract class BaseClient<
         plugins.forEach((item) => {
             if (!this.isPluginsEnable(item.type)) return;
             if (!this.isPluginEnable(item.name)) return;
-            // 调用插件中的monitor并将发布函数传入 item.monitor(subscribe.notify)
-            item.monitor.call(this, subscribe.notify.bind(subscribe));
+            // 调用插件中的monitor并将发布函数传入 item.monitor(subscribe.emit)
+            item.monitor.call(this, subscribe.emit.bind(subscribe));
             const wrapperTransform = (...args: any[]) => {
                 // 先执行transform
                 const res = item.transform?.apply(this, args);
@@ -48,7 +48,7 @@ export abstract class BaseClient<
                 // 如果需要新增hook，可在这里添加逻辑
             };
             // 订阅插件中的名字，并传入回调函数
-            subscribe.watch(item.name, wrapperTransform);
+            subscribe.on(item.name, wrapperTransform);
         });
     }
     getOptions() {

@@ -15,13 +15,13 @@ const _entries = [];
 const fmpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.FMP,
     type: MonitorClassTypes.performance,
-    monitor(notify) {
+    monitor(emit) {
         if (!MutationObserver) return;
 
         const _next = window.requestAnimationFrame ? requestAnimationFrame : setTimeout; // 不影响正常性能
         const _ignoreDomList = ['STYLE', 'SCRIPT', 'LINK', 'META'];
         _observer = new MutationObserver(records => { // 监听 dom 元素
-            check_dom_change(notify);
+            check_dom_change(emit);
             const _entry = {
                 startTime: 0,
                 children: []
@@ -61,7 +61,7 @@ const fmpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
 let _time = null;
 
 // 反复递归,知道符合条件上传
-function check_dom_change(notify) {
+function check_dom_change(emit) {
     clearTimeout(_time);
     _time = setTimeout(() => {
         if (is_lcp_done() && _isOnLoaded) {
@@ -74,9 +74,9 @@ function check_dom_change(notify) {
                     startTime: get_render_time()
                 }
             };
-            notify(BrowserPerformanceTypes.FMP, _reportData);
+            emit(BrowserPerformanceTypes.FMP, _reportData);
         } else {
-            check_dom_change(notify);
+            check_dom_change(emit);
         }
     }, 500);
 }

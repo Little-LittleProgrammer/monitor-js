@@ -7,7 +7,7 @@ import { vue2_vm_handler, vue3_vm_handler } from './utils';
 const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, MonitorClassTypes> = {
     name: BrowserErrorTypes.VE,
     type: MonitorClassTypes.error,
-    monitor(notify): void {
+    monitor(emit): void {
         const vue = this.options.vue;
         if (vue && vue.config) {
             const originErrorHandle = vue.config.errorHandler;
@@ -28,7 +28,7 @@ const vuePlugin: BasePluginType<BrowserErrorTypes, BaseClient, MonitorClassTypes
                         }
                     }
                 };
-                notify(BrowserErrorTypes.VE, { _report, vm });
+                emit(BrowserErrorTypes.VE, { _report, vm });
                 return originErrorHandle?.(err, vm, info);
             };
         }

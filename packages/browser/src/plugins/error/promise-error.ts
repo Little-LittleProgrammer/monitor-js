@@ -14,9 +14,9 @@ export interface ResourceErrorTarget {
 const promiseErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.PE,
     type: MonitorClassTypes.error,
-    monitor(notify) {
+    monitor(emit) {
         on(_global, BrowserEventTypes.UNHANDLEDREJECTION, (e: PromiseRejectionEvent) => {
-            notify(BrowserErrorTypes.PE, e);
+            emit(BrowserErrorTypes.PE, e);
         });
     },
     transform(errorEvent: PromiseRejectionEvent) {

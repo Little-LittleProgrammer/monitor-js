@@ -9,7 +9,7 @@ import { route_transform, route_transformed_consumer } from './hash-route';
 const historyRoutePlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
     name: BrowserBehaviorTypes.HISTORYROUTE,
     type: MonitorClassTypes.behavior,
-    monitor(notify) {
+    monitor(emit) {
         let lastHref: string;
         if (!isSupportHistoryRoute()) return;
         const _oldOnpopstate = _global.onpopstate;
@@ -17,7 +17,7 @@ const historyRoutePlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = 
             const to = getPageUrl();
             const from = lastHref;
             lastHref = to;
-            notify(BrowserBehaviorTypes.HISTORYROUTE, {
+            emit(BrowserBehaviorTypes.HISTORYROUTE, {
                 from,
                 to
             });
@@ -30,7 +30,7 @@ const historyRoutePlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = 
                     const from = lastHref;
                     const to = String(url);
                     lastHref = to;
-                    notify(BrowserBehaviorTypes.HISTORYROUTE, {
+                    emit(BrowserBehaviorTypes.HISTORYROUTE, {
                         from,
                         to
                     });

@@ -6,8 +6,8 @@ import { getPageUrl, _global } from '@qmonitor/utils';
 const pvPlugin: BasePluginType<BrowserBehaviorTypes, BrowserClient> = {
     name: BrowserBehaviorTypes.PV,
     type: MonitorClassTypes.behavior,
-    monitor(notify) {
-        notify(BrowserBehaviorTypes.PV, '');
+    monitor(emit) {
+        emit(BrowserBehaviorTypes.PV, '');
     },
     transform() {
         const _reportData:ReportBehaviorData = {

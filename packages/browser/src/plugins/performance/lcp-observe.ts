@@ -13,7 +13,7 @@ export function is_lcp_done() {
 const lcpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.LCP,
     type: MonitorClassTypes.performance,
-    monitor(notify) {
+    monitor(emit) {
         if (!_supportPerformance) {
             _lcpFlag = true;
             return;
@@ -32,7 +32,7 @@ const lcpPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                         ...entry.toJSON()
                     }
                 };
-                notify(BrowserPerformanceTypes.LCP, _reportData);
+                emit(BrowserPerformanceTypes.LCP, _reportData);
             }
         }
         const _observer = new PerformanceObserver(entry_handler);

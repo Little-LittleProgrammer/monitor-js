@@ -6,8 +6,8 @@ import { fromHttpStatus, getErrorUid, getPageUrl, getTimestamp, isObject, isStri
 const fetchPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.FETCH,
     type: MonitorClassTypes.error,
-    monitor(notify) {
-        monitor_fetch.call(this, notify);
+    monitor(emit) {
+        monitor_fetch.call(this, emit);
     },
     transform(reportData:ReportApiErrorData) {
         return http_transformed_data(reportData);
@@ -18,7 +18,7 @@ const fetchPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
 };
 const originalFetch = _global.fetch;
 
-function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes, data: any) => void) {
+function monitor_fetch(this:BrowserClient, emit: (eventName: BrowserErrorTypes, data: any) => void) {
     const { options } = this;
     if (!('fetch' in _global)) return;
     _global.fetch = (url: string, config: Partial<Request> = {}):Promise<Response> => {
@@ -56,7 +56,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes
             };
             _data.text().then((data) => {
                 _reportData.mainData.response.data = data;
-                notify(BrowserErrorTypes.FETCH, _reportData);
+                emit(BrowserErrorTypes.FETCH, _reportData);
             });
             return res;
         }).catch((err) => {
@@ -68,7 +68,7 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes
                     status: 0
                 }
             };
-            notify(BrowserErrorTypes.FETCH, _reportData);
+            emit(BrowserErrorTypes.FETCH, _reportData);
             throw err;
         });
     };
@@ -77,8 +77,8 @@ function monitor_fetch(this:BrowserClient, notify: (eventName: BrowserErrorTypes
 const xhrPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.XHR,
     type: MonitorClassTypes.error,
-    monitor(notify) {
-        monitor_xhr.call(this, notify);
+    monitor(emit) {
+        monitor_xhr.call(this, emit);
     },
     transform(reportData:ReportApiErrorData) {
         return http_transformed_data(reportData);
@@ -88,7 +88,7 @@ const xhrPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     }
 };
 
-function monitor_xhr(this:BrowserClient, notify: (eventName: BrowserErrorTypes, data: any) => void) {
+function monitor_xhr(this:BrowserClient, emit: (eventName: BrowserErrorTypes, data: any) => void) {
     const { options } = this;
     if (!('XMLHttpRequest' in _global)) {
         return;
@@ -127,7 +127,7 @@ function monitor_xhr(this:BrowserClient, notify: (eventName: BrowserErrorTypes, 
                 data: isObject(response) ? JSON.stringify(response) : response
             };
             this.httpCollect.mainData.duration = duration;
-            notify(BrowserErrorTypes.XHR, this.httpCollect);
+            emit(BrowserErrorTypes.XHR, this.httpCollect);
             off(this, 'loadend', onLoadend, true);
         };
         on(this, 'loadend', onLoadend, true);

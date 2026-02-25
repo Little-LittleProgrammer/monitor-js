@@ -14,7 +14,7 @@ export class Subscribe<T> {
         this.cache = new Map();
     }
     // 消息订阅
-    watch(eventName: T, callBack: (data: any) => any) {
+    on(eventName: T, callBack: (data: any) => any) {
         const _fns = this.cache.get(eventName);
         if (_fns) {
             this.cache.set(eventName, _fns.concat(callBack));
@@ -23,7 +23,7 @@ export class Subscribe<T> {
         this.cache.set(eventName, [callBack]);
     }
     // 消息发布
-    notify<D>(eventName: T, data: D) {
+    emit<D>(eventName: T, data: D) {
         const _fns = this.cache.get(eventName);
         if (!eventName || !_fns) return;
         _fns.forEach((fn) => {
@@ -31,7 +31,7 @@ export class Subscribe<T> {
                 () => { fn(data); },
                 (e: Error) => {
                     console.error(
-                        `Subscribe.notify: 监听事件的回调函数发生错误\n
+                        `Subscribe.emit: 监听事件的回调函数发生错误\n
                         eventName:${eventName}\n
                         Name: ${getFunctionName(fn)}\n
                         Error: ${e}`

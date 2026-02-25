@@ -7,7 +7,7 @@ import { getPageUrl, _supportPerformance } from '@qmonitor/utils';
 const fidPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.FID,
     type: MonitorClassTypes.performance,
-    monitor(notify) {
+    monitor(emit) {
         if (!_supportPerformance) return;
         function entry_handler(list: PerformanceObserverEntryList) {
             if (_observer) {
@@ -22,7 +22,7 @@ const fidPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
                         ...entry.toJSON()
                     }
                 };
-                notify(BrowserPerformanceTypes.FID, _reportData);
+                emit(BrowserPerformanceTypes.FID, _reportData);
             }
         }
         const _observer = new PerformanceObserver(entry_handler);

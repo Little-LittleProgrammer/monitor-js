@@ -14,7 +14,7 @@ export interface ResourceErrorTarget {
 const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.JE,
     type: MonitorClassTypes.error,
-    monitor(notify) {
+    monitor(emit) {
         on(_global, BrowserEventTypes.ERROR, (e: ErrorEvent) => {
             const _target = e.target as ResourceErrorTarget;
             if (_target.localName) { // 代表是资源错误
@@ -22,7 +22,7 @@ const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
             }
             // 阻止抛出控制台错误
             e.preventDefault();
-            notify(BrowserErrorTypes.JE, e);
+            emit(BrowserErrorTypes.JE, e);
         }, true);
     },
     transform(errorEvent: ErrorEvent) {
@@ -42,7 +42,7 @@ const jsErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
 const resourceErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient, MonitorClassTypes> = {
     name: BrowserErrorTypes.RE,
     type: MonitorClassTypes.error,
-    monitor(notify) {
+    monitor(emit) {
         on(_global, BrowserEventTypes.ERROR, (e: ErrorEvent) => {
             const _target = e.target as ResourceErrorTarget;
             if (!_target.localName) { // 如果是js错误返回
@@ -50,7 +50,7 @@ const resourceErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient, Moni
             }
             // 阻止抛出控制台错误
             e.preventDefault();
-            notify(BrowserErrorTypes.RE, e);
+            emit(BrowserErrorTypes.RE, e);
         }, true);
     },
     transform(errorEvent: ErrorEvent) {

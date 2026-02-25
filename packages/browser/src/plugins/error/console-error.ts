@@ -6,9 +6,9 @@ import { BrowserClient } from '../../browser-client';
 const consoleErrorPlugin: BasePluginType<BrowserErrorTypes, BrowserClient> = {
     name: BrowserErrorTypes.CE,
     type: MonitorClassTypes.error,
-    monitor(notify) {
+    monitor(emit) {
         (_global as unknown as Window & typeof globalThis).console.error = (...args: any[]) => {
-            notify(BrowserErrorTypes.CE, args);
+            emit(BrowserErrorTypes.CE, args);
         };
     },
     transform(args: any[]) {

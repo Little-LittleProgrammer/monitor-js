@@ -7,7 +7,7 @@ import { ReportPerformanceData } from '../../types';
 const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.CLS,
     type: MonitorClassTypes.performance,
-    monitor(notify) {
+    monitor(emit) {
         if (!isSupportPerformanceObserver()) return;
         let _sessionValue = 0;
         let _sessionEntries = [];
@@ -21,7 +21,7 @@ const clsPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
         };
 
         function notify_handle() {
-            notify(BrowserPerformanceTypes.CLS, deepCopy(_reportData));
+            emit(BrowserPerformanceTypes.CLS, deepCopy(_reportData));
         }
         function entry_handle(list: PerformanceObserverEntryList) {
             _reportData.pageURL = getPageUrl();

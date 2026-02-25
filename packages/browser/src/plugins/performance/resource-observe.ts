@@ -33,9 +33,9 @@ interface SourceEntryType {
 const resourcePlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.RF,
     type: MonitorClassTypes.performance,
-    monitor(notify) {
+    monitor(emit) {
         if (!_supportPerformance) return;
-        onLoad(_global, () => observe_event.call(this, BrowserEventTypes.RF, notify));
+        onLoad(_global, () => observe_event.call(this, BrowserEventTypes.RF, emit));
     },
     transform(entry: SourceEntryType) {
         const _reportData: ReportPerformanceData = {
@@ -73,9 +73,9 @@ const resourcePlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
 const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> = {
     name: BrowserPerformanceTypes.NT,
     type: MonitorClassTypes.performance,
-    monitor(notify) {
+    monitor(emit) {
         if (!_supportPerformance) return;
-        onLoad(_global, () => observe_event.call(this, BrowserEventTypes.NT, notify));
+        onLoad(_global, () => observe_event.call(this, BrowserEventTypes.NT, emit));
     },
     transform(entry: SourceEntryType) {
         const _reportData: ReportPerformanceData = {
@@ -117,7 +117,7 @@ const navigationPlugin: BasePluginType<BrowserPerformanceTypes, BrowserClient> =
 };
 
 let _hasAlreadyCollected = false;
-function observe_event(this:BrowserClient, entryType:BrowserPerformanceTypes, notify:(eventName: BrowserPerformanceTypes, data: any) => void) {
+function observe_event(this:BrowserClient, entryType:BrowserPerformanceTypes, emit:(eventName: BrowserPerformanceTypes, data: any) => void) {
     function entry_handler(list:PerformanceObserverEntryList){
         for (const entry of list.getEntries()) {
             const _entry = entry as PerformanceEntry & Record<'nextHopProtocol' | 'initiatorType', any>;
@@ -133,7 +133,7 @@ function observe_event(this:BrowserClient, entryType:BrowserPerformanceTypes, no
             if ((!_entry.nextHopProtocol && entryType !== 'navigation') || filter(_entry.initiatorType)) {
                 continue;
             }
-            notify(entryType, _entry);
+            emit(entryType, _entry);
         }
     }
     const _observe = new PerformanceObserver(entry_handler);
